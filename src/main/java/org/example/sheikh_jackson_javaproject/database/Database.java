@@ -17,6 +17,9 @@ public class Database {
 
             System.out.println("Connected to Database.");
 
+            // CREATE: All 3 tables
+            createTable(DBConst.TABLE_DEVELOPER, DBConst.CREATE_TABLE_DEVELOPER, connection);
+            createTable(DBConst.TABLE_PLATFORM, DBConst.CREATE_TABLE_PLATFORM, connection);
             createTable(DBConst.TABLE_GAME, DBConst.CREATE_TABLE_GAMES, connection);
 
         } catch (Exception e) {
@@ -32,6 +35,8 @@ public class Database {
             Statement statement = connection.createStatement();
             statement.execute(tableQuery);
             System.out.println("The " + tableName + " table has been created.");
+        } else {
+            System.out.println(tableName + " table already exists.");
         }
     }
 

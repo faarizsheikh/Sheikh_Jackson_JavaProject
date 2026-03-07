@@ -1,3 +1,5 @@
+// Game.java:
+
 package org.example.sheikh_jackson_javaproject.pojo;
 
 public class Game {
@@ -19,7 +21,7 @@ public class Game {
         this.imageUrl = imageUrl;
     }
 
-    // Getters and Setters
+    // ACCESSORS
 
     public int getId() {
         return id;
