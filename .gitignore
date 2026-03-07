@@ -41,3 +41,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignore specific configuration file
+src/main/java/org/example/demo/database/Const.java

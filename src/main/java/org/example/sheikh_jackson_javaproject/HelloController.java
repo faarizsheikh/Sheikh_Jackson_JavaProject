@@ -1,6 +1,6 @@
 package org.example.sheikh_jackson_javaproject;
 
-import javafx.fxml.FXML;
+import javafx.fxml.*;
 import javafx.scene.control.Label;
 
 public class HelloController {
