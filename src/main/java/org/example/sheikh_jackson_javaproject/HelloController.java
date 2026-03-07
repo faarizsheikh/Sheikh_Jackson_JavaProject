@@ -3,7 +3,7 @@
 package org.example.sheikh_jackson_javaproject;
 
 import javafx.fxml.*;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 public class HelloController {
     @FXML

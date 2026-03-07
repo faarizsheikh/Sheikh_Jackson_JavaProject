@@ -1,12 +1,10 @@
 package org.example.sheikh_jackson_javaproject.tabs;
 
 import org.example.sheikh_jackson_javaproject.pojo.*;
-import org.example.sheikh_jackson_javaproject.tables.GameTable;
+import org.example.sheikh_jackson_javaproject.tables.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
+import javafx.scene.layout.*;
+import java.io.*;
 
 public class AddItemTab extends Tab {
     public AddItemTab() {
@@ -14,10 +12,10 @@ public class AddItemTab extends Tab {
         GridPane root = new GridPane();
         root.setHgap(10); root.setVgap(10);
 
-        TextField titleField = new TextField();
-        TextField yearField = new TextField();
-        TextField genreField = new TextField();
-        TextField imageField = new TextField();
+        TextField titleField = new TextField(),
+                yearField = new TextField(),
+                genreField = new TextField(),
+                imageField = new TextField();
 
         ComboBox<Developer> devCombo = new ComboBox<>();
         devCombo.getItems().addAll(GameTable.getInstance().getAllDevelopers());
@@ -39,18 +37,18 @@ public class AddItemTab extends Tab {
 
         addBtn.setOnAction(e -> {
             try {
-                String title = titleField.getText().trim();
-                String genre = genreField.getText().trim();
-                String imageUrl = imageField.getText().trim();
-                String yearText = yearField.getText().trim();
+                String title = titleField.getText().trim(),
+                        genre = genreField.getText().trim(),
+                        imageUrl = imageField.getText().trim(),
+                        yearText = yearField.getText().trim();
 
                 if (title.isEmpty() || genre.isEmpty() || imageUrl.isEmpty() ||
                         devCombo.getSelectionModel().isEmpty() || platCombo.getSelectionModel().isEmpty()) {
                     throw new Exception("All fields must be filled!");
                 }
 
-                int devId = devCombo.getSelectionModel().getSelectedItem().getId();
-                int platId = platCombo.getSelectionModel().getSelectedItem().getId();
+                int devId = devCombo.getSelectionModel().getSelectedItem().getId(),
+                        platId = platCombo.getSelectionModel().getSelectedItem().getId();
 
                 Game newGame = new Game(
                         0,

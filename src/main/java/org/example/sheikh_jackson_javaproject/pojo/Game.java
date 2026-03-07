@@ -3,13 +3,8 @@
 package org.example.sheikh_jackson_javaproject.pojo;
 
 public class Game {
-    private int id;
-    private String title;
-    private String developer;
-    private int year;
-    private String genre;
-    private String platform;
-    private String imageUrl;
+    private int id, year;
+    private String developer, genre, imageUrl, platform, title;
 
     public Game(int id, String title, String developer, int year, String genre, String platform, String imageUrl) {
         this.id = id;

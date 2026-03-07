@@ -2,14 +2,13 @@
 
 package org.example.sheikh_jackson_javaproject;
 
-import org.example.sheikh_jackson_javaproject.database.Database;
+import org.example.sheikh_jackson_javaproject.database.*;
 import org.example.sheikh_jackson_javaproject.tabs.*;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -19,8 +18,9 @@ public class HelloApplication extends Application {
 
         MenuBar menuBar = new MenuBar();
 
-        Menu file = new Menu("File");
-        Menu credits = new Menu("Credits");
+        Menu file = new Menu("File"),
+                credits = new Menu("Credits");
+
         MenuItem exit = new MenuItem("Exit");
         file.getItems().add(exit);
 

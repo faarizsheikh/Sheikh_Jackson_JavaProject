@@ -2,7 +2,7 @@
 
 package org.example.sheikh_jackson_javaproject.tabs;
 
-import javafx.scene.control.Tab;
+import javafx.scene.control.*;
 
 public class StatisticsTab extends Tab {
     public StatisticsTab() {

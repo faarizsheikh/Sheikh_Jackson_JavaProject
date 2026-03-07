@@ -5,7 +5,6 @@ package org.example.sheikh_jackson_javaproject.tables;
 import org.example.sheikh_jackson_javaproject.dao.*;
 import org.example.sheikh_jackson_javaproject.database.*;
 import org.example.sheikh_jackson_javaproject.pojo.*;
-
 import java.sql.*;
 import java.util.ArrayList;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
@@ -26,6 +25,7 @@ public class GameTable implements GameDAO {
 
     public ArrayList<Developer> getAllDevelopers() {
         ArrayList<Developer> devs = new ArrayList<>();
+
         try {
             ResultSet rs = db.getConnection().createStatement().executeQuery("SELECT * FROM " + TABLE_DEVELOPER);
             while (rs.next()) {
@@ -37,6 +37,7 @@ public class GameTable implements GameDAO {
 
     public ArrayList<Platform> getAllPlatforms() {
         ArrayList<Platform> plats = new ArrayList<>();
+
         try {
             ResultSet rs = db.getConnection().createStatement().executeQuery("SELECT * FROM " + TABLE_PLATFORM);
             while (rs.next()) {
@@ -72,6 +73,7 @@ public class GameTable implements GameDAO {
         try {
             Statement getGames = db.getConnection().createStatement();
             ResultSet rs = getGames.executeQuery(query);
+
             while (rs.next()) {
                 games.add(new Game(
                         rs.getInt(GAME_COLUMN_ID),
