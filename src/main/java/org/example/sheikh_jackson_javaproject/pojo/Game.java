@@ -75,5 +75,9 @@ public class Game {
     }
 
     @Override
-    public String toString() { return title + " (" + platform + ")"; }
+    public String toString() {
+
+        // ID. TITLE
+        return String.format("%s (%d) by %s", title, year, developer);
+    }
 }

@@ -8,4 +8,5 @@ import java.util.ArrayList;
 public interface GameDAO {
     ArrayList<Game> getAllGames();
     Game getGame(int id);
+    void deleteGame(int id);
 }

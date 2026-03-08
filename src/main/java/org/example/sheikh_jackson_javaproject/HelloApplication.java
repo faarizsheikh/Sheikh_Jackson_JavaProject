@@ -30,10 +30,11 @@ public class HelloApplication extends Application {
         TabPane pane = new TabPane();
 
         AddItemTab addItemTab = new AddItemTab();
+        DeleteItemTab deleteItemTab = new DeleteItemTab();
         StatisticsTab statisticsTab = new StatisticsTab();
         pane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        pane.getTabs().addAll(addItemTab, statisticsTab);
+        pane.getTabs().addAll(addItemTab, deleteItemTab, statisticsTab);
         root.setTop(menuBar);
         root.setCenter(pane);
         Database db = Database.getInstance();

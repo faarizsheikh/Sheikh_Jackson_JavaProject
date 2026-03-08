@@ -49,19 +49,26 @@ public class AddItemTab extends Tab {
                     throw new Exception("All fields must be filled!");
                 }
 
-                int devId = devCombo.getSelectionModel().getSelectedItem().getId(),
+                int year = Integer.parseInt(yearText),
+                        devId = devCombo.getSelectionModel().getSelectedItem().getId(),
                         platId = platCombo.getSelectionModel().getSelectedItem().getId();
 
-                Game newGame = new Game(
-                        0,
-                        title,
-                        String.valueOf(devId),
-                        Integer.parseInt(yearText),
-                        genre,
-                        String.valueOf(platId),
-                        imageUrl
-                );
+                boolean isDuplicate = false;
+                for (Game existingGame : GameTable.getInstance().getAllGames()) {
+                    if (existingGame.getTitle().equalsIgnoreCase(title) &&
+                            existingGame.getYear() == year &&
+                            existingGame.getPlatform().equals(String.valueOf(platId))) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
 
+                if (isDuplicate) {
+                    new Alert(Alert.AlertType.WARNING, "This game already exists in the database for this platform!").show();
+                    return;
+                }
+
+                Game newGame = new Game(0, title, String.valueOf(devId), year, genre, String.valueOf(platId), imageUrl);
                 GameTable.getInstance().addGame(newGame);
 
                 try (PrintWriter writer = new PrintWriter(new FileWriter("game_log.txt", true))) {
@@ -75,7 +82,7 @@ public class AddItemTab extends Tab {
                 devCombo.getSelectionModel().clearSelection();
                 platCombo.getSelectionModel().clearSelection();
 
-                System.out.println("Success: Game saved!");
+                System.out.println("Success: Unique game saved!");
 
             } catch (NumberFormatException nfe) {
                 new Alert(Alert.AlertType.ERROR, "Release Year must be a valid number!").show();

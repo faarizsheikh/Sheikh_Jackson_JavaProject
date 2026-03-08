@@ -66,8 +66,26 @@ public class GameTable implements GameDAO {
     }
 
     @Override
+    public void deleteGame(int id) {
+        String query = "DELETE FROM " + TABLE_GAME + " WHERE " + GAME_COLUMN_ID + " = ?";
+        try {
+            PreparedStatement pstmt = db.getConnection().prepareStatement(query);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            System.out.println("Game ID " + id + " deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public ArrayList<Game> getAllGames() {
-        String query = "SELECT * FROM " + TABLE_GAME;
+        // We join the games table and developers table to get the 'name' column
+        String query = "SELECT " + TABLE_GAME + ".*, " + TABLE_DEVELOPER + "." + DEV_COLUMN_NAME +
+                " FROM " + TABLE_GAME +
+                " INNER JOIN " + TABLE_DEVELOPER +
+                " ON " + TABLE_GAME + "." + GAME_COLUMN_DEV_ID + " = " + TABLE_DEVELOPER + "." + DEV_COLUMN_ID;
+
         games = new ArrayList<>();
 
         try {
@@ -78,7 +96,7 @@ public class GameTable implements GameDAO {
                 games.add(new Game(
                         rs.getInt(GAME_COLUMN_ID),
                         rs.getString(GAME_COLUMN_TITLE),
-                        rs.getString(GAME_COLUMN_DEV_ID),
+                        rs.getString(DEV_COLUMN_NAME), // Now pulling the NAME string instead of ID number!
                         rs.getInt(GAME_COLUMN_YEAR),
                         rs.getString(GAME_COLUMN_GENRE),
                         rs.getString(GAME_COLUMN_PLAT_ID),
