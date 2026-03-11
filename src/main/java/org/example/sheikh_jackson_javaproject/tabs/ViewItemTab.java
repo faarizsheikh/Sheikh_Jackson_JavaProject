@@ -73,7 +73,7 @@ public class ViewItemTab extends Tab {
             } else {
                 // Otherwise, keep using a Label
                 Label l = new Label(cols[i]);
-                l.setPrefWidth(i == 0 ? 50 : 250); // Standard width for most columns
+                l.setPrefWidth(i == 0 ? 50 : 230); // Standard width for most columns (used to be 50 : 250)
 
                 if (isHeader) {
                     l.getStyleClass().add("label");
