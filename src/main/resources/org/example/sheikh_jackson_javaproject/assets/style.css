@@ -1,0 +1,143 @@
+/* styles.css: */
+
+/* GLOBAL */
+.root {
+    -fx-font-family: "Times New Roman";
+}
+
+/* TAB HEADER CENTERING */
+.tab-header-area {
+    -fx-alignment: CENTER;
+}
+
+.headers-region {
+    -fx-alignment: CENTER;
+}
+
+.tab-box {
+        -fx-focus-color: transparent;
+        -fx-faint-focus-color: transparent;
+}
+
+.tab-box:hover {
+    -fx-background-color: black;
+}
+
+.tab-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-fill: #fff;
+}
+
+/* TAB COLORS */
+.add-tab,
+.delete-tab,
+.stats-tab,
+.update-tab,
+.view-tab {
+    -fx-font-size: 32px;
+}
+
+.add-tab {
+    -fx-background-color: blue;
+}
+
+.delete-tab {
+    -fx-background-color: red;
+}
+
+.stats-tab {
+    -fx-background-color: purple;
+}
+
+.update-tab {
+    -fx-background-color: green;
+}
+
+.view-tab {
+    -fx-background-color: goldenrod;
+}
+
+/* FORM INPUTS */
+.form-input {
+    -fx-font-size: 18px;
+    -fx-pref-height: 45px;
+}
+
+/* LABELS */
+.form-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+/* PRIMARY BUTTON */
+.btn {
+    -fx-cursor: hand;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff;
+}
+
+.add-btn {
+    -fx-background-color: blue;
+}
+
+.add-btn:hover {
+    -fx-background-color: darkblue;
+}
+
+.update-btn {
+    -fx-background-color: green;
+}
+
+.update-btn:hover {
+    -fx-background-color: darkgreen;
+}
+
+.delete-btn {
+    -fx-background-color: red;
+}
+
+.delete-btn:hover {
+    -fx-background-color: maroon;
+}
+
+/* TABLE HEADER */
+.table-header {
+    -fx-background-color: #333;
+    -fx-border-color: black;
+    -fx-border-width: 0 0 2 0;
+}
+
+.table-header .label {
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}
+
+/* TABLE ROW */
+.table-row {
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row .id-label {
+    -fx-font-weight: bold;
+}
+
+.table-label {
+    -fx-font-size: 24px;
+}
+
+/* ALERT */
+.alert {
+     -fx-font-size: 18px;
+}
+
+.side-note {
+    -fx-font-size: 14px;
+}
+
+.credit-label {
+    -fx-font-weight: bold;
+}

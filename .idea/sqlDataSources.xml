@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="610d638f-8857-4cd2-968a-6fa3aa0018e5" name="php.scweb.ca Mapping">
+      <data-sources db="5d3f7ec8-40d4-42fc-ad97-72602789f5c4" />
+      <scope>
+        <node negative="1">
+          <node kind="database" negative="1" />
+          <node kind="database" qname="@">
+            <node kind="schema" negative="1" />
+          </node>
+          <node kind="schema">
+            <name qname="fsheikhauction" />
+            <name qname="fsheikhblog" />
+            <name qname="fsheikhecommerce" />
+            <name qname="fsheikhforum" />
+            <name qname="fsheikhlaravel" />
+            <name qname="fsheikhmd" />
+            <name qname="fsheikhmedia" />
+            <name qname="fsheikhproject" />
+            <name qname="information_schema" />
+          </node>
+        </node>
+      </scope>
+    </mapping>
+  </component>
+</project>

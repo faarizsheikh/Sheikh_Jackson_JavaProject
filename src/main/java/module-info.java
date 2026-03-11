@@ -6,4 +6,6 @@ module org.example.sheikh_jackson_javaproject {
 
     opens org.example.sheikh_jackson_javaproject to javafx.fxml;
     exports org.example.sheikh_jackson_javaproject;
+    exports org.example.sheikh_jackson_javaproject.Constants;
+    opens org.example.sheikh_jackson_javaproject.Constants to javafx.fxml;
 }

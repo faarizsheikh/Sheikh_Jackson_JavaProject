@@ -1,64 +1,84 @@
+// DeleteItemTab.java:
+
 package org.example.sheikh_jackson_javaproject.tabs;
 
-import org.example.sheikh_jackson_javaproject.pojo.Game;
-import org.example.sheikh_jackson_javaproject.tables.GameTable;
+import org.example.sheikh_jackson_javaproject.pojo.*;
+import org.example.sheikh_jackson_javaproject.tables.*;
+import org.example.sheikh_jackson_javaproject.Constants.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
+import javafx.geometry.*;
 
 public class DeleteItemTab extends Tab {
-    private ComboBox<Game> gameCombo;
+    private ComboBox<Game> cb = new ComboBox<>();
 
     public DeleteItemTab() {
-        this.setText("Delete Game");
-        VBox root = new VBox(15);
-        root.setPadding(new Insets(20));
+        setGraphic(NodeConsts.createTabTitle("Delete Game"));
 
-        Label label = new Label("Select a game to remove from the system:");
+        // 1. Outer VBox to center the GridPane
+        VBox container = new VBox();
+        container.setAlignment(Pos.CENTER);
+        container.setPadding(new Insets(50));
 
-        gameCombo = new ComboBox<>();
-        gameCombo.setPromptText("--- Select Game ---");
-        gameCombo.setPrefWidth(250);
+        // 2. GridPane for structured, centered layout
+        GridPane gP = new GridPane();
+        gP.setHgap(20);
+        gP.setVgap(20);
+        gP.setPadding(new Insets(40));
+        gP.setAlignment(Pos.CENTER);
 
-        refreshDropDown(); // Load games from DB immediately
+        // 3. Styling the ComboBox
+        double wideWidth = 450;
 
-        Button deleteBtn = new Button("Delete Record");
-        deleteBtn.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+        cb.setPrefWidth(wideWidth);
+        cb.getStyleClass().add("form-input");
+        cb.setPromptText("-- Select Game to Delete --");
 
-        deleteBtn.setOnAction(e -> {
-            Game selected = gameCombo.getSelectionModel().getSelectedItem();
+        // 4. Adding components to Grid
+        gP.addRow(0, createHugeLabel(), cb);
 
-            if (selected != null) {
-                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                        "Are you sure you want to permanently delete '" + selected.getTitle() + "'?",
-                        ButtonType.YES, ButtonType.NO);
+        // 5. Huge Delete Button
+        Button btn = new Button("REMOVE FROM LIBRARY");
+        btn.getStyleClass().addAll("btn", "delete-btn");
+        btn.setPrefWidth(wideWidth);
+        btn.setPrefHeight(60);
 
-                confirm.showAndWait().ifPresent(response -> {
-                    if (response == ButtonType.YES) {
+        gP.add(btn, 1, 1);
 
-                        GameTable.getInstance().deleteGame(selected.getId());
+        btn.setOnAction(e -> {
+            Game sel = cb.getValue();
+            if (sel != null) {
+                // Confirmation Alert (Good practice for Delete)
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete " + sel.getTitle() + "?", ButtonType.YES, ButtonType.NO);
+                confirm.showAndWait();
 
-                        refreshDropDown();
-                        new Alert(Alert.AlertType.INFORMATION, "Game deleted successfully!").show();
-                    }
-                });
+                if (confirm.getResult() == ButtonType.YES) {
+                    GameTable.getInstance().deleteGame(sel.getId());
+                    new Alert(Alert.AlertType.INFORMATION, "Delete Successful!").show();
+
+                    // Reset UI
+                    cb.getSelectionModel().clearSelection();
+                    cb.setItems(FXCollections.observableArrayList(GameTable.getInstance().getAllGames()));
+                    cb.setValue(null);
+                    cb.setSkin(null);
+                }
             } else {
-                new Alert(Alert.AlertType.WARNING, "Please select a game first!").show();
+                new Alert(Alert.AlertType.WARNING, "Please select a game to delete!").show();
             }
         });
 
-        root.getChildren().addAll(label, gameCombo, deleteBtn);
-        this.setContent(root);
+        container.getChildren().add(gP);
+        setContent(container);
 
-        this.setOnSelectionChanged(event -> {
-            if (this.isSelected()) {
-                refreshDropDown();
-            }
+        setOnSelectionChanged(e -> {
+            if(isSelected()) cb.setItems(FXCollections.observableArrayList(GameTable.getInstance().getAllGames()));
         });
     }
 
-    private void refreshDropDown() {
-        gameCombo.setItems(FXCollections.observableArrayList(GameTable.getInstance().getAllGames()));
+    private Label createHugeLabel() {
+        Label l = new Label("Select Game:");
+        l.getStyleClass().add("form-label");
+        return l;
     }
 }
