@@ -92,9 +92,16 @@ public class AddItemTab extends Tab {
                 GameTable.getInstance().addGame(new Game(0, t, String.valueOf(dId), yearVal, g, String.valueOf(pId), i));
                 new Alert(Alert.AlertType.INFORMATION, "Success: Added " + t).show();
 
-                tF.clear(); yF.clear(); gF.clear(); iF.clear();
-                dCB.getSelectionModel().clearSelection(); dCB.setValue(null); dCB.setSkin(null);
-                pCB.getSelectionModel().clearSelection(); pCB.setValue(null); pCB.setSkin(null);
+                tF.clear();
+                yF.clear();
+                gF.clear();
+                iF.clear();
+                dCB.getSelectionModel().clearSelection();
+                dCB.setValue(null);
+                dCB.setSkin(null);
+                pCB.getSelectionModel().clearSelection();
+                pCB.setValue(null);
+                pCB.setSkin(null);
 
             } catch (NumberFormatException nfe) {
                 new Alert(Alert.AlertType.ERROR, "Year must be a number!").show();
