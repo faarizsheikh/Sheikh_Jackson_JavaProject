@@ -46,30 +46,38 @@ public class ViewItemTab extends Tab {
 
             if (i == 6 && !isHeader) {
                 ImageView iv = new ImageView();
-                iv.setFitHeight(300);
+                iv.setFitHeight(350);
                 iv.setFitWidth(350);
                 iv.setPreserveRatio(true);
 
+                Image defaultImg = new Image(
+                        Objects.requireNonNull(
+                                getClass().getResourceAsStream(
+                                        "/org/example/sheikh_jackson_javaproject/assets/default.png"
+                                )
+                        )
+                );
+
                 try {
-                    // 1. Check if string is actually a link
+
                     if (cols[i] == null || cols[i].trim().isEmpty()) {
-                        throw new Exception("Empty URL");
-                    }
-
-                    // 2. Load Synchronously (Background = false) so we can check for errors immediately
-                    Image img = new Image(cols[i], true);
-
-                    if (img.isError()) {
-                        iv.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/org/example/sheikh_jackson_javaproject/assets/default.png"))));
+                        iv.setImage(defaultImg);
                     } else {
+
+                        Image img = new Image(cols[i], true);
+
+                        img.errorProperty().addListener((obs, oldVal, newVal) -> {
+                            if (newVal) {
+                                iv.setImage(defaultImg);
+                            }
+                        });
+
                         iv.setImage(img);
                     }
                 } catch (Exception e) {
-                    // 3. Fallback for total link failure or empty strings
-                    iv.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/org/example/sheikh_jackson_javaproject/assets/default.png"))));
+                    iv.setImage(defaultImg);
                 }
                 row.getChildren().add(iv);
-
             } else {
                 // Otherwise, keep using a Label
                 Label l = new Label(cols[i]);
