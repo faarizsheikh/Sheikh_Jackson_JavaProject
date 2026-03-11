@@ -2,95 +2,114 @@
 
 package org.example.sheikh_jackson_javaproject.tabs;
 
+import javafx.geometry.*;
 import org.example.sheikh_jackson_javaproject.pojo.*;
 import org.example.sheikh_jackson_javaproject.tables.*;
+import org.example.sheikh_jackson_javaproject.Constants.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import java.io.*;
+import java.time.Year;
 
 public class AddItemTab extends Tab {
+    private ComboBox<Developer> dCB = new ComboBox<>();
+    private ComboBox<Platform> pCB = new ComboBox<>();
+    private TextField tF = new TextField(), yF = new TextField(), gF = new TextField(), iF = new TextField();
+
     public AddItemTab() {
-        this.setText("Add Game");
-        GridPane root = new GridPane();
-        root.setHgap(10); root.setVgap(10);
+        setGraphic(NodeConsts.createTabTitle("Add Game"));
 
-        TextField titleField = new TextField(),
-                yearField = new TextField(),
-                genreField = new TextField(),
-                imageField = new TextField();
+        VBox container = new VBox();
+        container.setAlignment(Pos.CENTER);
+        container.setPadding(new Insets(50)); // Large outer padding
 
-        ComboBox<Developer> devCombo = new ComboBox<>();
-        devCombo.getItems().addAll(GameTable.getInstance().getAllDevelopers());
-        devCombo.setPromptText("Select Developer");
+        GridPane gP = new GridPane();
+        gP.setHgap(20); // More horizontal space
+        gP.setVgap(20); // More vertical space
+        gP.setPadding(new Insets(40));
+        gP.setAlignment(Pos.CENTER);
 
-        ComboBox<Platform> platCombo = new ComboBox<>();
-        platCombo.getItems().addAll(GameTable.getInstance().getAllPlatforms());
-        platCombo.setPromptText("Select Platform");
+        // Form styling
+        double wideWidth = 450; // Much wider inputs
 
-        root.add(new Label("Title:"), 0, 0); root.add(titleField, 1, 0);
-        root.add(new Label("Developer:"), 0, 1); root.add(devCombo, 1, 1);
-        root.add(new Label("Release Year:"), 0, 2); root.add(yearField, 1, 2);
-        root.add(new Label("Genre:"), 0, 3); root.add(genreField, 1, 3);
-        root.add(new Label("Platform:"), 0, 4); root.add(platCombo, 1, 4);
-        root.add(new Label("Image URL:"), 0, 5); root.add(imageField, 1, 5);
+        Control[] inputs = {tF, yF, gF, iF, dCB, pCB};
+        for (Control input : inputs) {
+            input.setPrefWidth(wideWidth);
+            input.getStyleClass().add("form-input");
+        }
 
-        Button addBtn = new Button("Add");
-        root.add(addBtn, 1, 6);
+        dCB.getItems().setAll(GameTable.getInstance().getAllDevelopers());
+        dCB.setPromptText("-- Select Developer --");
 
-        addBtn.setOnAction(e -> {
+        pCB.getItems().setAll(GameTable.getInstance().getAllPlatforms());
+        pCB.setPromptText("-- Select Platform --");
+
+        // Layout rows with Large Labels
+        gP.addRow(0, createHugeLabel("Title:"), tF);
+        gP.addRow(1, createHugeLabel("Developer:"), dCB);
+        gP.addRow(2, createHugeLabel("Year:"), yF);
+        gP.addRow(3, createHugeLabel("Genre:"), gF);
+        gP.addRow(4, createHugeLabel("Platform:"), pCB);
+        gP.addRow(5, createHugeLabel("URL:"), iF);
+
+        // Extra Large Button
+        Button btn = new Button("ADD TO LIBRARY");
+        btn.getStyleClass().addAll("btn", "add-btn");
+        btn.setPrefWidth(wideWidth);
+        btn.setPrefHeight(60);
+        gP.add(btn, 1, 6);
+
+        btn.setOnAction(e -> {
             try {
-                String title = titleField.getText().trim(),
-                        genre = genreField.getText().trim(),
-                        imageUrl = imageField.getText().trim(),
-                        yearText = yearField.getText().trim();
+                String t = tF.getText().trim(), y = yF.getText().trim(), g = gF.getText().trim(), i = iF.getText().trim();
 
-                if (title.isEmpty() || genre.isEmpty() || imageUrl.isEmpty() ||
-                        devCombo.getSelectionModel().isEmpty() || platCombo.getSelectionModel().isEmpty()) {
+                if (t.isEmpty() || y.isEmpty() || g.isEmpty() || i.isEmpty() || dCB.getValue() == null || pCB.getValue() == null)
                     throw new Exception("All fields must be filled!");
-                }
 
-                int year = Integer.parseInt(yearText),
-                        devId = devCombo.getSelectionModel().getSelectedItem().getId(),
-                        platId = platCombo.getSelectionModel().getSelectedItem().getId();
-
-                boolean isDuplicate = false;
-                for (Game existingGame : GameTable.getInstance().getAllGames()) {
-                    if (existingGame.getTitle().equalsIgnoreCase(title) &&
-                            existingGame.getYear() == year &&
-                            existingGame.getPlatform().equals(String.valueOf(platId))) {
-                        isDuplicate = true;
-                        break;
-                    }
-                }
-
-                if (isDuplicate) {
-                    new Alert(Alert.AlertType.WARNING, "This game already exists in the database for this platform!").show();
+                int yearVal = Integer.parseInt(y);
+                int currentYear = Year.now().getValue();
+                if (yearVal < 1950 || yearVal > currentYear) {
+                    new Alert(Alert.AlertType.WARNING, "Invalid Year: Range 1950 - " + currentYear).show();
                     return;
                 }
 
-                Game newGame = new Game(0, title, String.valueOf(devId), year, genre, String.valueOf(platId), imageUrl);
-                GameTable.getInstance().addGame(newGame);
+                String iLow = i.toLowerCase();
+                if (!iLow.startsWith("http://")
+                        && !iLow.startsWith("https://")
+                        && !iLow.startsWith("www.")) {
+                    new Alert(Alert.AlertType.WARNING, "URL must start with http://, https://, or www.").show();
+                    return;
+                }
 
-                try (PrintWriter writer = new PrintWriter(new FileWriter("game_log.txt", true))) {
-                    writer.println("Added: " + title);
-                } catch (IOException ex) { ex.printStackTrace(); }
+                int dId = dCB.getValue().getId(), pId = pCB.getValue().getId();
 
-                titleField.clear();
-                yearField.clear();
-                genreField.clear();
-                imageField.clear();
-                devCombo.getSelectionModel().clearSelection();
-                platCombo.getSelectionModel().clearSelection();
+                for (Game game : GameTable.getInstance().getAllGames()) {
+                    if (game.getTitle().equalsIgnoreCase(t) && game.getYear() == yearVal && game.getPlatform().equals(pCB.getValue().toString())) {
+                        new Alert(Alert.AlertType.WARNING, "Duplicate found on this platform!").show();
+                        return;
+                    }
+                }
 
-                System.out.println("Success: Unique game saved!");
+                GameTable.getInstance().addGame(new Game(0, t, String.valueOf(dId), yearVal, g, String.valueOf(pId), i));
+                new Alert(Alert.AlertType.INFORMATION, "Success: Added " + t).show();
+
+                tF.clear(); yF.clear(); gF.clear(); iF.clear();
+                dCB.getSelectionModel().clearSelection(); dCB.setValue(null); dCB.setSkin(null);
+                pCB.getSelectionModel().clearSelection(); pCB.setValue(null); pCB.setSkin(null);
 
             } catch (NumberFormatException nfe) {
-                new Alert(Alert.AlertType.ERROR, "Release Year must be a valid number!").show();
+                new Alert(Alert.AlertType.ERROR, "Year must be a number!").show();
             } catch (Exception ex) {
                 new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
             }
         });
 
-        this.setContent(root);
+        container.getChildren().add(gP);
+        setContent(container);
+    }
+
+    private Label createHugeLabel(String text) {
+        Label l = new Label(text);
+        l.getStyleClass().add("form-label");
+        return l;
     }
 }
