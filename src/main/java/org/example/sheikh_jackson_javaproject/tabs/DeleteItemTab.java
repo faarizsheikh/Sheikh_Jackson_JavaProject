@@ -1,3 +1,5 @@
+// DeleteItemTab.java:
+
 package org.example.sheikh_jackson_javaproject.tabs;
 
 import javafx.collections.FXCollections;
