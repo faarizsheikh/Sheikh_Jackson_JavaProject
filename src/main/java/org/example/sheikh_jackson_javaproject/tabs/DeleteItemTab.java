@@ -1,5 +1,6 @@
 package org.example.sheikh_jackson_javaproject.tabs;
 
+import javafx.collections.FXCollections;
 import org.example.sheikh_jackson_javaproject.pojo.*;
 import org.example.sheikh_jackson_javaproject.tables.*;
 import org.example.sheikh_jackson_javaproject.Constants.*;
@@ -9,7 +10,7 @@ import javafx.geometry.*;
 
 public class DeleteItemTab extends Tab {
 
-    private ComboBox<Game> cb = new ComboBox<>();
+    private ComboBox<Game> cB = new ComboBox<>();
 
     public DeleteItemTab() {
 
@@ -27,14 +28,13 @@ public class DeleteItemTab extends Tab {
 
         double wideWidth = 450;
 
-        cb.setPrefWidth(wideWidth);
-        cb.getStyleClass().add("form-input");
-        cb.setPromptText("-- Select Game to Delete --");
+        cB.setPrefWidth(wideWidth);
+        cB.getStyleClass().add("form-input");
+        cB.setPromptText("-- Select Game to Delete --");
 
-        // Load games ONCE
-        cb.getItems().setAll(GameTable.getInstance().getAllGames());
+        cB.getItems().setAll(GameTable.getInstance().getAllGames());
 
-        gP.addRow(0, createHugeLabel(), cb);
+        gP.addRow(0, createHugeLabel(), cB);
 
         Button btn = new Button("REMOVE FROM LIBRARY");
         btn.getStyleClass().addAll("btn", "delete-btn");
@@ -45,7 +45,7 @@ public class DeleteItemTab extends Tab {
 
         btn.setOnAction(e -> {
 
-            Game sel = cb.getValue();
+            Game sel = cB.getValue();
 
             if (sel != null) {
 
@@ -64,18 +64,15 @@ public class DeleteItemTab extends Tab {
 
                     new Alert(Alert.AlertType.INFORMATION, "Delete Successful!").show();
 
-                    // Reset UI
-                    cb.getSelectionModel().clearSelection();
-                    cb.setValue(null);
+                    cB.getSelectionModel().clearSelection();
+                    cB.setValue(null);
 
-                    // Refresh list safely
-                    cb.getItems().setAll(GameTable.getInstance().getAllGames());
-
-                    cb.setSkin(null);
+                    // Refresh list
+                    cB.getItems().setAll(GameTable.getInstance().getAllGames());
+                    cB.setItems(FXCollections.observableArrayList(GameTable.getInstance().getAllGames()));
                 }
 
-            }
-            else {
+            } else {
                 new Alert(Alert.AlertType.WARNING, "Please select a game to delete!").show();
             }
 
@@ -83,6 +80,12 @@ public class DeleteItemTab extends Tab {
 
         container.getChildren().add(gP);
         setContent(container);
+
+        // Auto refresh when tab selected
+        setOnSelectionChanged(e -> {
+            if (isSelected())
+                cB.getItems().setAll(GameTable.getInstance().getAllGames());
+        });
     }
 
     private Label createHugeLabel() {

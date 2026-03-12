@@ -15,11 +15,8 @@ import java.util.Properties;
 
 public class HelloApplication extends Application {
 
-    private static Stage mainStage;
-
     @Override
     public void start(Stage stage) {
-        mainStage = stage;
         stage.setMaximized(true);
 
         try {

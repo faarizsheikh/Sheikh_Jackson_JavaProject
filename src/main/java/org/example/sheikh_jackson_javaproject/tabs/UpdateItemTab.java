@@ -1,5 +1,6 @@
 package org.example.sheikh_jackson_javaproject.tabs;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.*;
 import javafx.scene.layout.VBox;
 import org.example.sheikh_jackson_javaproject.pojo.Game;
@@ -36,7 +37,6 @@ public class UpdateItemTab extends Tab {
             input.getStyleClass().add("form-input");
         }
 
-        // Load options ONCE like AddItemTab
         cB.getItems().setAll(GameTable.getInstance().getAllGames());
         cB.setPromptText("-- Select Game to Update --");
 
@@ -115,8 +115,10 @@ public class UpdateItemTab extends Tab {
 
                     cB.getSelectionModel().clearSelection();
                     cB.setValue(null);
-                    cB.setSkin(null);
+                    cB.setItems(FXCollections.observableArrayList(GameTable.getInstance().getAllGames()));
 
+                    // Refresh list after update
+                    cB.getItems().setAll(GameTable.getInstance().getAllGames());
                 }
                 catch (NumberFormatException nfe) {
                     new Alert(Alert.AlertType.ERROR, "Year must be a valid number!").show();
@@ -125,8 +127,7 @@ public class UpdateItemTab extends Tab {
                     new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
                 }
 
-            }
-            else {
+            } else {
                 new Alert(Alert.AlertType.WARNING, "Please select a game first!").show();
             }
 
@@ -134,6 +135,12 @@ public class UpdateItemTab extends Tab {
 
         container.getChildren().add(gP);
         setContent(container);
+
+        // Auto refresh when tab selected
+        setOnSelectionChanged(e -> {
+            if (isSelected())
+                cB.getItems().setAll(GameTable.getInstance().getAllGames());
+        });
     }
 
     private Label createHugeLabel(String text) {
