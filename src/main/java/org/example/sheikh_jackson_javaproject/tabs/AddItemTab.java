@@ -11,9 +11,12 @@ import javafx.scene.layout.*;
 import java.time.Year;
 
 public class AddItemTab extends Tab {
-    private ComboBox<Developer> dCB = new ComboBox<>();
-    private ComboBox<Platform> pCB = new ComboBox<>();
-    private TextField tF = new TextField(), yF = new TextField(), gF = new TextField(), iF = new TextField();
+    private final ComboBox<Developer> dCB = new ComboBox<>();
+    private final ComboBox<Platform> pCB = new ComboBox<>();
+    private final TextField tF = new TextField();
+    private final TextField yF = new TextField();
+    private final TextField gF = new TextField();
+    private final TextField iF = new TextField();
 
     public AddItemTab() {
         setGraphic(NodeConsts.createTabTitle("Add Game"));

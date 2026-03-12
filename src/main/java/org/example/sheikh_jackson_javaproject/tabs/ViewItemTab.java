@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class ViewItemTab extends Tab {
 
-    private VBox container = new VBox(5);
+    private final VBox container = new VBox(5);
 
     public ViewItemTab() {
         setGraphic(NodeConsts.createTabTitle("View Games"));

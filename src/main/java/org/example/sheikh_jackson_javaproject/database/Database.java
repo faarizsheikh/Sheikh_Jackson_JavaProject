@@ -7,7 +7,7 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 public class Database {
     private static Database instance;
-    private Connection connection;
+    private final Connection connection;
 
     private Database(String user, String pass, String server, String dbName) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");

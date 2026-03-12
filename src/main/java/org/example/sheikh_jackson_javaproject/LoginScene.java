@@ -69,7 +69,7 @@ public class LoginScene {
         loginBtn.setMaxWidth(Double.MAX_VALUE);
 
         loginBox.getChildren().addAll(
-                createHugeLabel("Database Login Credentials"),
+                createHugeLabel(),
                 userField, passField, serverField, dbField, loginBtn
         );
 
@@ -111,8 +111,8 @@ public class LoginScene {
         return scene;
     }
 
-    private static Label createHugeLabel(String text) {
-        Label l = new Label(text);
+    private static Label createHugeLabel() {
+        Label l = new Label("Database Login Credentials");
         l.getStyleClass().add("form-label");
         return l;
     }

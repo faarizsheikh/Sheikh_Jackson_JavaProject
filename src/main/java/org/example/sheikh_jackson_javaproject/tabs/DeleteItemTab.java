@@ -12,7 +12,7 @@ import javafx.geometry.*;
 
 public class DeleteItemTab extends Tab {
 
-    private ComboBox<Game> cB = new ComboBox<>();
+    private final ComboBox<Game> cB = new ComboBox<>();
 
     public DeleteItemTab() {
 

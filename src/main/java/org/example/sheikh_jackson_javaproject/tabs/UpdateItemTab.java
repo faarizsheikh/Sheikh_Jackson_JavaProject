@@ -14,8 +14,11 @@ import java.time.Year;
 
 public class UpdateItemTab extends Tab {
 
-    private ComboBox<Game> cB = new ComboBox<>();
-    private TextField tF = new TextField(), yF = new TextField(), gF = new TextField(), iF = new TextField();
+    private final ComboBox<Game> cB = new ComboBox<>();
+    private final TextField tF = new TextField();
+    private final TextField yF = new TextField();
+    private final TextField gF = new TextField();
+    private final TextField iF = new TextField();
 
     public UpdateItemTab() {
 

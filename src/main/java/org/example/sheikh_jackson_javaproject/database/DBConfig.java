@@ -32,7 +32,7 @@ public class DBConfig {
         return props;
     }
 
-    public static boolean configExists() {
+    public static boolean configExists() { // Maybe remove?
         return new File(CONFIG_FILE).exists();
     }
 }
