@@ -3,12 +3,15 @@
 package org.example.sheikh_jackson_javaproject.tabs;
 
 import javafx.geometry.*;
+import javafx.scene.text.Text;
+import org.example.sheikh_jackson_javaproject.HelloApplication;
 import org.example.sheikh_jackson_javaproject.pojo.*;
 import org.example.sheikh_jackson_javaproject.tables.*;
 import org.example.sheikh_jackson_javaproject.Constants.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import java.time.Year;
+import java.util.Objects;
 
 public class AddItemTab extends Tab {
     private final ComboBox<Developer> dCB = new ComboBox<>();
@@ -47,12 +50,12 @@ public class AddItemTab extends Tab {
         pCB.setPromptText("-- Select Platform --");
 
         // Layout rows with Large Labels
-        gP.addRow(0, createHugeLabel("Title:"), tF);
-        gP.addRow(1, createHugeLabel("Developer:"), dCB);
-        gP.addRow(2, createHugeLabel("Year:"), yF);
-        gP.addRow(3, createHugeLabel("Genre:"), gF);
-        gP.addRow(4, createHugeLabel("Platform:"), pCB);
-        gP.addRow(5, createHugeLabel("URL:"), iF);
+        gP.addRow(0, createHugeLbl("Title:"), tF);
+        gP.addRow(1, createHugeLbl("Developer:"), dCB);
+        gP.addRow(2, createHugeLbl("Year:"), yF);
+        gP.addRow(3, createHugeLbl("Genre:"), gF);
+        gP.addRow(4, createHugeLbl("Platform:"), pCB);
+        gP.addRow(5, createHugeLbl("URL:"), iF);
 
         // Extra Large Button
         Button btn = new Button("ADD TO LIBRARY");
@@ -66,12 +69,32 @@ public class AddItemTab extends Tab {
                 String t = tF.getText().trim(), y = yF.getText().trim(), g = gF.getText().trim(), i = iF.getText().trim();
 
                 if (t.isEmpty() || y.isEmpty() || g.isEmpty() || i.isEmpty() || dCB.getValue() == null || pCB.getValue() == null)
-                    throw new Exception("All fields must be filled!");
+                    throw new Exception("All fields must be filled to add!");
 
                 int yearVal = Integer.parseInt(y);
                 int currentYear = Year.now().getValue();
                 if (yearVal < 1950 || yearVal > currentYear) {
-                    new Alert(Alert.AlertType.WARNING, "Invalid Year: Range 1950 - " + currentYear).show();
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Year");
+                    alert.setHeaderText("WARNING!");
+
+                    VBox box = new VBox(5);
+                    alert.getDialogPane().getStylesheets().add(
+                            Objects.requireNonNull(HelloApplication.class.getResource(
+                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                    .toExternalForm()
+                    );
+
+                    Text yearFail = new Text("Invalid Year: Range 1950 - " + currentYear);
+                    yearFail.getStyleClass().add("side-note");
+
+                    box.getChildren().add(
+                            yearFail
+                    );
+
+                    alert.getDialogPane().setContent(box);
+                    alert.showAndWait();
                     return;
                 }
 
@@ -79,7 +102,27 @@ public class AddItemTab extends Tab {
                 if (!iLow.startsWith("http://")
                         && !iLow.startsWith("https://")
                         && !iLow.startsWith("www.")) {
-                    new Alert(Alert.AlertType.WARNING, "URL must start with http://, https://, or www.").show();
+
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid URL");
+                    alert.setHeaderText("WARNING!");
+
+                    VBox box = new VBox(5);
+                    alert.getDialogPane().getStylesheets().add(
+                            Objects.requireNonNull(HelloApplication.class.getResource(
+                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                    .toExternalForm()
+                    );
+
+                    Text urlFail = new Text("URL must start with http://, https://, or www.");
+                    urlFail.getStyleClass().add("side-note");
+
+                    box.getChildren().add(
+                            urlFail
+                    );
+
+                    alert.getDialogPane().setContent(box);
+                    alert.showAndWait();
                     return;
                 }
 
@@ -87,13 +130,56 @@ public class AddItemTab extends Tab {
 
                 for (Game game : GameTable.getInstance().getAllGames()) {
                     if (game.getTitle().equalsIgnoreCase(t) && game.getYear() == yearVal && game.getPlatform().equals(pCB.getValue().toString())) {
-                        new Alert(Alert.AlertType.WARNING, "Duplicate found on this platform!").show();
+
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Double Trouble");
+                        alert.setHeaderText("WARNING!");
+
+                        VBox box = new VBox(5);
+                        alert.getDialogPane().getStylesheets().add(
+                                Objects.requireNonNull(HelloApplication.class.getResource(
+                                                "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                        .toExternalForm()
+                        );
+
+                        Text doubleTrouble = new Text("Duplicate found on this platform!");
+                        doubleTrouble.getStyleClass().add("side-note");
+
+                        box.getChildren().add(
+                                doubleTrouble
+                        );
+
+                        alert.getDialogPane().setContent(box);
+                        alert.showAndWait();
                         return;
                     }
                 }
 
                 GameTable.getInstance().addGame(new Game(0, t, String.valueOf(dId), yearVal, g, String.valueOf(pId), i));
-                new Alert(Alert.AlertType.INFORMATION, "Success: Added " + t).show();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Added to library");
+                alert.setHeaderText("SUBMISSION DETAILS");
+
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
+
+                Text submitTxt = new Text(
+                        String.format("We've added %s (%d), a game created by %s.",
+                                t, yearVal, dCB.getValue())
+                );
+                submitTxt.getStyleClass().add("side-note");
+
+                box.getChildren().add(
+                        submitTxt
+                );
+
+                alert.getDialogPane().setContent(box);
+                alert.showAndWait();
 
                 tF.clear();
                 yF.clear();
@@ -101,15 +187,52 @@ public class AddItemTab extends Tab {
                 iF.clear();
                 dCB.getSelectionModel().clearSelection();
                 dCB.setValue(null);
-                dCB.setSkin(null);
                 pCB.getSelectionModel().clearSelection();
                 pCB.setValue(null);
-                pCB.setSkin(null);
 
             } catch (NumberFormatException nfe) {
-                new Alert(Alert.AlertType.ERROR, "Year must be a number!").show();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Year");
+                alert.setHeaderText("WARNING!");
+
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
+
+                Text yearFail = new Text("Year must be a number");
+                yearFail.getStyleClass().add("side-note");
+
+                box.getChildren().add(
+                        yearFail
+                );
+
+                alert.getDialogPane().setContent(box);
+                alert.showAndWait();
+
             } catch (Exception ex) {
-                new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Missing fields");
+                alert.setHeaderText("WARNING!");
+
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
+
+                Text missingFields = new Text(ex.getMessage());
+                missingFields.getStyleClass().add("side-note");
+
+                box.getChildren().add(
+                        missingFields
+                );
+
+                alert.getDialogPane().setContent(box);
+                alert.showAndWait();
             }
         });
 
@@ -117,9 +240,9 @@ public class AddItemTab extends Tab {
         setContent(container);
     }
 
-    private Label createHugeLabel(String text) {
-        Label l = new Label(text);
-        l.getStyleClass().add("form-label");
-        return l;
+    private Label createHugeLbl(String text) {
+        Label lbl = new Label(text);
+        lbl.getStyleClass().add("form-lbl");
+        return lbl;
     }
 }

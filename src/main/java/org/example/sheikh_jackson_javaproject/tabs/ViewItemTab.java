@@ -79,19 +79,19 @@ public class ViewItemTab extends Tab {
                 row.getChildren().add(iv);
             } else {
                 // Otherwise, keep using a Label
-                Label l = new Label(cols[i]);
-                l.setPrefWidth(i == 0 || i == 3 ? 75 : i == 1 ? 400 : 200); // Standard width for most columns (used to be 50 : 250)
+                Label lbl = new Label(cols[i]);
+                lbl.setPrefWidth(i == 0 || i == 3 ? 75 : i == 1 ? 400 : 200); // Standard width for most columns (used to be 50 : 250)
 
                 if (isHeader) {
-                    l.getStyleClass().add("label");
+                    lbl.getStyleClass().add("label");
                 } else {
                     if (i == 0) {
-                        l.getStyleClass().add("id-label");
+                        lbl.getStyleClass().add("id-lbl");
                     }
                 }
 
-                row.getChildren().add(l);
-                l.getStyleClass().add("table-label");
+                row.getChildren().add(lbl);
+                lbl.getStyleClass().add("table-lbl");
             }
         }
         container.getChildren().add(row);

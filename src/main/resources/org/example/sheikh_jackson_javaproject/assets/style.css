@@ -6,11 +6,7 @@
 }
 
 /* TAB HEADER CENTERING */
-.tab-header-area {
-    -fx-alignment: CENTER;
-}
-
-.headers-region {
+.tab-header-area, .header-region {
     -fx-alignment: CENTER;
 }
 
@@ -65,7 +61,7 @@
 }
 
 /* LABELS */
-.form-label {
+.form-lbl {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-text-fill: #333;
@@ -121,11 +117,11 @@
     -fx-border-width: 0 0 1 0;
 }
 
-.table-row .id-label {
+.table-row .id-lbl {
     -fx-font-weight: bold;
 }
 
-.table-label {
+.table-lbl {
     -fx-font-size: 24px;
 }
 
@@ -134,10 +130,19 @@
      -fx-font-size: 18px;
 }
 
+.menu {
+    -fx-font-size: 16px;
+}
+
 .side-note {
     -fx-font-size: 14px;
 }
 
-.credit-label {
+.credit-lbl {
     -fx-font-weight: bold;
+}
+
+.login-box {
+    -fx-background-color: rgba(255,255,255,0.85);
+    -fx-background-radius: 10;
 }

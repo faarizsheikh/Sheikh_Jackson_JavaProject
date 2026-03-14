@@ -4,13 +4,15 @@ package org.example.sheikh_jackson_javaproject.tabs;
 
 import javafx.collections.FXCollections;
 import javafx.geometry.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import org.example.sheikh_jackson_javaproject.HelloApplication;
 import org.example.sheikh_jackson_javaproject.pojo.Game;
 import org.example.sheikh_jackson_javaproject.tables.GameTable;
 import org.example.sheikh_jackson_javaproject.Constants.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import java.time.Year;
+import java.util.Objects;
 
 public class UpdateItemTab extends Tab {
 
@@ -45,11 +47,11 @@ public class UpdateItemTab extends Tab {
         cB.getItems().setAll(GameTable.getInstance().getAllGames());
         cB.setPromptText("-- Select Game to Update --");
 
-        gP.addRow(0, createHugeLabel("Search:"), cB);
-        gP.addRow(1, createHugeLabel("New Title:"), tF);
-        gP.addRow(2, createHugeLabel("New Year:"), yF);
-        gP.addRow(3, createHugeLabel("New Genre:"), gF);
-        gP.addRow(4, createHugeLabel("New URL:"), iF);
+        gP.addRow(0, createHugeLbl("Search:"), cB);
+        gP.addRow(1, createHugeLbl("New Title:"), tF);
+        gP.addRow(2, createHugeLbl("New Year:"), yF);
+        gP.addRow(3, createHugeLbl("New Genre:"), gF);
+        gP.addRow(4, createHugeLbl("New URL:"), iF);
 
         cB.setOnAction(e -> {
             Game sel = cB.getValue();
@@ -75,21 +77,38 @@ public class UpdateItemTab extends Tab {
             if (sel != null) {
 
                 try {
-
                     String t = tF.getText().trim();
                     String y = yF.getText().trim();
                     String g = gF.getText().trim();
                     String i = iF.getText().trim();
 
                     if (t.isEmpty() || y.isEmpty() || g.isEmpty() || i.isEmpty())
-                        throw new Exception("All fields must be filled for an update!");
+                        throw new Exception("All fields must be filled to update!");
 
                     int yearVal = Integer.parseInt(y);
                     int currentYear = Year.now().getValue();
 
                     if (yearVal < 1950 || yearVal > currentYear) {
-                        new Alert(Alert.AlertType.WARNING,
-                                "Invalid Year: Please enter a year between 1950 and " + currentYear).show();
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Invalid Year");
+                        alert.setHeaderText("WARNING!");
+
+                        VBox box = new VBox(5);
+                        alert.getDialogPane().getStylesheets().add(
+                                Objects.requireNonNull(HelloApplication.class.getResource(
+                                                "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                        .toExternalForm()
+                        );
+
+                        Text yearFail = new Text("Invalid Year: Range 1950 - " + currentYear);
+                        yearFail.getStyleClass().add("side-note");
+
+                        box.getChildren().add(
+                                yearFail
+                        );
+
+                        alert.getDialogPane().setContent(box);
+                        alert.showAndWait();
                         return;
                     }
 
@@ -99,8 +118,26 @@ public class UpdateItemTab extends Tab {
                             && !iLow.startsWith("https://")
                             && !iLow.startsWith("www.")) {
 
-                        new Alert(Alert.AlertType.WARNING,
-                                "Invalid URL: Image URL must start with http://, https://, or www.").show();
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Invalid URL");
+                        alert.setHeaderText("WARNING!");
+
+                        VBox box = new VBox(5);
+                        alert.getDialogPane().getStylesheets().add(
+                                Objects.requireNonNull(HelloApplication.class.getResource(
+                                                "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                        .toExternalForm()
+                        );
+
+                        Text urlFail = new Text("URL must start with http://, https://, or www.");
+                        urlFail.getStyleClass().add("side-note");
+
+                        box.getChildren().add(
+                                urlFail
+                        );
+
+                        alert.getDialogPane().setContent(box);
+                        alert.showAndWait();
                         return;
                     }
 
@@ -111,7 +148,29 @@ public class UpdateItemTab extends Tab {
 
                     GameTable.getInstance().updateGame(sel);
 
-                    new Alert(Alert.AlertType.INFORMATION, "Update Successful!").show();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Updated in library");
+                    alert.setHeaderText("EDIT DETAILS");
+
+                    VBox box = new VBox(5);
+                    alert.getDialogPane().getStylesheets().add(
+                            Objects.requireNonNull(HelloApplication.class.getResource(
+                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                    .toExternalForm()
+                    );
+
+                    Text submitTxt = new Text(
+                            String.format("We've updated a game: %s (%d)",
+                                    t, yearVal)
+                    );
+                    submitTxt.getStyleClass().add("side-note");
+
+                    box.getChildren().add(
+                            submitTxt
+                    );
+
+                    alert.getDialogPane().setContent(box);
+                    alert.showAndWait();
 
                     tF.clear();
                     yF.clear();
@@ -120,20 +179,78 @@ public class UpdateItemTab extends Tab {
 
                     cB.getSelectionModel().clearSelection();
                     cB.setValue(null);
-                    cB.setItems(FXCollections.observableArrayList(GameTable.getInstance().getAllGames()));
 
                     // Refresh list after update
                     cB.getItems().setAll(GameTable.getInstance().getAllGames());
+                    cB.setItems(FXCollections.observableArrayList(GameTable.getInstance().getAllGames()));
                 }
                 catch (NumberFormatException nfe) {
-                    new Alert(Alert.AlertType.ERROR, "Year must be a valid number!").show();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Invalid Year");
+                    alert.setHeaderText("WARNING!");
+
+                    VBox box = new VBox(5);
+                    alert.getDialogPane().getStylesheets().add(
+                            Objects.requireNonNull(HelloApplication.class.getResource(
+                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                    .toExternalForm()
+                    );
+
+                    Text yearFail = new Text("Year must be a number");
+                    yearFail.getStyleClass().add("side-note");
+
+                    box.getChildren().add(
+                            yearFail
+                    );
+
+                    alert.getDialogPane().setContent(box);
+                    alert.showAndWait();
+
                 }
                 catch (Exception ex) {
-                    new Alert(Alert.AlertType.ERROR, ex.getMessage()).show();
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Missing fields");
+                    alert.setHeaderText("WARNING!");
+
+                    VBox box = new VBox(5);
+                    alert.getDialogPane().getStylesheets().add(
+                            Objects.requireNonNull(HelloApplication.class.getResource(
+                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                    .toExternalForm()
+                    );
+
+                    Text missingFields = new Text(ex.getMessage());
+                    missingFields.getStyleClass().add("side-note");
+
+                    box.getChildren().add(
+                            missingFields
+                    );
+
+                    alert.getDialogPane().setContent(box);
+                    alert.showAndWait();
                 }
 
             } else {
-                new Alert(Alert.AlertType.WARNING, "Please select a game first!").show();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Missing game selection");
+                alert.setHeaderText("WARNING!");
+
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
+
+                Text gameSelectMissing = new Text("Please select a game first!");
+                gameSelectMissing.getStyleClass().add("side-note");
+
+                box.getChildren().add(
+                        gameSelectMissing
+                );
+
+                alert.getDialogPane().setContent(box);
+                alert.showAndWait();
             }
 
         });
@@ -143,14 +260,28 @@ public class UpdateItemTab extends Tab {
 
         // Auto refresh when tab selected
         setOnSelectionChanged(e -> {
-            if (isSelected())
+            if (isSelected()) {
+
+                Game selected = cB.getValue();
+                Integer selectedId = selected != null ? selected.getId() : null;
+
                 cB.getItems().setAll(GameTable.getInstance().getAllGames());
+
+                if (selectedId != null) {
+                    for (Game g : cB.getItems()) {
+                        if (g.getId() == selectedId) {
+                            cB.setValue(g);
+                            break;
+                        }
+                    }
+                }
+            }
         });
     }
 
-    private Label createHugeLabel(String text) {
-        Label l = new Label(text);
-        l.getStyleClass().add("form-label");
-        return l;
+    private Label createHugeLbl(String text) {
+        Label lbl = new Label(text);
+        lbl.getStyleClass().add("form-lbl");
+        return lbl;
     }
 }

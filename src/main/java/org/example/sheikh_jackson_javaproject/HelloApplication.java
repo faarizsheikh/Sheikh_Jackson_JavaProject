@@ -3,17 +3,15 @@
 package org.example.sheikh_jackson_javaproject;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.example.sheikh_jackson_javaproject.database.DBConfig;
-import org.example.sheikh_jackson_javaproject.database.Database;
+import org.example.sheikh_jackson_javaproject.database.*;
 import org.example.sheikh_jackson_javaproject.tabs.*;
-
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Properties;
+import java.util.*;
 
 public class HelloApplication extends Application {
 
@@ -100,7 +98,9 @@ public class HelloApplication extends Application {
     public static MenuBar createMenu(Stage stage) {
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
+
         Menu creditsMenu = new Menu("Credits");
+
 
         MenuItem exitItem = new MenuItem("Exit");
         MenuItem aboutItem = new MenuItem("Developers");
@@ -108,6 +108,7 @@ public class HelloApplication extends Application {
 
         fileMenu.getItems().add(exitItem);
         creditsMenu.getItems().addAll(aboutItem, resItem);
+
         menuBar.getMenus().addAll(fileMenu, creditsMenu);
 
         exitItem.setOnAction(e -> showExitConfirmation(stage));
@@ -123,7 +124,6 @@ public class HelloApplication extends Application {
         alert.setHeaderText("EXITING SYSTEM");
 
         VBox box = new VBox(10);
-        box.getStyleClass().add("alert-box");
 
         alert.getDialogPane().getStylesheets().add(
                 Objects.requireNonNull(HelloApplication.class.getResource(
@@ -157,25 +157,39 @@ public class HelloApplication extends Application {
                         .toExternalForm()
         );
 
-        Label collabTitle = new Label("Collaborator(s):");
-        Label projectLeadTitle = new Label("Project Lead:");
-        Label teamNameTitle = new Label("Team Name:");
-
-        Label collabsTxt = new Label("Isaac Jackson");
-        Label projectLead = new Label("Faariz Sheikh (Current), Yazan Al-Umari (Formerly)");
-        Label teamName = new Label("NODE of Noobs");
-        Label thanks = new Label("THANKS FOR TEACHING US, CÂI FILIAULT! :)");
-
-        collabTitle.getStyleClass().add("credit-label");
-        projectLeadTitle.getStyleClass().add("credit-label");
-        teamNameTitle.getStyleClass().add("credit-label");
+        Label teamLbl = new Label("Team Name:");
+        teamLbl.getStyleClass().add("credit-lbl");
+        
+        Text teamTxt = new Text("NODE of Noobs");
+        teamTxt.getStyleClass().add("credit-txt");
+        
+        Label projLeadLbl = new Label("Project Lead:");
+        projLeadLbl.getStyleClass().add("credit-lbl");
+        
+        Text projLeadTxt = new Text("Faariz Sheikh (Current), Yazan Al-Umari (Formerly)");
+        projLeadTxt.getStyleClass().add("credit-txt");
+        
+        Label collabLbl = new Label("Collaborator(s):");
+        collabLbl.getStyleClass().add("credit-lbl");
+        
+        Text collabTxt = new Text("Isaac Jackson");
+        collabTxt.getStyleClass().add("credit-txt");
+        
+        Text thx_note = new Text("THANKS FOR TEACHING US, CÂI FILIAULT! :)");
+        thx_note.getStyleClass().add("credit-txt");
 
         box.getChildren().addAll(
-                teamNameTitle, teamName,
-                projectLeadTitle, projectLead,
-                collabTitle, collabsTxt,
-                thanks
+                teamLbl, teamTxt,
+                projLeadLbl, projLeadTxt,
+                collabLbl, collabTxt,
+                thx_note
         );
+
+        box.getChildren().forEach(node -> {
+            if (node instanceof Text) {
+                VBox.setMargin(node, new Insets(0, 0, 25, 0));
+            }
+        });
 
         alert.getDialogPane().setContent(box);
         alert.showAndWait();

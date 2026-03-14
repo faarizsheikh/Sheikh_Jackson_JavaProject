@@ -3,12 +3,16 @@
 package org.example.sheikh_jackson_javaproject.tabs;
 
 import javafx.collections.FXCollections;
+import javafx.scene.text.Text;
+import org.example.sheikh_jackson_javaproject.HelloApplication;
 import org.example.sheikh_jackson_javaproject.pojo.*;
 import org.example.sheikh_jackson_javaproject.tables.*;
 import org.example.sheikh_jackson_javaproject.Constants.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.*;
+
+import java.util.Objects;
 
 public class DeleteItemTab extends Tab {
 
@@ -36,7 +40,7 @@ public class DeleteItemTab extends Tab {
 
         cB.getItems().setAll(GameTable.getInstance().getAllGames());
 
-        gP.addRow(0, createHugeLabel(), cB);
+        gP.addRow(0, createHugeLbl(), cB);
 
         Button btn = new Button("REMOVE FROM LIBRARY");
         btn.getStyleClass().addAll("btn", "delete-btn");
@@ -50,21 +54,54 @@ public class DeleteItemTab extends Tab {
             Game sel = cB.getValue();
 
             if (sel != null) {
-
-                Alert confirm = new Alert(
+                Alert alert = new Alert(
                         Alert.AlertType.CONFIRMATION,
-                        "Are you sure you want to delete " + sel.getTitle() + "?",
+                        "",
                         ButtonType.YES,
                         ButtonType.NO
                 );
 
-                confirm.showAndWait();
+                alert.setTitle("Remove Confirm");
+                alert.setHeaderText("CONFIRMATION");
 
-                if (confirm.getResult() == ButtonType.YES) {
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
 
+                Text confirmTxt = new Text("Are you sure you want to delete " + sel.getTitle() + "?");
+
+                box.getChildren().add(confirmTxt);
+                alert.getDialogPane().setContent(box);
+
+                alert.showAndWait();
+
+
+                if (alert.getResult() == ButtonType.YES) {
                     GameTable.getInstance().deleteGame(sel.getId());
 
-                    new Alert(Alert.AlertType.INFORMATION, "Delete Successful!").show();
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Updated in library");
+                    alert1.setHeaderText("EDIT DETAILS");
+
+                    VBox box1 = new VBox(5);
+                    alert1.getDialogPane().getStylesheets().add(
+                            Objects.requireNonNull(HelloApplication.class.getResource(
+                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                    .toExternalForm()
+                    );
+
+                    Text submitTxt = new Text("Delete Successful!");
+                    submitTxt.getStyleClass().add("side-note");
+
+                    box1.getChildren().add(
+                            submitTxt
+                    );
+
+                    alert1.getDialogPane().setContent(box1);
+                    alert1.showAndWait();
 
                     cB.getSelectionModel().clearSelection();
                     cB.setValue(null);
@@ -75,7 +112,26 @@ public class DeleteItemTab extends Tab {
                 }
 
             } else {
-                new Alert(Alert.AlertType.WARNING, "Please select a game to delete!").show();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Missing game selection");
+                alert.setHeaderText("WARNING!");
+
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
+
+                Text gameSelectMissing = new Text("Please select a game first to delete!");
+                gameSelectMissing.getStyleClass().add("side-note");
+
+                box.getChildren().add(
+                        gameSelectMissing
+                );
+
+                alert.getDialogPane().setContent(box);
+                alert.showAndWait();
             }
 
         });
@@ -85,14 +141,28 @@ public class DeleteItemTab extends Tab {
 
         // Auto refresh when tab selected
         setOnSelectionChanged(e -> {
-            if (isSelected())
+            if (isSelected()) {
+
+                Game selected = cB.getValue();
+                Integer selectedId = selected != null ? selected.getId() : null;
+
                 cB.getItems().setAll(GameTable.getInstance().getAllGames());
+
+                if (selectedId != null) {
+                    for (Game g : cB.getItems()) {
+                        if (g.getId() == selectedId) {
+                            cB.setValue(g);
+                            break;
+                        }
+                    }
+                }
+            }
         });
     }
 
-    private Label createHugeLabel() {
-        Label l = new Label("Select Game:");
-        l.getStyleClass().add("form-label");
-        return l;
+    private Label createHugeLbl() {
+        Label lbl = new Label("Select Game:");
+        lbl.getStyleClass().add("form-lbl");
+        return lbl;
     }
 }

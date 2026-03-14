@@ -6,6 +6,7 @@ import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.example.sheikh_jackson_javaproject.database.*;
 import java.util.Objects;
@@ -44,8 +45,8 @@ public class LoginScene {
         VBox loginBox = new VBox(20);
         loginBox.setAlignment(Pos.CENTER);
         loginBox.setPadding(new Insets(50));
-        loginBox.setMaxWidth(450); // Match AddItemTab width
-        loginBox.setStyle("-fx-background-color: rgba(255,255,255,0.85); -fx-background-radius: 10;");
+        loginBox.setMaxWidth(450);
+        loginBox.getStyleClass().add("login-box");
 
         TextField userField = new TextField();
         PasswordField passField = new PasswordField();
@@ -69,7 +70,7 @@ public class LoginScene {
         loginBtn.setMaxWidth(Double.MAX_VALUE);
 
         loginBox.getChildren().addAll(
-                createHugeLabel(),
+                createHugeLbl(),
                 userField, passField, serverField, dbField, loginBtn
         );
 
@@ -86,7 +87,26 @@ public class LoginScene {
             String dbName = dbField.getText().trim();
 
             if (user.isEmpty() || pass.isEmpty() || server.isEmpty() || dbName.isEmpty()) {
-                new Alert(Alert.AlertType.ERROR, "All fields must be filled!").show();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Missing information");
+                alert.setHeaderText("ERROR!");
+
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
+
+                Text fieldsMissing = new Text("All fields must be filled!");
+                fieldsMissing.getStyleClass().add("side-note");
+
+                box.getChildren().add(
+                    fieldsMissing
+                );
+
+                alert.getDialogPane().setContent(box);
+                alert.showAndWait();
                 return;
             }
 
@@ -95,8 +115,28 @@ public class LoginScene {
                 DBConfig.saveConfig(user, pass, server, dbName);
 
                 HelloApplication.showMainScene(stage);
+
             } catch (Exception ex) {
-                new Alert(Alert.AlertType.ERROR, "Connection failed: " + ex.getMessage()).show();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Connection Failed");
+                alert.setHeaderText("ERROR!");
+
+                VBox box = new VBox(5);
+                alert.getDialogPane().getStylesheets().add(
+                        Objects.requireNonNull(HelloApplication.class.getResource(
+                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
+                                .toExternalForm()
+                );
+
+                Text connectFail = new Text("Connection Failed: " + ex.getMessage());
+                connectFail.getStyleClass().add("side-note");
+
+                box.getChildren().add(
+                        connectFail
+                );
+
+                alert.getDialogPane().setContent(box);
+                alert.showAndWait();
             }
         });
 
@@ -111,9 +151,9 @@ public class LoginScene {
         return scene;
     }
 
-    private static Label createHugeLabel() {
-        Label l = new Label("Database Login Credentials");
-        l.getStyleClass().add("form-label");
-        return l;
+    private static Label createHugeLbl() {
+        Label lbl = new Label("Database Login Credentials");
+        lbl.getStyleClass().add("form-lbl");
+        return lbl;
     }
 }

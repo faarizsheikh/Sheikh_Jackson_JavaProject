@@ -7,8 +7,8 @@ import javafx.scene.text.*;
 
 public class NodeConsts {
     public static Text createTabTitle(String text) {
-        Text t = new Text(text);
-        t.getStyleClass().add("tab-title");
-        return t;
+        Text txt = new Text(text);
+        txt.getStyleClass().add("tab-title");
+        return txt;
     }
 }
