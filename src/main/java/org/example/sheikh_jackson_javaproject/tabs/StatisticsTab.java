@@ -36,7 +36,6 @@ public class StatisticsTab extends Tab {
     }
 
     private void updateChart(String type) {
-
         ArrayList<String> names = new ArrayList<>();
         ArrayList<Integer> counts = new ArrayList<>();
 
@@ -55,8 +54,7 @@ public class StatisticsTab extends Tab {
 
         int total = gt.getAllGames().size();
 
-        ObservableList<PieChart.Data> data =
-                FXCollections.observableArrayList();
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
 
         for (int i = 0; i < names.size(); i++) {
             double percent = ((double) counts.get(i) / total) * 100;
