@@ -98,62 +98,6 @@ public class GameTable implements GameDAO {
         return games;
     }
 
-
-    public ArrayList<Developer> getAllDevelopers() {
-
-        ArrayList<Developer> devs = new ArrayList<>();
-
-        try {
-
-            ResultSet rs = db.getConnection()
-                    .createStatement()
-                    .executeQuery("SELECT * FROM " + TABLE_DEVELOPER);
-
-            while (rs.next()) {
-                devs.add(new Developer(
-                        rs.getInt(DEV_COLUMN_ID),
-                        rs.getString(DEV_COLUMN_NAME)
-                ));
-            }
-
-            Log.info("Loaded " + devs.size() + " developers.");
-
-        } catch (SQLException e) {
-            Log.error("Failed to load developers.", e);
-        }
-
-        return devs;
-    }
-
-
-    public ArrayList<Platform> getAllPlatforms() {
-
-        ArrayList<Platform> plats = new ArrayList<>();
-
-        try {
-
-            ResultSet rs = db.getConnection()
-                    .createStatement()
-                    .executeQuery("SELECT * FROM " + TABLE_PLATFORM);
-
-            while (rs.next()) {
-                plats.add(new Platform(
-                        rs.getInt(PLAT_COLUMN_ID),
-                        rs.getString(PLAT_COLUMN_NAME)
-                ));
-            }
-
-            Log.info("Loaded " + plats.size() + " platforms.");
-
-        } catch (SQLException e) {
-            Log.error("Failed to load platforms.", e);
-        }
-
-        return plats;
-    }
-
-
-
     public void addGame(Game game) {
 
         String query =
@@ -177,26 +121,6 @@ public class GameTable implements GameDAO {
 
         } catch (SQLException e) {
             Log.error("Failed to add game: " + game.getTitle(), e);
-        }
-    }
-
-    @Override
-    public void deleteGame(int id) {
-
-        String query =
-                "DELETE FROM " + TABLE_GAME +
-                        " WHERE " + GAME_COLUMN_ID + " = ?";
-
-        try (PreparedStatement pstmt =
-                     db.getConnection().prepareStatement(query)) {
-
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-
-            Log.info("Game deleted (ID=" + id + ")");
-
-        } catch (SQLException e) {
-            Log.error("Failed to delete game ID=" + id, e);
         }
     }
 
@@ -227,5 +151,77 @@ public class GameTable implements GameDAO {
         } catch (SQLException e) {
             Log.error("Failed to update game ID=" + game.getId(), e);
         }
+    }
+
+    @Override
+    public void deleteGame(int id) {
+
+        String query =
+                "DELETE FROM " + TABLE_GAME +
+                        " WHERE " + GAME_COLUMN_ID + " = ?";
+
+        try (PreparedStatement pstmt =
+                     db.getConnection().prepareStatement(query)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+            Log.info("Game deleted (ID=" + id + ")");
+
+        } catch (SQLException e) {
+            Log.error("Failed to delete game ID=" + id, e);
+        }
+    }
+
+    public ArrayList<Developer> getAllDevelopers() {
+
+        ArrayList<Developer> devs = new ArrayList<>();
+
+        try {
+
+            ResultSet rs = db.getConnection()
+                    .createStatement()
+                    .executeQuery("SELECT * FROM " + TABLE_DEVELOPER);
+
+            while (rs.next()) {
+                devs.add(new Developer(
+                        rs.getInt(DEV_COLUMN_ID),
+                        rs.getString(DEV_COLUMN_NAME)
+                ));
+            }
+
+            Log.info("Loaded " + devs.size() + " developers.");
+
+        } catch (SQLException e) {
+            Log.error("Failed to load developers.", e);
+        }
+
+        return devs;
+    }
+
+    public ArrayList<Platform> getAllPlatforms() {
+
+        ArrayList<Platform> plats = new ArrayList<>();
+
+        try {
+
+            ResultSet rs = db.getConnection()
+                    .createStatement()
+                    .executeQuery("SELECT * FROM " + TABLE_PLATFORM);
+
+            while (rs.next()) {
+                plats.add(new Platform(
+                        rs.getInt(PLAT_COLUMN_ID),
+                        rs.getString(PLAT_COLUMN_NAME)
+                ));
+            }
+
+            Log.info("Loaded " + plats.size() + " platforms.");
+
+        } catch (SQLException e) {
+            Log.error("Failed to load platforms.", e);
+        }
+
+        return plats;
     }
 }

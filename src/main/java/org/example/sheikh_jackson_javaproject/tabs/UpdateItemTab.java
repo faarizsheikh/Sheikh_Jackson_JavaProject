@@ -12,15 +12,16 @@ import org.example.sheikh_jackson_javaproject.utils.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class UpdateItemTab extends Tab {
+
+    private static final String[] FORM_LABELS =
+            {"Search:", "New Title", "New Year", "New Genre", "New URL"};
+
     private final GameTable gt = GameTable.getInstance();
     private final ComboBox<Game> cB = new ComboBox<>();
     private final TextField tF = new TextField();
     private final TextField yF = new TextField();
     private final TextField gF = new TextField();
     private final TextField iF = new TextField();
-
-    private static final String[] FORM_LABELS =
-            {"Search:", "New Title", "New Year", "New Genre", "New URL"};
 
     public UpdateItemTab() {
         setGraphic(tabTitle("Update Game"));
@@ -101,7 +102,6 @@ public class UpdateItemTab extends Tab {
                     return;
                 }
 
-                // Apply updates
                 sel.setTitle(t);
                 sel.setYear(yearVal);
                 sel.setGenre(g);

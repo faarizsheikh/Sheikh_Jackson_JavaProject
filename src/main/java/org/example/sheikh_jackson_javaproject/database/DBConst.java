@@ -3,6 +3,7 @@
 package org.example.sheikh_jackson_javaproject.database;
 
 public class DBConst {
+
     // GAMES TABLE
     public static final String TABLE_GAME = "games";
     public static final String GAME_COLUMN_ID = "id";

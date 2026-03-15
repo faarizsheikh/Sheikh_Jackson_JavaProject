@@ -3,6 +3,7 @@
 package org.example.sheikh_jackson_javaproject.pojo;
 
 public class Game {
+
     private final int id;
     private int year;
     private final String developer;
@@ -21,18 +22,12 @@ public class Game {
         this.imageUrl = imageUrl;
     }
 
-    // ACCESSORS
-
     public int getId() {
         return id;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDeveloper() {
@@ -43,16 +38,8 @@ public class Game {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
     public String getGenre() {
         return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public String getPlatform() {
@@ -63,14 +50,24 @@ public class Game {
         return imageUrl;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
     @Override
     public String toString() {
-
-        // ID. TITLE
         return String.format("%s (%d) by %s", title, year, developer);
     }
 }

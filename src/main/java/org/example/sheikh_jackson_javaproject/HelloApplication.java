@@ -51,7 +51,6 @@ public class HelloApplication extends Application {
             stage.show();
         }
 
-        // Handle window close
         stage.setOnCloseRequest(e -> {
             e.consume();
             Log.info("Exit requested by user.");

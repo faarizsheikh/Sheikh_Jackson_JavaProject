@@ -16,6 +16,10 @@ public final class Log {
         return LocalDateTime.now().format(FORMAT);
     }
 
+    public static void error(String msg, Exception e) {
+        System.err.println("[ERROR " + time() + "] " + msg + " | " + e.getClass().getSimpleName() + ": " + e.getMessage());
+    }
+
     public static void info(String msg) {
         System.out.println("[INFO  " + time() + "] " + msg);
     }
@@ -24,7 +28,4 @@ public final class Log {
         System.out.println("[WARN  " + time() + "] " + msg);
     }
 
-    public static void error(String msg, Exception e) {
-        System.err.println("[ERROR " + time() + "] " + msg + " | " + e.getClass().getSimpleName() + ": " + e.getMessage());
-    }
 }

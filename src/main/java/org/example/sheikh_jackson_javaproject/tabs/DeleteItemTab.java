@@ -11,6 +11,7 @@ import org.example.sheikh_jackson_javaproject.utils.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class DeleteItemTab extends Tab {
+
     private final GameTable gt = GameTable.getInstance();
     private final ComboBox<Game> cB = new ComboBox<>();
 
@@ -83,7 +84,6 @@ public class DeleteItemTab extends Tab {
         container.getChildren().add(gP);
         setContent(container);
 
-        // Auto refresh when tab selected
         setOnSelectionChanged(e -> {
             if (isSelected()) {
                 Log.info("Delete tab selected. Refreshing game list.");

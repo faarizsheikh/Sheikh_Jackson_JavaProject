@@ -12,20 +12,20 @@ import org.example.sheikh_jackson_javaproject.utils.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class AddItemTab extends Tab {
-    private final GameTable gt = GameTable.getInstance();
-
-    private final ComboBox<Developer> dCB = new ComboBox<>();
-    private final ComboBox<Platform> pCB = new ComboBox<>();
-    private final TextField tF = new TextField();
-    private final TextField yF = new TextField();
-    private final TextField gF = new TextField();
-    private final TextField iF = new TextField();
 
     private static final String[] FORM_LABELS =
             {"Title", "Developer", "Year", "Genre", "Platform", "URL"};
 
     private static final String[] PROMPTS =
             {"-- Select Developer --", "-- Select Platform --"};
+
+    private final GameTable gt = GameTable.getInstance();
+    private final ComboBox<Developer> dCB = new ComboBox<>();
+    private final ComboBox<Platform> pCB = new ComboBox<>();
+    private final TextField tF = new TextField();
+    private final TextField yF = new TextField();
+    private final TextField gF = new TextField();
+    private final TextField iF = new TextField();
 
     public AddItemTab() {
         setGraphic(tabTitle("Add Game"));
@@ -47,7 +47,6 @@ public class AddItemTab extends Tab {
         for (int i = 0; i < inputs.length; i++) gP.addRow(i, formLabel(FORM_LABELS[i] + ":"), inputs[i]);
         for (int i = 0; i < comboBoxes.length; i++) comboBoxes[i].setPromptText(PROMPTS[i]);
 
-        // Extra Large Button
         Button btn = NodeConsts.button("ADD TO LIBRARY", "add-btn");
         gP.add(btn, 1, 6);
 

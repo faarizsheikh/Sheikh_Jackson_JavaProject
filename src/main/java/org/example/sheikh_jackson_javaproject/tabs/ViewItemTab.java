@@ -10,10 +10,11 @@ import org.example.sheikh_jackson_javaproject.tables.GameTable;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class ViewItemTab extends Tab {
-    private final VBox container = new VBox(5);
 
     private static final String[] COLS =
             {"ID", "TITLE", "DEVELOPER", "YEAR", "GENRE", "PLATFORM", "IMAGE"};
+
+    private final VBox container = new VBox(5);
 
     public ViewItemTab() {
         setGraphic(tabTitle("View Games"));
@@ -47,7 +48,7 @@ public class ViewItemTab extends Tab {
             if (i == 6 && !isHeader) {
                 row.getChildren().add(gameImage(cols[i]));
 
-            } else { // Otherwise, keep using a Label
+            } else {
                 Label lbl = tableLabel(cols[i], columnWidth(i));
 
                 if (isHeader) {

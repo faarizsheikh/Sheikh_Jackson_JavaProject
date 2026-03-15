@@ -14,22 +14,34 @@ import org.example.sheikh_jackson_javaproject.HelloApplication;
 
 public class NodeConsts {
 
-    public static final double FIELD_WIDTH = 450;
     public static final double BTN_HEIGHT = 60;
+    public static final double FIELD_WIDTH = 450;
     public static final double SCENE_WIDTH = 1699;
     public static final double SCENE_HEIGHT = 989;
 
+    private NodeConsts() {}
 
-    public static Text tabTitle(String text) {
-        Text txt = new Text(text);
-        txt.getStyleClass().add("tab-title");
-        return txt;
+    public static BorderPane root(Stage stage) {
+        BorderPane root = new BorderPane();
+        root.prefWidthProperty().bind(stage.widthProperty());
+        root.prefHeightProperty().bind(stage.heightProperty());
+        return root;
     }
 
-    public static Label formLabel(String text) {
-        Label lbl = new Label(text);
-        lbl.getStyleClass().add("form-lbl");
-        return lbl;
+    public static GridPane gP() {
+        GridPane gP = new GridPane();
+        gP.setAlignment(Pos.CENTER);
+        gP.setHgap(20);
+        gP.setVgap(20);
+        gP.setPadding(new Insets(40));
+        return gP;
+    }
+
+    public static VBox vBox() {
+        VBox container = new VBox();
+        container.setAlignment(Pos.CENTER);
+        container.setPadding(new Insets(50));
+        return container;
     }
 
     public static Button button(String text, String style) {
@@ -40,7 +52,12 @@ public class NodeConsts {
         return btn;
     }
 
-    // Table label creator
+    public static Label formLabel(String text) {
+        Label lbl = new Label(text);
+        lbl.getStyleClass().add("form-lbl");
+        return lbl;
+    }
+
     public static Label tableLabel(String text, double width) {
         Label lbl = new Label(text);
         lbl.setPrefWidth(width);
@@ -48,7 +65,12 @@ public class NodeConsts {
         return lbl;
     }
 
-    // Standard column widths
+    public static Text tabTitle(String text) {
+        Text txt = new Text(text);
+        txt.getStyleClass().add("tab-title");
+        return txt;
+    }
+
     public static double columnWidth(int i) {
         return switch (i) {
             case 0, 3 -> 75; // ID, YEAR
@@ -59,27 +81,7 @@ public class NodeConsts {
         };
     }
 
-    /**
-     * Unified alert: can pass multiple Labels or Texts, keeps CSS styling
-     */
-    public static void alert(Alert.AlertType type, String title, String header, Node... nodes) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-
-        VBox box = new VBox(5);
-        box.getChildren().addAll(nodes);
-
-        // Add stylesheet
-        applyCSS(alert);
-
-        alert.getDialogPane().setContent(box);
-        alert.showAndWait();
-    }
-
-    // Game image loader
     public static ImageView gameImage(String url) {
-
         ImageView iv = new ImageView();
         iv.setFitHeight(350);
         iv.setFitWidth(350);
@@ -110,7 +112,43 @@ public class NodeConsts {
         return iv;
     }
 
-    // -------------------- EXIT & CREDITS --------------------
+    public static MenuBar mainMenu() {
+
+        MenuBar menuBar = new MenuBar();
+
+        Menu fileMenu = new Menu("File");
+        Menu creditsMenu = new Menu("Credits");
+
+        MenuItem exitItem = new MenuItem("Exit");
+        MenuItem aboutItem = new MenuItem("Developers");
+        MenuItem resItem = new MenuItem("Used Resources");
+
+        fileMenu.getItems().add(exitItem);
+        creditsMenu.getItems().addAll(aboutItem, resItem);
+
+        menuBar.getMenus().addAll(fileMenu, creditsMenu);
+
+        exitItem.setOnAction(e -> showExitConfirmation());
+        aboutItem.setOnAction(e -> devCredits());
+        resItem.setOnAction(e -> resourceCredits());
+
+        return menuBar;
+    }
+
+    public static void alert(Alert.AlertType type, String title, String header, Node... nodes) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+
+        VBox box = new VBox(5);
+        box.getChildren().addAll(nodes);
+
+        applyCSS(alert);
+
+        alert.getDialogPane().setContent(box);
+        alert.showAndWait();
+    }
+
     public static void showExitConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Confirmation");
@@ -183,54 +221,6 @@ public class NodeConsts {
         resList.getStyleClass().add("res-list");
 
         alert(Alert.AlertType.INFORMATION, "Resources Credits", "RESOURCES", resList);
-    }
-
-    // -------------------- COMMON MENU BAR --------------------
-    public static MenuBar mainMenu() {
-
-        MenuBar menuBar = new MenuBar();
-
-        Menu fileMenu = new Menu("File");
-        Menu creditsMenu = new Menu("Credits");
-
-        MenuItem exitItem = new MenuItem("Exit");
-        MenuItem aboutItem = new MenuItem("Developers");
-        MenuItem resItem = new MenuItem("Used Resources");
-
-        fileMenu.getItems().add(exitItem);
-        creditsMenu.getItems().addAll(aboutItem, resItem);
-
-        menuBar.getMenus().addAll(fileMenu, creditsMenu);
-
-        // actions
-        exitItem.setOnAction(e -> showExitConfirmation());
-        aboutItem.setOnAction(e -> devCredits());
-        resItem.setOnAction(e -> resourceCredits());
-
-        return menuBar;
-    }
-
-    public static BorderPane root(Stage stage) {
-        BorderPane root = new BorderPane();
-        root.prefWidthProperty().bind(stage.widthProperty());
-        root.prefHeightProperty().bind(stage.heightProperty());
-        return root;
-    }
-
-    public static GridPane gP() {
-        GridPane gP = new GridPane();
-        gP.setAlignment(Pos.CENTER);
-        gP.setHgap(20);
-        gP.setVgap(20);
-        gP.setPadding(new Insets(40));
-        return gP;
-    }
-
-    public static VBox vBox() {
-        VBox container = new VBox();
-        container.setAlignment(Pos.CENTER);
-        container.setPadding(new Insets(50));
-        return container;
     }
 
     public static void applyCSS(Scene scene) {

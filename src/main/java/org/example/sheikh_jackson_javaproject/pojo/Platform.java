@@ -3,6 +3,7 @@
 package org.example.sheikh_jackson_javaproject.pojo;
 
 public class Platform {
+
     private final int id;
     private final String name;
 

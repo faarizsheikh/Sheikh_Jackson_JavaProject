@@ -6,6 +6,7 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 
 public class HelloController {
+
     @FXML
     private Label welcomeText;
 

@@ -13,19 +13,17 @@ import org.example.sheikh_jackson_javaproject.database.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.formLabel;
 
 public class LoginScene {
+
     private static final String[] FORM_LABELS =
             {"Username", "Password", "Server (localhost or IP)", "Database Name"};
 
     public static Scene create(Stage stage) {
         stage.setMaximized(true);
 
-        // --- ROOT BORDERPANE ---
         BorderPane root = NodeConsts.root(stage);
 
-        // --- MENU BAR LIKE MAIN SCENE ---
         root.setTop(NodeConsts.mainMenu());
 
-        // --- LOGIN FORM IN CENTER ---
         VBox loginBox = new VBox(20);
         loginBox.setAlignment(Pos.CENTER);
         loginBox.setPadding(new Insets(50));
@@ -45,8 +43,7 @@ public class LoginScene {
         for (int i = 0; i < textFields.length; i++) textFields[i].setPromptText(FORM_LABELS[i]);
 
         Button loginBtn = new Button("Connect");
-        loginBtn.getStyleClass().addAll("btn", "add-btn"); // Styled like AddItemTab
-        loginBtn.setPrefHeight(60);
+        loginBtn.getStyleClass().addAll("btn", "add-btn");
         loginBtn.setMaxWidth(Double.MAX_VALUE);
 
         loginBox.getChildren().addAll(
@@ -54,12 +51,10 @@ public class LoginScene {
                 userField, passField, serverField, dbField, loginBtn
         );
 
-        // Center loginBox
         StackPane centerPane = new StackPane(loginBox);
         centerPane.setAlignment(Pos.CENTER);
         root.setCenter(centerPane);
 
-        // --- LOGIN BUTTON ACTION ---
         loginBtn.setOnAction(e -> {
             String user = userField.getText().trim(),
                     pass = passField.getText().trim(),
@@ -95,7 +90,6 @@ public class LoginScene {
             }
         });
 
-        // --- CREATE SCENE ---
         Scene scene = new Scene(root, NodeConsts.SCENE_WIDTH, NodeConsts.SCENE_HEIGHT);
         NodeConsts.applyCSS(scene);
         return scene;

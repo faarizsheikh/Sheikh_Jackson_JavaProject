@@ -7,6 +7,7 @@ import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 public class Database {
+
     private static Database instance;
     private final Connection connection;
 
@@ -39,7 +40,6 @@ public class Database {
         }
     }
 
-    // Get instance with parameters (first time initialization)
     public static void getInstance(String user, String pass, String server, String dbName) {
         if (instance == null) {
             try {
@@ -47,14 +47,13 @@ public class Database {
                 Log.info("Database singleton instance created.");
             } catch (SQLException | ClassNotFoundException e) {
                 Log.error("Failed to initialize database connection.", e);
-                throw new RuntimeException(e); // optional: rethrow as unchecked
+                throw new RuntimeException(e);
             }
         } else {
             Log.info("Database instance already exists. Reusing singleton.");
         }
     }
 
-    // Get existing instance
     public static Database getInstance() {
         if (instance == null) {
             Log.warn("Database instance requested before initialization.");
