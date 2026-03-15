@@ -50,7 +50,13 @@ public class NodeConsts {
 
     // Standard column widths
     public static double columnWidth(int i) {
-        return (i == 0 || i == 3) ? 75 : (i == 1) ? 400 : 200;
+        return switch (i) {
+            case 0, 3 -> 75; // ID, YEAR
+            case 1, 4 -> 350; // TITLE
+            case 2 -> 205; // DEVELOPER
+            case 5 -> 150; // GENRE & PLATFORM
+            default -> 100; // fallback
+        };
     }
 
     /**
