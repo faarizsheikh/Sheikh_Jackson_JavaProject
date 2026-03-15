@@ -4,9 +4,9 @@ package org.example.sheikh_jackson_javaproject;
 
 import java.util.*;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.sheikh_jackson_javaproject.database.*;
 import org.example.sheikh_jackson_javaproject.tabs.*;
@@ -18,38 +18,44 @@ public class HelloApplication extends Application {
     public void start(Stage stage) {
 
         Log.info("Application starting...");
-
         stage.setMaximized(true);
 
-        try {
-            Properties props = DBConfig.loadConfig();
+        IntroAnimation.play(stage, () -> {
 
-            if (props != null) {
+            try {
+                Properties props = DBConfig.loadConfig();
 
-                Log.info("Database config found. Attempting connection...");
+                if (props != null) {
 
-                Database.getInstance(
-                        props.getProperty("user"),
-                        props.getProperty("password"),
-                        props.getProperty("server"),
-                        props.getProperty("database")
-                );
-                Log.info("Database connection successful.");
-                showMainScene(stage);
+                    Log.info("Database config found. Attempting connection...");
 
-            } else {
-                Log.warn("No saved DB configuration found. Showing login scene.");
+                    Database.getInstance(
+                            props.getProperty("user"),
+                            props.getProperty("password"),
+                            props.getProperty("server"),
+                            props.getProperty("database")
+                    );
+
+                    Log.info("Database connection successful.");
+                    showMainScene(stage);
+
+                } else {
+
+                    Log.warn("No saved DB configuration found.");
+                    stage.setScene(LoginScene.create(stage));
+                    stage.setTitle("Database Login");
+                    stage.show();
+                }
+
+            } catch (Exception e) {
+
+                Log.error("Application startup failed.", e);
                 stage.setScene(LoginScene.create(stage));
                 stage.setTitle("Database Login");
                 stage.show();
             }
 
-        } catch (Exception e) {
-            Log.error("Application startup failed.", e);
-            stage.setScene(LoginScene.create(stage));
-            stage.setTitle("Database Login");
-            stage.show();
-        }
+        });
 
         stage.setOnCloseRequest(e -> {
             e.consume();

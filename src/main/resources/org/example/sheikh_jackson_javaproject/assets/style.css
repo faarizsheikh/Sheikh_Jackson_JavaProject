@@ -22,7 +22,7 @@
 .tab-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-fill: #fff;
+    -fx-fill: white;
 }
 
 /* TAB COLORS */
@@ -72,7 +72,7 @@
     -fx-cursor: hand;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
-    -fx-text-fill: #fff;
+    -fx-text-fill: white;
 }
 
 .add-btn:hover {
@@ -95,7 +95,7 @@
 }
 
 .table-header .label {
-    -fx-text-fill: #fff;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
@@ -133,4 +133,14 @@
 .login-box {
     -fx-background-color: rgba(255,255,255,0.85);
     -fx-background-radius: 10;
+}
+
+.intro-bg {
+    -fx-background-color: black;
+}
+
+.intro-logo{
+    -fx-font-size: 90px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
 }
