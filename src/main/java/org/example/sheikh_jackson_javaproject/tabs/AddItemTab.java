@@ -2,18 +2,18 @@
 
 package org.example.sheikh_jackson_javaproject.tabs;
 
-import javafx.geometry.*;
-import javafx.scene.text.Text;
-import org.example.sheikh_jackson_javaproject.HelloApplication;
-import org.example.sheikh_jackson_javaproject.pojo.*;
-import org.example.sheikh_jackson_javaproject.tables.*;
-import org.example.sheikh_jackson_javaproject.Constants.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import java.time.Year;
-import java.util.Objects;
+import org.example.sheikh_jackson_javaproject.pojo.*;
+import org.example.sheikh_jackson_javaproject.tables.*;
+import org.example.sheikh_jackson_javaproject.utils.*;
+import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class AddItemTab extends Tab {
+    private final GameTable gt = GameTable.getInstance();
+
     private final ComboBox<Developer> dCB = new ComboBox<>();
     private final ComboBox<Platform> pCB = new ComboBox<>();
     private final TextField tF = new TextField();
@@ -21,228 +21,130 @@ public class AddItemTab extends Tab {
     private final TextField gF = new TextField();
     private final TextField iF = new TextField();
 
+    private static final String[] FORM_LABELS =
+            {"Title", "Developer", "Year", "Genre", "Platform", "URL"};
+
+    private static final String[] PROMPTS =
+            {"-- Select Developer --", "-- Select Platform --"};
+
     public AddItemTab() {
-        setGraphic(NodeConsts.createTabTitle("Add Game"));
+        setGraphic(tabTitle("Add Game"));
 
-        VBox container = new VBox();
-        container.setAlignment(Pos.CENTER);
-        container.setPadding(new Insets(50)); // Large outer padding
+        VBox container = NodeConsts.vBox();
+        GridPane gP = NodeConsts.gP();
 
-        GridPane gP = new GridPane();
-        gP.setHgap(20); // More horizontal space
-        gP.setVgap(20); // More vertical space
-        gP.setPadding(new Insets(40));
-        gP.setAlignment(Pos.CENTER);
+        Control[] inputs = {tF, dCB, yF, gF, pCB, iF};
+        ComboBox<?>[] comboBoxes = {dCB, pCB};
+        TextField[] txtFields = {tF, yF, gF, iF};
 
-        // Form styling
-        double wideWidth = 450; // Much wider inputs
-
-        Control[] inputs = {tF, yF, gF, iF, dCB, pCB};
         for (Control input : inputs) {
-            input.setPrefWidth(wideWidth);
+            input.setPrefWidth(NodeConsts.FIELD_WIDTH);
             input.getStyleClass().add("form-input");
         }
+        dCB.getItems().setAll(gt.getAllDevelopers());
+        pCB.getItems().setAll(gt.getAllPlatforms());
 
-        dCB.getItems().setAll(GameTable.getInstance().getAllDevelopers());
-        dCB.setPromptText("-- Select Developer --");
-
-        pCB.getItems().setAll(GameTable.getInstance().getAllPlatforms());
-        pCB.setPromptText("-- Select Platform --");
-
-        // Layout rows with Large Labels
-        gP.addRow(0, createHugeLbl("Title:"), tF);
-        gP.addRow(1, createHugeLbl("Developer:"), dCB);
-        gP.addRow(2, createHugeLbl("Year:"), yF);
-        gP.addRow(3, createHugeLbl("Genre:"), gF);
-        gP.addRow(4, createHugeLbl("Platform:"), pCB);
-        gP.addRow(5, createHugeLbl("URL:"), iF);
+        for (int i = 0; i < inputs.length; i++) gP.addRow(i, formLabel(FORM_LABELS[i] + ":"), inputs[i]);
+        for (int i = 0; i < comboBoxes.length; i++) comboBoxes[i].setPromptText(PROMPTS[i]);
 
         // Extra Large Button
-        Button btn = new Button("ADD TO LIBRARY");
-        btn.getStyleClass().addAll("btn", "add-btn");
-        btn.setPrefWidth(wideWidth);
-        btn.setPrefHeight(60);
+        Button btn = NodeConsts.button("ADD TO LIBRARY", "add-btn");
         gP.add(btn, 1, 6);
 
         btn.setOnAction(e -> {
             try {
-                String t = tF.getText().trim(), y = yF.getText().trim(), g = gF.getText().trim(), i = iF.getText().trim();
+                String t = tF.getText().trim(), y = yF.getText().trim(),
+                        g = gF.getText().trim(), i = iF.getText().trim();
 
-                if (t.isEmpty() || y.isEmpty() || g.isEmpty() || i.isEmpty() || dCB.getValue() == null || pCB.getValue() == null)
+                if (t.isEmpty() || dCB.getValue() == null || y.isEmpty()
+                        || g.isEmpty() || pCB.getValue() == null || i.isEmpty()) {
+                    Log.warn("Attempted to add game with missing fields");
                     throw new Exception("All fields must be filled to add!");
+                }
 
-                int yearVal = Integer.parseInt(y);
-                int currentYear = Year.now().getValue();
+                int yearVal = Integer.parseInt(y),
+                        currentYear = Year.now().getValue();
+
                 if (yearVal < 1950 || yearVal > currentYear) {
-
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Invalid Year");
-                    alert.setHeaderText("WARNING!");
-
-                    VBox box = new VBox(5);
-                    alert.getDialogPane().getStylesheets().add(
-                            Objects.requireNonNull(HelloApplication.class.getResource(
-                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                    .toExternalForm()
+                    Log.warn("Invalid year entered for game: " + yearVal);
+                    NodeConsts.alert(Alert.AlertType.WARNING, "Invalid Year", "WARNING!",
+                            new Text("Year must be between 1950 and " + currentYear)
+                            {{
+                                getStyleClass().add("side-note");
+                            }}
                     );
-
-                    Text yearFail = new Text("Invalid Year: Range 1950 - " + currentYear);
-                    yearFail.getStyleClass().add("side-note");
-
-                    box.getChildren().add(
-                            yearFail
-                    );
-
-                    alert.getDialogPane().setContent(box);
-                    alert.showAndWait();
                     return;
                 }
-
                 String iLow = i.toLowerCase();
+
                 if (!iLow.startsWith("http://")
-                        && !iLow.startsWith("https://")
-                        && !iLow.startsWith("www.")) {
-
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Invalid URL");
-                    alert.setHeaderText("WARNING!");
-
-                    VBox box = new VBox(5);
-                    alert.getDialogPane().getStylesheets().add(
-                            Objects.requireNonNull(HelloApplication.class.getResource(
-                                            "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                    .toExternalForm()
+                        && !iLow.startsWith("https://") && !iLow.startsWith("www.")) {
+                    Log.warn("Invalid URL entered: " + i);
+                    NodeConsts.alert(Alert.AlertType.WARNING, "Invalid URL", "WARNING!",
+                            new Text("URL must start with http://, https://, or www.")
+                            {{
+                                getStyleClass().add("side-note");
+                            }}
                     );
-
-                    Text urlFail = new Text("URL must start with http://, https://, or www.");
-                    urlFail.getStyleClass().add("side-note");
-
-                    box.getChildren().add(
-                            urlFail
-                    );
-
-                    alert.getDialogPane().setContent(box);
-                    alert.showAndWait();
                     return;
                 }
+                int dId = dCB.getValue().getId(),
+                        pId = pCB.getValue().getId();
 
-                int dId = dCB.getValue().getId(), pId = pCB.getValue().getId();
-
-                for (Game game : GameTable.getInstance().getAllGames()) {
-                    if (game.getTitle().equalsIgnoreCase(t) && game.getYear() == yearVal && game.getPlatform().equals(pCB.getValue().toString())) {
-
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setTitle("Double Trouble");
-                        alert.setHeaderText("WARNING!");
-
-                        VBox box = new VBox(5);
-                        alert.getDialogPane().getStylesheets().add(
-                                Objects.requireNonNull(HelloApplication.class.getResource(
-                                                "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                        .toExternalForm()
+                for (Game game : gt.getAllGames()) {
+                    if (game.getTitle().equalsIgnoreCase(t)
+                            && game.getYear() == yearVal && game.getPlatform().equals(pCB.getValue().toString())) {
+                        Log.warn("Duplicate game detected: " + t + " (" + yearVal + ")");
+                        NodeConsts.alert(Alert.AlertType.WARNING, "Double Trouble", "WARNING!",
+                                new Text("Duplicate found on this platform!")
+                                {{
+                                    getStyleClass().add("side-note");
+                                }}
                         );
-
-                        Text doubleTrouble = new Text("Duplicate found on this platform!");
-                        doubleTrouble.getStyleClass().add("side-note");
-
-                        box.getChildren().add(
-                                doubleTrouble
-                        );
-
-                        alert.getDialogPane().setContent(box);
-                        alert.showAndWait();
                         return;
                     }
                 }
 
-                GameTable.getInstance().addGame(new Game(0, t, String.valueOf(dId), yearVal, g, String.valueOf(pId), i));
+                gt.addGame(
+                        new Game(0, t, String.valueOf(dId), yearVal, g, String.valueOf(pId), i));
+                Log.info("Game added: " + t + " (" + yearVal + ") by " + dCB.getValue());
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Added to library");
-                alert.setHeaderText("SUBMISSION DETAILS");
-
-                VBox box = new VBox(5);
-                alert.getDialogPane().getStylesheets().add(
-                        Objects.requireNonNull(HelloApplication.class.getResource(
-                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                .toExternalForm()
+                NodeConsts.alert(Alert.AlertType.INFORMATION, "Added to Library", "SUBMISSION DETAILS",
+                        new Text(
+                                String.format("We've added %s (%d), a game created by %s.",
+                                        t, yearVal, dCB.getValue()))
+                        {{
+                            getStyleClass().add("side-note");
+                        }}
                 );
 
-                Text submitTxt = new Text(
-                        String.format("We've added %s (%d), a game created by %s.",
-                                t, yearVal, dCB.getValue())
-                );
-                submitTxt.getStyleClass().add("side-note");
+                for (TextField txtField : txtFields) txtField.clear();
 
-                box.getChildren().add(
-                        submitTxt
-                );
-
-                alert.getDialogPane().setContent(box);
-                alert.showAndWait();
-
-                tF.clear();
-                yF.clear();
-                gF.clear();
-                iF.clear();
-                dCB.getSelectionModel().clearSelection();
-                dCB.setValue(null);
-                pCB.getSelectionModel().clearSelection();
-                pCB.setValue(null);
+                for (ComboBox<?> comboBox : comboBoxes) {
+                    comboBox.getSelectionModel().clearSelection();
+                    comboBox.setValue(null);
+                }
 
             } catch (NumberFormatException nfe) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Invalid Year");
-                alert.setHeaderText("WARNING!");
-
-                VBox box = new VBox(5);
-                alert.getDialogPane().getStylesheets().add(
-                        Objects.requireNonNull(HelloApplication.class.getResource(
-                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                .toExternalForm()
+                Log.warn("Non-numeric year entered: " + yF.getText());
+                NodeConsts.alert(Alert.AlertType.WARNING, "Invalid Year", "WARNING!",
+                        new Text("Year must be a number")
+                        {{
+                            getStyleClass().add("side-note");
+                        }}
                 );
-
-                Text yearFail = new Text("Year must be a number");
-                yearFail.getStyleClass().add("side-note");
-
-                box.getChildren().add(
-                        yearFail
-                );
-
-                alert.getDialogPane().setContent(box);
-                alert.showAndWait();
 
             } catch (Exception ex) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Missing fields");
-                alert.setHeaderText("WARNING!");
-
-                VBox box = new VBox(5);
-                alert.getDialogPane().getStylesheets().add(
-                        Objects.requireNonNull(HelloApplication.class.getResource(
-                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                .toExternalForm()
+                Log.error("Failed to add game: " + ex.getMessage(), ex);
+                NodeConsts.alert(Alert.AlertType.WARNING, "Missing Fields", "WARNING!",
+                        new Text(ex.getMessage())
+                        {{
+                            getStyleClass().add("side-note");
+                        }}
                 );
-
-                Text missingFields = new Text(ex.getMessage());
-                missingFields.getStyleClass().add("side-note");
-
-                box.getChildren().add(
-                        missingFields
-                );
-
-                alert.getDialogPane().setContent(box);
-                alert.showAndWait();
             }
         });
-
         container.getChildren().add(gP);
         setContent(container);
-    }
-
-    private Label createHugeLbl(String text) {
-        Label lbl = new Label(text);
-        lbl.getStyleClass().add("form-lbl");
-        return lbl;
     }
 }

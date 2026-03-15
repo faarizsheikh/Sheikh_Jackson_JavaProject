@@ -34,20 +34,20 @@
     -fx-font-size: 32px;
 }
 
-.add-tab {
+.add-tab, .add-btn {
     -fx-background-color: blue;
 }
 
-.delete-tab {
+.delete-tab, .delete-btn {
     -fx-background-color: red;
+}
+
+.update-tab, .update-btn  {
+    -fx-background-color: green;
 }
 
 .stats-tab {
     -fx-background-color: purple;
-}
-
-.update-tab {
-    -fx-background-color: green;
 }
 
 .view-tab {
@@ -75,24 +75,12 @@
     -fx-text-fill: #fff;
 }
 
-.add-btn {
-    -fx-background-color: blue;
-}
-
 .add-btn:hover {
     -fx-background-color: darkblue;
 }
 
-.update-btn {
-    -fx-background-color: green;
-}
-
 .update-btn:hover {
     -fx-background-color: darkgreen;
-}
-
-.delete-btn {
-    -fx-background-color: red;
 }
 
 .delete-btn:hover {

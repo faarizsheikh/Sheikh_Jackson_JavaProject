@@ -3,10 +3,10 @@
 package org.example.sheikh_jackson_javaproject.tabs;
 
 import javafx.scene.control.*;
-import org.example.sheikh_jackson_javaproject.Constants.NodeConsts;
+import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.tabTitle;
 
 public class StatisticsTab extends Tab {
     public StatisticsTab() {
-        setGraphic(NodeConsts.createTabTitle("Statistics"));
+        setGraphic(tabTitle("Statistics"));
     }
 }

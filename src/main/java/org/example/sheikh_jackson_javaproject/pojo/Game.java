@@ -3,8 +3,13 @@
 package org.example.sheikh_jackson_javaproject.pojo;
 
 public class Game {
-    private int id, year;
-    private String developer, genre, imageUrl, platform, title;
+    private final int id;
+    private int year;
+    private final String developer;
+    private String genre;
+    private String imageUrl;
+    private final String platform;
+    private String title;
 
     public Game(int id, String title, String developer, int year, String genre, String platform, String imageUrl) {
         this.id = id;
@@ -22,10 +27,6 @@ public class Game {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -36,10 +37,6 @@ public class Game {
 
     public String getDeveloper() {
         return developer;
-    }
-
-    public void setDeveloper(String developer) {
-        this.developer = developer;
     }
 
     public int getYear() {
@@ -60,10 +57,6 @@ public class Game {
 
     public String getPlatform() {
         return platform;
-    }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
     }
 
     public String getImageUrl() {

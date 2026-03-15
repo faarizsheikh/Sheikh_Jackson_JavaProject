@@ -1,21 +1,22 @@
 // ViewItemTab.java:
 
 package org.example.sheikh_jackson_javaproject.tabs;
+
+import javafx.geometry.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import org.example.sheikh_jackson_javaproject.pojo.Game;
 import org.example.sheikh_jackson_javaproject.tables.GameTable;
-import org.example.sheikh_jackson_javaproject.Constants.*;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
-import javafx.geometry.*;
-import java.util.Objects;
+import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class ViewItemTab extends Tab {
-
     private final VBox container = new VBox(5);
 
+    private static final String[] COLS =
+            {"ID", "TITLE", "DEVELOPER", "YEAR", "GENRE", "PLATFORM", "IMAGE"};
+
     public ViewItemTab() {
-        setGraphic(NodeConsts.createTabTitle("View Games"));
+        setGraphic(tabTitle("View Games"));
 
         container.setPadding(new Insets(15));
         ScrollPane sp = new ScrollPane(container);
@@ -27,9 +28,11 @@ public class ViewItemTab extends Tab {
 
     private void refresh() {
         container.getChildren().clear();
-        addRow(true, "ID", "TITLE", "DEVELOPER", "YEAR", "GENRE", "PLATFORM", "IMAGE");
+       addRow(true, COLS);
+
         for (Game g : GameTable.getInstance().getAllGames()) {
-            addRow(false, String.valueOf(g.getId()), g.getTitle(), g.getDeveloper(),
+            addRow(false,
+                    String.valueOf(g.getId()), g.getTitle(), g.getDeveloper(),
                     String.valueOf(g.getYear()), g.getGenre(), g.getPlatform(), g.getImageUrl());
         }
     }
@@ -41,57 +44,19 @@ public class ViewItemTab extends Tab {
         row.getStyleClass().add(isHeader ? "table-header" : "table-row");
 
         for (int i = 0; i < cols.length; i++) {
-            // If it's the last column (index 6) and NOT the header, show an ImageView
-            // Inside addRow method, replace the index 6 (Image) logic:
-
             if (i == 6 && !isHeader) {
-                ImageView iv = new ImageView();
-                iv.setFitHeight(350);
-                iv.setFitWidth(350);
-                iv.setPreserveRatio(true);
+                row.getChildren().add(gameImage(cols[i]));
 
-                Image defaultImg = new Image(
-                        Objects.requireNonNull(
-                                getClass().getResourceAsStream(
-                                        "/org/example/sheikh_jackson_javaproject/assets/default.png"
-                                )
-                        )
-                );
-
-                try {
-                    if (cols[i] == null || cols[i].trim().isEmpty()) {
-                        iv.setImage(defaultImg);
-                    } else {
-
-                        Image img = new Image(cols[i], true);
-
-                        img.errorProperty().addListener((obs, oldVal, newVal) -> {
-                            if (newVal) {
-                                iv.setImage(defaultImg);
-                            }
-                        });
-
-                        iv.setImage(img);
-                    }
-                } catch (Exception e) {
-                    iv.setImage(defaultImg);
-                }
-                row.getChildren().add(iv);
-            } else {
-                // Otherwise, keep using a Label
-                Label lbl = new Label(cols[i]);
-                lbl.setPrefWidth(i == 0 || i == 3 ? 75 : i == 1 ? 400 : 200); // Standard width for most columns (used to be 50 : 250)
+            } else { // Otherwise, keep using a Label
+                Label lbl = tableLabel(cols[i], columnWidth(i));
 
                 if (isHeader) {
                     lbl.getStyleClass().add("label");
-                } else {
-                    if (i == 0) {
-                        lbl.getStyleClass().add("id-lbl");
-                    }
-                }
 
+                } else {
+                    if (i == 0) lbl.getStyleClass().add("id-lbl");
+                }
                 row.getChildren().add(lbl);
-                lbl.getStyleClass().add("table-lbl");
             }
         }
         container.getChildren().add(row);

@@ -2,8 +2,8 @@
 
 package org.example.sheikh_jackson_javaproject.dao;
 
-import org.example.sheikh_jackson_javaproject.pojo.*;
 import java.util.ArrayList;
+import org.example.sheikh_jackson_javaproject.pojo.*;
 
 public interface GameDAO {
     ArrayList<Game> getAllGames();

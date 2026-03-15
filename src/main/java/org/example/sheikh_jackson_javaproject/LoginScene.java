@@ -8,38 +8,22 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.example.sheikh_jackson_javaproject.utils.NodeConsts;
 import org.example.sheikh_jackson_javaproject.database.*;
-import java.util.Objects;
+import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.formLabel;
 
 public class LoginScene {
+    private static final String[] FORM_LABELS =
+            {"Username", "Password", "Server (localhost or IP)", "Database Name"};
 
     public static Scene create(Stage stage) {
         stage.setMaximized(true);
 
         // --- ROOT BORDERPANE ---
-        BorderPane root = new BorderPane();
-        root.prefWidthProperty().bind(stage.widthProperty());
-        root.prefHeightProperty().bind(stage.heightProperty());
+        BorderPane root = NodeConsts.root(stage);
 
         // --- MENU BAR LIKE MAIN SCENE ---
-        MenuBar menuBar = new MenuBar();
-        Menu fileMenu = new Menu("File");
-        Menu creditsMenu = new Menu("Credits");
-
-        MenuItem exitItem = new MenuItem("Exit");
-        MenuItem aboutItem = new MenuItem("Developers");
-        MenuItem resItem = new MenuItem("Used Resources");
-
-        fileMenu.getItems().add(exitItem);
-        creditsMenu.getItems().addAll(aboutItem, resItem);
-        menuBar.getMenus().addAll(fileMenu, creditsMenu);
-
-        // Menu actions
-        exitItem.setOnAction(e -> System.exit(0));
-        aboutItem.setOnAction(e -> HelloApplication.devCredits());
-        resItem.setOnAction(e -> HelloApplication.resourceCredits());
-
-        root.setTop(menuBar);
+        root.setTop(NodeConsts.mainMenu());
 
         // --- LOGIN FORM IN CENTER ---
         VBox loginBox = new VBox(20);
@@ -48,21 +32,17 @@ public class LoginScene {
         loginBox.setMaxWidth(450);
         loginBox.getStyleClass().add("login-box");
 
-        TextField userField = new TextField();
+        TextField userField = new TextField(),
+                serverField = new TextField(),
+                dbField = new TextField();
+
         PasswordField passField = new PasswordField();
-        TextField serverField = new TextField();
-        TextField dbField = new TextField();
 
-        // Add CSS classes like AddItemTab
-        userField.getStyleClass().add("form-input");
-        passField.getStyleClass().add("form-input");
-        serverField.getStyleClass().add("form-input");
-        dbField.getStyleClass().add("form-input");
+        TextField[] textFields = {userField, passField, serverField, dbField};
 
-        userField.setPromptText("Username");
-        passField.setPromptText("Password");
-        serverField.setPromptText("Server (localhost or IP)");
-        dbField.setPromptText("Database Name");
+        for (TextField textField : textFields) textField.getStyleClass().add("form-input");
+
+        for (int i = 0; i < textFields.length; i++) textFields[i].setPromptText(FORM_LABELS[i]);
 
         Button loginBtn = new Button("Connect");
         loginBtn.getStyleClass().addAll("btn", "add-btn"); // Styled like AddItemTab
@@ -70,7 +50,7 @@ public class LoginScene {
         loginBtn.setMaxWidth(Double.MAX_VALUE);
 
         loginBox.getChildren().addAll(
-                createHugeLbl(),
+                formLabel("Database Login Credentials"),
                 userField, passField, serverField, dbField, loginBtn
         );
 
@@ -81,79 +61,43 @@ public class LoginScene {
 
         // --- LOGIN BUTTON ACTION ---
         loginBtn.setOnAction(e -> {
-            String user = userField.getText().trim();
-            String pass = passField.getText().trim();
-            String server = serverField.getText().trim();
-            String dbName = dbField.getText().trim();
+            String user = userField.getText().trim(),
+                    pass = passField.getText().trim(),
+                    server = serverField.getText().trim(),
+                    dbName = dbField.getText().trim();
 
             if (user.isEmpty() || pass.isEmpty() || server.isEmpty() || dbName.isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Missing information");
-                alert.setHeaderText("ERROR!");
-
-                VBox box = new VBox(5);
-                alert.getDialogPane().getStylesheets().add(
-                        Objects.requireNonNull(HelloApplication.class.getResource(
-                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                .toExternalForm()
+                NodeConsts.alert(
+                        Alert.AlertType.WARNING,
+                        "Missing Information",
+                        "WARNING!",
+                        new Text("All fields must be filled!"){{
+                            getStyleClass().add("side-note");
+                        }}
                 );
-
-                Text fieldsMissing = new Text("All fields must be filled!");
-                fieldsMissing.getStyleClass().add("side-note");
-
-                box.getChildren().add(
-                    fieldsMissing
-                );
-
-                alert.getDialogPane().setContent(box);
-                alert.showAndWait();
                 return;
             }
 
             try {
                 Database.getInstance(user, pass, server, dbName);
                 DBConfig.saveConfig(user, pass, server, dbName);
-
                 HelloApplication.showMainScene(stage);
 
             } catch (Exception ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Connection Failed");
-                alert.setHeaderText("ERROR!");
-
-                VBox box = new VBox(5);
-                alert.getDialogPane().getStylesheets().add(
-                        Objects.requireNonNull(HelloApplication.class.getResource(
-                                        "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                                .toExternalForm()
+                NodeConsts.alert(
+                        Alert.AlertType.ERROR,
+                        "Connection Failed",
+                        "ERROR",
+                        new Text("Connection Failed: " + ex.getMessage()){{
+                            getStyleClass().add("side-note");
+                        }}
                 );
-
-                Text connectFail = new Text("Connection Failed: " + ex.getMessage());
-                connectFail.getStyleClass().add("side-note");
-
-                box.getChildren().add(
-                        connectFail
-                );
-
-                alert.getDialogPane().setContent(box);
-                alert.showAndWait();
             }
         });
 
         // --- CREATE SCENE ---
-        Scene scene = new Scene(root, 1699, 989);
-        scene.getStylesheets().add(
-                Objects.requireNonNull(HelloApplication.class.getResource(
-                                "/org/example/sheikh_jackson_javaproject/assets/style.css"))
-                        .toExternalForm()
-        );
-
+        Scene scene = new Scene(root, NodeConsts.SCENE_WIDTH, NodeConsts.SCENE_HEIGHT);
+        NodeConsts.applyCSS(scene);
         return scene;
-    }
-
-    private static Label createHugeLbl() {
-        Label lbl = new Label("Database Login Credentials");
-        lbl.getStyleClass().add("form-lbl");
-        return lbl;
     }
 }
