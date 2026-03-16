@@ -6,7 +6,8 @@
 }
 
 /* TAB HEADER CENTERING */
-.tab-header-area, .header-region {
+.tab-header-area,
+.header-region {
     -fx-alignment: CENTER;
 }
 
@@ -34,15 +35,18 @@
     -fx-font-size: 32px;
 }
 
-.add-tab, .add-btn {
+.add-tab,
+.add-btn {
     -fx-background-color: blue;
 }
 
-.delete-tab, .delete-btn {
+.delete-tab,
+.delete-btn {
     -fx-background-color: red;
 }
 
-.update-tab, .update-btn  {
+.update-tab,
+.update-btn  {
     -fx-background-color: green;
 }
 
@@ -130,19 +134,10 @@
     -fx-font-weight: bold;
 }
 
+/* LOGIN */
 .login-box {
     -fx-background-color: rgba(255,255,255,0.85);
     -fx-background-radius: 10;
-}
-
-.intro-bg {
-    -fx-background-color: black;
-}
-
-.intro-logo{
-    -fx-font-size: 90px;
-    -fx-font-weight: bold;
-    -fx-fill: white;
 }
 
 .connect-btn {
@@ -151,4 +146,16 @@
 
 .connect-btn:hover {
     -fx-background-color: rgba(83, 52, 52, 0.85);
+}
+
+/* INTRO */
+
+.intro-bg {
+    -fx-background-color: black;
+}
+
+.intro-logo {
+    -fx-font-size: 90px;
+    -fx-font-weight: bold;
+    -fx-fill: white;
 }
