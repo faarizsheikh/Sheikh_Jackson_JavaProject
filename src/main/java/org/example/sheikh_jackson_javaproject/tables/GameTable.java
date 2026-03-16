@@ -28,39 +28,6 @@ public class GameTable implements GameDAO {
     }
 
     @Override
-    public Game getGame(int id) {
-
-        String query = "SELECT * FROM " + TABLE_GAME +
-                " WHERE " + GAME_COLUMN_ID + " = " + id;
-
-        try {
-
-            Statement stmt = db.getConnection().createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-
-            if (rs.next()) {
-
-                Log.info("Game retrieved (ID=" + id + ")");
-
-                return new Game(
-                        rs.getInt(GAME_COLUMN_ID),
-                        rs.getString(GAME_COLUMN_TITLE),
-                        rs.getString(GAME_COLUMN_DEV_ID),
-                        rs.getInt(GAME_COLUMN_YEAR),
-                        rs.getString(GAME_COLUMN_GENRE),
-                        rs.getString(GAME_COLUMN_PLAT_ID),
-                        rs.getString(GAME_COLUMN_IMAGE)
-                );
-            }
-
-        } catch (SQLException e) {
-            Log.error("Failed to retrieve game ID=" + id, e);
-        }
-
-        return null;
-    }
-
-    @Override
     public ArrayList<Game> getAllGames() {
 
         String query =
