@@ -11,8 +11,8 @@
 }
 
 .tab-box {
-        -fx-focus-color: transparent;
-        -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .tab-box:hover {
@@ -115,7 +115,7 @@
 
 /* ALERT */
 .alert {
-     -fx-font-size: 18px;
+    -fx-font-size: 18px;
 }
 
 .menu {
