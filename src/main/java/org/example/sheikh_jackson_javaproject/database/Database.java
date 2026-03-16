@@ -18,7 +18,7 @@ public class Database {
         connection = DriverManager.getConnection(url, user, pass);
         Log.info("Connected to database: " + dbName + "@" + server);
 
-        // Create tables if they don't exist
+        // CREATE: Tables if they don't exist
         createTable(TABLE_DEVELOPER, CREATE_TABLE_DEVELOPER);
         createTable(TABLE_PLATFORM, CREATE_TABLE_PLATFORM);
         createTable(TABLE_GAME, CREATE_TABLE_GAMES);

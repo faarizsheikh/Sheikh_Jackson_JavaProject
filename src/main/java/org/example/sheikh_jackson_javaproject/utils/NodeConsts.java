@@ -96,7 +96,7 @@ public class NodeConsts {
             case 1, 4 -> 350; // TITLE
             case 2 -> 205; // DEVELOPER
             case 5 -> 150; // GENRE & PLATFORM
-            default -> 100; // fallback
+            default -> 100; // Fallback
         };
     }
 

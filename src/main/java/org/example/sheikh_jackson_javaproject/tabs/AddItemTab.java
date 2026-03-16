@@ -41,8 +41,10 @@ public class AddItemTab extends Tab {
             input.setPrefWidth(NodeConsts.FIELD_WIDTH);
             input.getStyleClass().add("form-input");
         }
-        dCB.getItems().setAll(gt.getAllDevelopers());
-        pCB.getItems().setAll(gt.getAllPlatforms());
+        DeveloperTable dt = DeveloperTable.getInstance();
+        PlatformTable pt = PlatformTable.getInstance();
+        dCB.getItems().setAll(dt.getAllDevelopers());
+        pCB.getItems().setAll(pt.getAllPlatforms());
 
         for (int i = 0; i < inputs.length; i++) gP.addRow(i, formLabel(FORM_LABELS[i] + ":"), inputs[i]);
         for (int i = 0; i < comboBoxes.length; i++) comboBoxes[i].setPromptText(PROMPTS[i]);
