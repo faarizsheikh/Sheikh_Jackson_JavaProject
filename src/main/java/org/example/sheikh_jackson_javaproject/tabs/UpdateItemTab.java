@@ -114,7 +114,6 @@ public class UpdateItemTab extends Tab {
                         {{ getStyleClass().add("side-note"); }}
                 );
 
-                // Clear input fields
                 for (TextField txtField : txtFields) txtField.clear();
                 cB.getSelectionModel().clearSelection();
                 cB.setValue(null);

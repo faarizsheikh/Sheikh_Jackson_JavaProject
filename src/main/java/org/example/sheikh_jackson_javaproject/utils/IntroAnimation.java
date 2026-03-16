@@ -33,7 +33,6 @@ public class IntroAnimation {
         fadeIn.setToValue(1);
 
         SequentialTransition sequence = getSequentialTransition(onFinished, logo, fadeIn);
-
         sequence.play();
     }
 

@@ -3,6 +3,7 @@
 package org.example.sheikh_jackson_javaproject.utils;
 
 import java.util.*;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.sheikh_jackson_javaproject.HelloApplication;
 
 public class NodeConsts {
@@ -49,7 +51,24 @@ public class NodeConsts {
         btn.getStyleClass().addAll("btn", style);
         btn.setPrefWidth(FIELD_WIDTH);
         btn.setPrefHeight(BTN_HEIGHT);
+        btnHoverAnimation(btn);
         return btn;
+    }
+
+    public static void btnHoverAnimation(Button btn) {
+        btn.setOnMouseEntered(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1.05);
+            st.setToY(1.05);
+            st.play();
+        });
+
+        btn.setOnMouseExited(e -> {
+            ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
+            st.setToX(1);
+            st.setToY(1);
+            st.play();
+        });
     }
 
     public static Label formLabel(String text) {
@@ -142,10 +161,15 @@ public class NodeConsts {
 
         VBox box = new VBox(5);
         box.getChildren().addAll(nodes);
+        alert.getDialogPane().setContent(box);
 
         applyCSS(alert);
 
-        alert.getDialogPane().setContent(box);
+        alert.getDialogPane().getButtonTypes().forEach(bt -> {
+            Button b = (Button) alert.getDialogPane().lookupButton(bt);
+            btnHoverAnimation(b);
+        });
+
         alert.showAndWait();
     }
 
@@ -160,17 +184,21 @@ public class NodeConsts {
 
         Label askConfirm = new Label("Are you sure you want to exit the program?");
         Label sideNote = new Label("New changes will be saved.");
+
         askConfirm.getStyleClass().add("ask-confirm");
         sideNote.getStyleClass().add("side-note");
 
         box.getChildren().addAll(askConfirm, sideNote);
-
         alert.getDialogPane().setContent(box);
 
+        alert.getDialogPane().getButtonTypes().forEach(bt -> {
+            Button b = (Button) alert.getDialogPane().lookupButton(bt);
+            btnHoverAnimation(b);
+        });
+
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            System.exit(0);
-        }
+
+        if (result.isPresent() && result.get() == ButtonType.OK) System.exit(0);
     }
 
     public static void devCredits() {
@@ -202,6 +230,12 @@ public class NodeConsts {
             }
         });
         alert.getDialogPane().setContent(box);
+
+        alert.getDialogPane().getButtonTypes().forEach(bt -> {
+            Button b = (Button) alert.getDialogPane().lookupButton(bt);
+            btnHoverAnimation(b);
+        });
+
         alert.showAndWait();
     }
 
@@ -219,7 +253,6 @@ public class NodeConsts {
 
         Label resList = new Label(items);
         resList.getStyleClass().add("res-list");
-
         alert(Alert.AlertType.INFORMATION, "Resources Credits", "RESOURCES", resList);
     }
 

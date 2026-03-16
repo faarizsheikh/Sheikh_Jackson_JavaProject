@@ -3,11 +3,13 @@
 package org.example.sheikh_jackson_javaproject;
 
 import java.util.*;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.example.sheikh_jackson_javaproject.database.*;
 import org.example.sheikh_jackson_javaproject.tabs.*;
 import org.example.sheikh_jackson_javaproject.utils.*;
@@ -35,12 +37,10 @@ public class HelloApplication extends Application {
                             props.getProperty("server"),
                             props.getProperty("database")
                     );
-
                     Log.info("Database connection successful.");
                     showMainScene(stage);
 
                 } else {
-
                     Log.warn("No saved DB configuration found.");
                     stage.setScene(LoginScene.create(stage));
                     stage.setTitle("Database Login");
@@ -48,15 +48,12 @@ public class HelloApplication extends Application {
                 }
 
             } catch (Exception e) {
-
                 Log.error("Application startup failed.", e);
                 stage.setScene(LoginScene.create(stage));
                 stage.setTitle("Database Login");
                 stage.show();
             }
-
         });
-
         stage.setOnCloseRequest(e -> {
             e.consume();
             Log.info("Exit requested by user.");
@@ -87,6 +84,17 @@ public class HelloApplication extends Application {
             tabs[i].getStyleClass().addAll("tab-box", tabClasses[i]);
 
         pane.getTabs().addAll(tabs);
+
+        pane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+
+            if (newTab != null && newTab.getContent() != null) {
+
+                FadeTransition ft = new FadeTransition(Duration.millis(350), newTab.getContent());
+                ft.setFromValue(0);
+                ft.setToValue(1);
+                ft.play();
+            }
+        });
         root.setCenter(pane);
 
         Scene scene = new Scene(root, NodeConsts.SCENE_WIDTH, NodeConsts.SCENE_HEIGHT);

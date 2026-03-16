@@ -2,9 +2,11 @@
 
 package org.example.sheikh_jackson_javaproject.tabs;
 
+import javafx.animation.PauseTransition;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.example.sheikh_jackson_javaproject.pojo.*;
 import org.example.sheikh_jackson_javaproject.tables.*;
 import org.example.sheikh_jackson_javaproject.utils.*;
@@ -52,13 +54,8 @@ public class DeleteItemTab extends Tab {
                     Log.info("Deleting game: " + sel.getTitle() + " (ID=" + sel.getId() + ")");
 
                     gt.deleteGame(sel.getId());
-
-                    try {
-                        Thread.sleep(500);
-
-                    } catch (InterruptedException ex) {
-                        Log.error("Delete delay interrupted.", ex);
-                    }
+                    PauseTransition pause = getPauseTransition();
+                    pause.play();
                     NodeConsts.alert(Alert.AlertType.INFORMATION, "Deleted in Library", "DELETE DETAILS",
                             new Text("Delete Successful!")
                             {{
@@ -102,5 +99,23 @@ public class DeleteItemTab extends Tab {
                 }
             }
         });
+    }
+
+    private PauseTransition getPauseTransition() {
+        PauseTransition pause = new PauseTransition(Duration.millis(500));
+        pause.setOnFinished(ev -> {
+
+            NodeConsts.alert(Alert.AlertType.INFORMATION, "Deleted in Library", "DELETE DETAILS",
+                    new Text("Delete Successful!")
+                    {{
+                        getStyleClass().add("side-note");
+                    }}
+            );
+            cB.getSelectionModel().clearSelection();
+            cB.setValue(null);
+            cB.getItems().setAll(gt.getAllGames());
+            Log.info("Game removed from library and list refreshed.");
+        });
+        return pause;
     }
 }

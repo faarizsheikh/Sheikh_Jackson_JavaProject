@@ -42,8 +42,7 @@ public class LoginScene {
 
         for (int i = 0; i < textFields.length; i++) textFields[i].setPromptText(FORM_LABELS[i]);
 
-        Button loginBtn = new Button("Connect");
-        loginBtn.getStyleClass().addAll("btn", "add-btn");
+        Button loginBtn = NodeConsts.button("CONNECT", "connect-btn");
         loginBtn.setMaxWidth(Double.MAX_VALUE);
 
         loginBox.getChildren().addAll(

@@ -144,3 +144,11 @@
     -fx-font-weight: bold;
     -fx-fill: white;
 }
+
+.connect-btn {
+    -fx-background-color: rgba(83, 52, 52, 0.45);
+}
+
+.connect-btn:hover {
+    -fx-background-color: rgba(83, 52, 52, 0.85);
+}
