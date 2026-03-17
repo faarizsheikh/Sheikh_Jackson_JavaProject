@@ -55,7 +55,6 @@ public class IntroAnimation {
                         pause,
                         fadeOut
                 );
-
         sequence.setOnFinished(e -> onFinished.run());
         return sequence;
     }

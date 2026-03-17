@@ -19,9 +19,9 @@ public class AddItemTab extends Tab {
     private static final String[] PROMPTS =
             {"-- Select Developer --", "-- Select Platform --"};
 
-    private final GameTable gt = GameTable.getInstance();
     private final ComboBox<Developer> dCB = new ComboBox<>();
     private final ComboBox<Platform> pCB = new ComboBox<>();
+    private final GameTable gt = GameTable.getInstance();
     private final TextField tF = new TextField();
     private final TextField yF = new TextField();
     private final TextField gF = new TextField();
@@ -47,6 +47,7 @@ public class AddItemTab extends Tab {
         pCB.getItems().setAll(pt.getAllPlatforms());
 
         for (int i = 0; i < inputs.length; i++) gP.addRow(i, formLabel(FORM_LABELS[i] + ":"), inputs[i]);
+
         for (int i = 0; i < comboBoxes.length; i++) comboBoxes[i].setPromptText(PROMPTS[i]);
 
         Button btn = NodeConsts.button("ADD TO LIBRARY", "add-btn");
@@ -54,15 +55,16 @@ public class AddItemTab extends Tab {
 
         btn.setOnAction(e -> {
             try {
-                String t = tF.getText().trim(), y = yF.getText().trim(),
-                        g = gF.getText().trim(), i = iF.getText().trim();
+                String t = tF.getText().trim(),
+                        y = yF.getText().trim(),
+                        g = gF.getText().trim(),
+                        i = iF.getText().trim();
 
                 if (t.isEmpty() || dCB.getValue() == null || y.isEmpty()
                         || g.isEmpty() || pCB.getValue() == null || i.isEmpty()) {
                     Log.warn("Attempted to add game with missing fields");
                     throw new Exception("All fields must be filled to add!");
                 }
-
                 int yearVal = Integer.parseInt(y),
                         currentYear = Year.now().getValue();
 
@@ -105,10 +107,11 @@ public class AddItemTab extends Tab {
                         return;
                     }
                 }
-
                 gt.addGame(
                         new Game(0, t, String.valueOf(dId), yearVal, g, String.valueOf(pId), i));
-                Log.info("Game added: " + t + " (" + yearVal + ") by " + dCB.getValue());
+
+                Log.action("ADD", String.format("%s (%d) by %s",
+                        t, yearVal, dCB.getValue()));
 
                 NodeConsts.alert(Alert.AlertType.INFORMATION, "Added to Library", "SUBMISSION DETAILS",
                         new Text(

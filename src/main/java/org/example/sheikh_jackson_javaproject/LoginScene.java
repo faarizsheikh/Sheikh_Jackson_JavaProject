@@ -8,8 +8,8 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.example.sheikh_jackson_javaproject.utils.NodeConsts;
 import org.example.sheikh_jackson_javaproject.database.*;
+import org.example.sheikh_jackson_javaproject.utils.NodeConsts;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.formLabel;
 
 public class LoginScene {
@@ -21,7 +21,6 @@ public class LoginScene {
         stage.setMaximized(true);
 
         BorderPane root = NodeConsts.root(stage);
-
         root.setTop(NodeConsts.mainMenu());
 
         VBox loginBox = new VBox(20);
@@ -35,7 +34,6 @@ public class LoginScene {
                 dbField = new TextField();
 
         PasswordField passField = new PasswordField();
-
         TextField[] textFields = {userField, passField, serverField, dbField};
 
         for (TextField textField : textFields) textField.getStyleClass().add("form-input");
@@ -49,7 +47,6 @@ public class LoginScene {
                 formLabel("Database Login Credentials"),
                 userField, passField, serverField, dbField, loginBtn
         );
-
         StackPane centerPane = new StackPane(loginBox);
         centerPane.setAlignment(Pos.CENTER);
         root.setCenter(centerPane);
@@ -88,7 +85,6 @@ public class LoginScene {
                 );
             }
         });
-
         Scene scene = new Scene(root, NodeConsts.SCENE_WIDTH, NodeConsts.SCENE_HEIGHT);
         NodeConsts.applyCSS(scene);
         return scene;

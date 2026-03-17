@@ -18,17 +18,14 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-
         Log.info("Application starting...");
         stage.setMaximized(true);
 
         IntroAnimation.play(stage, () -> {
-
             try {
                 Properties props = DBConfig.loadConfig();
 
                 if (props != null) {
-
                     Log.info("Database config found. Attempting connection...");
 
                     Database.getInstance(
@@ -80,15 +77,14 @@ public class HelloApplication extends Application {
         };
         String[] tabClasses = {"add-tab", "view-tab", "update-tab", "delete-tab", "stats-tab"};
 
-        for (int i = 0; i < tabs.length; i++)
-            tabs[i].getStyleClass().addAll("tab-box", tabClasses[i]);
+        for (int i = 0; i < tabs.length; i++) tabs[i].getStyleClass().addAll("tab-box", tabClasses[i]);
 
         pane.getTabs().addAll(tabs);
 
-        pane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+        pane.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldTab, newTab) -> {
 
             if (newTab != null && newTab.getContent() != null) {
-
                 FadeTransition ft = new FadeTransition(Duration.millis(350), newTab.getContent());
                 ft.setFromValue(0);
                 ft.setToValue(1);

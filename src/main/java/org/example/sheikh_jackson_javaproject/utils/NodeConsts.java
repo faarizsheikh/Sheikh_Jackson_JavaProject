@@ -132,7 +132,6 @@ public class NodeConsts {
     }
 
     public static MenuBar mainMenu() {
-
         MenuBar menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
@@ -169,7 +168,6 @@ public class NodeConsts {
             Button b = (Button) alert.getDialogPane().lookupButton(bt);
             btnHoverAnimation(b);
         });
-
         alert.showAndWait();
     }
 
@@ -182,8 +180,8 @@ public class NodeConsts {
 
         applyCSS(alert);
 
-        Label askConfirm = new Label("Are you sure you want to exit the program?");
-        Label sideNote = new Label("New changes will be saved.");
+        Text askConfirm = new Text("Are you sure you want to exit the program?");
+        Text sideNote = new Text("New changes will be saved.");
 
         askConfirm.getStyleClass().add("ask-confirm");
         sideNote.getStyleClass().add("side-note");
@@ -195,7 +193,6 @@ public class NodeConsts {
             Button b = (Button) alert.getDialogPane().lookupButton(bt);
             btnHoverAnimation(b);
         });
-
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) System.exit(0);
@@ -224,6 +221,7 @@ public class NodeConsts {
             if (node instanceof Text) {
                 VBox.setMargin(node, new Insets(0, 0, 25, 0));
                 node.getStyleClass().add("credit-txt");
+
             }
             else {
                 node.getStyleClass().add("credit-lbl");
@@ -235,7 +233,6 @@ public class NodeConsts {
             Button b = (Button) alert.getDialogPane().lookupButton(bt);
             btnHoverAnimation(b);
         });
-
         alert.showAndWait();
     }
 
@@ -251,7 +248,7 @@ public class NodeConsts {
                • SQL
                """;
 
-        Label resList = new Label(items);
+        Text resList = new Text(items);
         resList.getStyleClass().add("res-list");
         alert(Alert.AlertType.INFORMATION, "Resources Credits", "RESOURCES", resList);
     }

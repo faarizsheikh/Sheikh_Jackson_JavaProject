@@ -11,7 +11,9 @@ public class Database {
     private static Database instance;
     private final Connection connection;
 
-    private Database(String user, String pass, String server, String dbName) throws SQLException, ClassNotFoundException {
+    private Database(String user, String pass, String server, String dbName)
+            throws SQLException, ClassNotFoundException {
+
         Class.forName("com.mysql.cj.jdbc.Driver");
 
         String url = "jdbc:mysql://" + server + "/" + dbName + "?serverTimezone=UTC";
@@ -28,13 +30,16 @@ public class Database {
         try {
             DatabaseMetaData md = connection.getMetaData();
             ResultSet resultSet = md.getTables(null, null, tableName, null);
+
             if (!resultSet.next()) {
                 Statement stmt = connection.createStatement();
                 stmt.execute(tableQuery);
                 Log.info("Created table: " + tableName);
+
             } else {
                 Log.info("Table already exists: " + tableName);
             }
+
         } catch (SQLException e) {
             Log.error("Failed to create/check table: " + tableName, e);
         }
@@ -45,19 +50,19 @@ public class Database {
             try {
                 instance = new Database(user, pass, server, dbName);
                 Log.info("Database singleton instance created.");
+
             } catch (SQLException | ClassNotFoundException e) {
                 Log.error("Failed to initialize database connection.", e);
                 throw new RuntimeException(e);
             }
+
         } else {
             Log.info("Database instance already exists. Reusing singleton.");
         }
     }
 
     public static Database getInstance() {
-        if (instance == null) {
-            Log.warn("Database instance requested before initialization.");
-        }
+        if (instance == null) Log.warn("Database instance requested before initialization.");
         return instance;
     }
 

@@ -2,8 +2,7 @@
 
 package org.example.sheikh_jackson_javaproject.tables;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import org.example.sheikh_jackson_javaproject.dao.PlatformDAO;
 import org.example.sheikh_jackson_javaproject.database.Database;
@@ -13,8 +12,8 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 public class PlatformTable implements PlatformDAO {
 
-    private static PlatformTable instance;
     private final Database db = Database.getInstance();
+    private static PlatformTable instance;
 
     private PlatformTable(){}
 

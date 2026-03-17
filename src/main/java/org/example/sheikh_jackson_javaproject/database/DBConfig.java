@@ -20,6 +20,7 @@ public class DBConfig {
         try (FileOutputStream out = new FileOutputStream(CONFIG_FILE)) {
             props.store(out, "Database Login Credentials");
             Log.info("Database config saved to " + CONFIG_FILE);
+
         } catch (IOException e) {
             Log.error("Failed to save database config.", e);
         }
@@ -27,15 +28,17 @@ public class DBConfig {
 
     public static Properties loadConfig() {
         File file = new File(CONFIG_FILE);
+
         if (!file.exists()) {
             Log.warn("Database config file not found: " + CONFIG_FILE);
             return null;
         }
-
         Properties props = new Properties();
+
         try (FileInputStream in = new FileInputStream(file)) {
             props.load(in);
             Log.info("Database config loaded from " + CONFIG_FILE);
+
         } catch (IOException e) {
             Log.error("Failed to load database config.", e);
             return null;

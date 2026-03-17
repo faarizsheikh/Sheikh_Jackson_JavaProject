@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import org.example.sheikh_jackson_javaproject.pojo.Game;
 import org.example.sheikh_jackson_javaproject.tables.GameTable;
+import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class ViewItemTab extends Tab {
@@ -29,16 +30,15 @@ public class ViewItemTab extends Tab {
     }
 
     private void refresh() {
-
         container.getChildren().clear();
-
         var games = GameTable.getInstance().getAllGames();
+
+        Log.action("VIEW", "Viewed all games");
 
         if (games.isEmpty()) {
             Text msg = new Text(
                     "There are no games added to the library yet.\nPlease add a game first."
             );
-
             msg.getStyleClass().add("empty-msg");
 
             VBox emptyBox = new VBox(msg);
@@ -48,7 +48,6 @@ public class ViewItemTab extends Tab {
             container.getChildren().add(emptyBox);
             return;
         }
-
         addRow(true, COLS);
 
         for (Game g : games) {

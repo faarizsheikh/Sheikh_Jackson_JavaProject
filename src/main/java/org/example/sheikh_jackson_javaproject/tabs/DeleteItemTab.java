@@ -14,8 +14,8 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 public class DeleteItemTab extends Tab {
 
-    private final GameTable gt = GameTable.getInstance();
     private final ComboBox<Game> cB = new ComboBox<>();
+    private final GameTable gt = GameTable.getInstance();
 
     public DeleteItemTab() {
         setGraphic(tabTitle("Delete Game"));
@@ -52,20 +52,10 @@ public class DeleteItemTab extends Tab {
 
                 if (alert.getResult() == ButtonType.YES) {
                     Log.info("Deleting game: " + sel.getTitle() + " (ID=" + sel.getId() + ")");
-
                     gt.deleteGame(sel.getId());
+                    Log.action("DELETE", "ID=" + sel.getId());
                     PauseTransition pause = getPauseTransition();
                     pause.play();
-                    NodeConsts.alert(Alert.AlertType.INFORMATION, "Deleted in Library", "DELETE DETAILS",
-                            new Text("Delete Successful!")
-                            {{
-                                getStyleClass().add("side-note");
-                            }}
-                    );
-                    cB.getSelectionModel().clearSelection();
-                    cB.setValue(null);
-                    cB.getItems().setAll(gt.getAllGames());
-                    Log.info("Game removed from library and list refreshed.");
                 }
 
             } else {
