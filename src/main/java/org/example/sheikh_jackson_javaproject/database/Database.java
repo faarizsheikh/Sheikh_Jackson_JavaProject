@@ -24,6 +24,78 @@ public class Database {
         createTable(TABLE_DEVELOPER, CREATE_TABLE_DEVELOPER);
         createTable(TABLE_PLATFORM, CREATE_TABLE_PLATFORM);
         createTable(TABLE_GAME, CREATE_TABLE_GAMES);
+        seedDevelopers();
+        seedPlatforms();
+    }
+
+    private void seedDevelopers() {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM " + TABLE_DEVELOPER);
+
+            if (rs.next() && rs.getInt(1) == 0) {
+                String[] devs = {
+                        "Activision Blizzard", "Ant.Karlov", "BIG Games", "CapCom",
+                        "Cheetah Mobile", "Copperbolt", "DVloper", "Epic Games",
+                        "Facepunch Studios", "Homermafia1", "InnerSloth", "Linked Squad",
+                        "Mediatonic", "Microsoft", "MiniToon", "Mojang Studios",
+                        "MrNotSoHero", "Mystman12", "Natural Motion", "Naughty Dog",
+                        "NetEase", "Nikilis", "Psyonix", "PUBG Corporation",
+                        "Riot Games", "RockStar North", "Santa Monica Studio",
+                        "Scott Cawthon", "Siege Camp (formerly Clapfoot)",
+                        "SuperCell", "SYBO Games", "TeamTerrible", "Ubisoft",
+                        "Valve Corporation"
+                };
+
+                PreparedStatement ps = connection.prepareStatement(
+                        "INSERT INTO " + TABLE_DEVELOPER + " (" + DEV_COLUMN_NAME + ") VALUES (?)"
+                );
+
+                for (String dev : devs) {
+                    ps.setString(1, dev);
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+                Log.info("Seeded developers table.");
+
+            } else {
+                Log.info("Developers already seeded.");
+            }
+
+        } catch (SQLException e) {
+            Log.error("Failed seeding developers.", e);
+        }
+    }
+
+    private void seedPlatforms() {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) FROM " + TABLE_PLATFORM);
+
+            if (rs.next() && rs.getInt(1) == 0) {
+                String[] platforms = {
+                        "Android", "iOS", "MacOS", "Nintendo",
+                        "PC", "PlayStation", "Roblox", "Xbox"
+                };
+
+                PreparedStatement ps = connection.prepareStatement(
+                        "INSERT INTO " + TABLE_PLATFORM + " (" + PLAT_COLUMN_NAME + ") VALUES (?)"
+                );
+
+                for (String p : platforms) {
+                    ps.setString(1, p);
+                    ps.addBatch();
+                }
+                ps.executeBatch();
+                Log.info("Seeded platforms table.");
+
+            } else {
+                Log.info("Platforms already seeded.");
+            }
+
+        } catch (SQLException e) {
+            Log.error("Failed seeding platforms.", e);
+        }
     }
 
     private void createTable(String tableName, String tableQuery) {

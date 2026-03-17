@@ -36,6 +36,9 @@ public class LoginScene {
         PasswordField passField = new PasswordField();
         TextField[] textFields = {userField, passField, serverField, dbField};
 
+        serverField.setText("localhost");
+        serverField.setDisable(true);
+
         for (TextField textField : textFields) textField.getStyleClass().add("form-input");
 
         for (int i = 0; i < textFields.length; i++) textFields[i].setPromptText(FORM_LABELS[i]);
