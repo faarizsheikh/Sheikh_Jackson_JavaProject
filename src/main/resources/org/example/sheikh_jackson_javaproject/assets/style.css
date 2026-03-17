@@ -12,8 +12,8 @@
 }
 
 .tab-box {
-    -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-focus-color: transparent;
 }
 
 .tab-box:hover {
@@ -21,9 +21,9 @@
 }
 
 .tab-title {
+    -fx-fill: white;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-fill: white;
 }
 
 /* TAB COLORS */
@@ -73,10 +73,10 @@
 
 /* PRIMARY BUTTON */
 .btn {
-    -fx-cursor: hand;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
+    -fx-cursor: hand;
 }
 
 .add-btn:hover {
@@ -99,8 +99,8 @@
 }
 
 .table-header .label {
-    -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 /* TABLE ROW */
@@ -134,6 +134,13 @@
     -fx-font-weight: bold;
 }
 
+/* EMPTY VIEW MESSAGE */
+.empty-msg {
+    -fx-font-size: 32px;
+    -fx-text-alignment: center;
+    -fx-text-fill: black;
+}
+
 /* LOGIN */
 .login-box {
     -fx-background-color: rgba(255,255,255,0.85);
@@ -155,7 +162,7 @@
 }
 
 .intro-logo {
+    -fx-fill: white;
     -fx-font-size: 90px;
     -fx-font-weight: bold;
-    -fx-fill: white;
 }

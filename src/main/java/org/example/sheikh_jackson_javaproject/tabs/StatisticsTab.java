@@ -38,7 +38,6 @@ public class StatisticsTab extends Tab {
             updateChart(selector.getValue());
             playChartAnimation();
         });
-
         container.getChildren().addAll(selector, chart);
         setContent(container);
     }
@@ -47,7 +46,7 @@ public class StatisticsTab extends Tab {
         chart.setScaleX(0);
         chart.setScaleY(0);
 
-        ScaleTransition st = new ScaleTransition(Duration.seconds(3), chart);
+        ScaleTransition st = new ScaleTransition(Duration.seconds(1.5), chart);
         st.setToX(1);
         st.setToY(1);
         st.play();

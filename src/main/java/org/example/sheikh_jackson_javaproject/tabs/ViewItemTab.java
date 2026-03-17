@@ -5,6 +5,7 @@ package org.example.sheikh_jackson_javaproject.tabs;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import org.example.sheikh_jackson_javaproject.pojo.Game;
 import org.example.sheikh_jackson_javaproject.tables.GameTable;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
@@ -28,13 +29,38 @@ public class ViewItemTab extends Tab {
     }
 
     private void refresh() {
-        container.getChildren().clear();
-       addRow(true, COLS);
 
-        for (Game g : GameTable.getInstance().getAllGames()) {
+        container.getChildren().clear();
+
+        var games = GameTable.getInstance().getAllGames();
+
+        if (games.isEmpty()) {
+            Text msg = new Text(
+                    "There are no games added to the library yet.\nPlease add a game first."
+            );
+
+            msg.getStyleClass().add("empty-msg");
+
+            VBox emptyBox = new VBox(msg);
+            emptyBox.setAlignment(Pos.CENTER);
+            emptyBox.setPrefHeight(600); // gives vertical centering space
+
+            container.getChildren().add(emptyBox);
+            return;
+        }
+
+        addRow(true, COLS);
+
+        for (Game g : games) {
             addRow(false,
-                    String.valueOf(g.getId()), g.getTitle(), g.getDeveloper(),
-                    String.valueOf(g.getYear()), g.getGenre(), g.getPlatform(), g.getImageUrl());
+                    String.valueOf(g.getId()),
+                    g.getTitle(),
+                    g.getDeveloper(),
+                    String.valueOf(g.getYear()),
+                    g.getGenre(),
+                    g.getPlatform(),
+                    g.getImageUrl()
+            );
         }
     }
 
