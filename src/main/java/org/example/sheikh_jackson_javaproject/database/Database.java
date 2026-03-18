@@ -59,7 +59,7 @@ public class Database {
 
             if (rs.next() && rs.getInt(1) == 0) {
                 String[] devs = {
-                        "Activision Blizzard", "Ant.Karlov", "BIG Games", "CapCom",
+                        "Activision", "Ant.Karlov", "BIG Games", "CapCom",
                         "Cheetah Mobile", "Copperbolt", "DVloper", "Epic Games",
                         "Facepunch Studios", "Homermafia1", "InnerSloth", "Linked Squad",
                         "Mediatonic", "Microsoft", "MiniToon", "Mojang Studios",

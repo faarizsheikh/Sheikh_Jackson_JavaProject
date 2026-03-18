@@ -147,6 +147,10 @@
     -fx-background-radius: 10;
 }
 
+.server-field {
+    -fx-background-color: #ddd;
+}
+
 .connect-btn {
     -fx-background-color: rgba(83, 52, 52, 0.45);
 }

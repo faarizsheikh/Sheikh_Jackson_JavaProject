@@ -53,7 +53,18 @@ public class LoginScene {
         TextField[] textFields = {userField, passField, serverField, dbField};
 
         serverField.setText("localhost");
+        serverField.getStyleClass().add("server-field");
         serverField.setDisable(true);
+
+        final boolean[] dbManuallyEdited = {false};
+
+        dbField.textProperty().addListener((obs, oldText, newText) -> {
+            if (dbField.isFocused()) dbManuallyEdited[0] = !newText.isEmpty();
+        });
+
+        userField.textProperty().addListener((obs, oldText, newText) -> {
+            if (!dbManuallyEdited[0]) dbField.setText(newText);
+        });
 
         for (TextField tF : textFields) tF.getStyleClass().add("form-input");
 

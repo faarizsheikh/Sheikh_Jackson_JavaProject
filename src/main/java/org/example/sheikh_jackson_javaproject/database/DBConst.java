@@ -54,8 +54,8 @@ public class DBConst {
                     GAME_COLUMN_ID + " int NOT NULL AUTO_INCREMENT, " +
                     GAME_COLUMN_TITLE + " VARCHAR(200), " +
                     GAME_COLUMN_YEAR + " int, " +
-                    GAME_COLUMN_GENRE + " VARCHAR(50), " +
-                    GAME_COLUMN_IMAGE + " VARCHAR(1000), " +
+                    GAME_COLUMN_GENRE + " VARCHAR(1000), " +
+                    GAME_COLUMN_IMAGE + " VARCHAR(5000), " +
                     GAME_COLUMN_DEV_ID + " int, " +
                     GAME_COLUMN_PLAT_ID + " int, " +
                     "PRIMARY KEY(" + GAME_COLUMN_ID + "))";
