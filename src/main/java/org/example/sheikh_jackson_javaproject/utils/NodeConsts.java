@@ -9,7 +9,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.sheikh_jackson_javaproject.HelloApplication;
@@ -351,6 +351,25 @@ public class NodeConsts {
         Text resList = new Text(items);
         resList.getStyleClass().add("res-list");
         alert(Alert.AlertType.INFORMATION, "Resources Credits", "RESOURCES", resList);
+    }
+
+    /**
+     * Checks if a value exceeds a maximum length.
+
+     * @param value input value
+     * @param max max allowed length
+     * @param fieldName field name
+     * @return true if exceeded, false otherwise
+     */
+    public static boolean exceedsMax(String value, int max, String fieldName) {
+        if (value.length() > max) {
+            alert(Alert.AlertType.WARNING, "Too Long", "WARNING!",
+                    new Text(fieldName + " exceeds max length of " + max)
+                    {{ getStyleClass().add("side-note"); }}
+            );
+            return true;
+        }
+        return false;
     }
 
     /**

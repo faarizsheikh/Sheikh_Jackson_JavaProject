@@ -36,6 +36,11 @@ public class DBConst {
     public static final String PLAT_COLUMN_ID = "id";
     public static final String PLAT_COLUMN_NAME = "platform_name";
 
+    // MAX LENGTHS (MATCH DB)
+    public static final int MAX_TITLE = 200;
+    public static final int MAX_GENRE = 1000;
+    public static final int MAX_URL = 5000;
+
     // CREATE STATEMENTS
     public static final String CREATE_TABLE_DEVELOPER =
             "CREATE TABLE " + TABLE_DEVELOPER + " (" +

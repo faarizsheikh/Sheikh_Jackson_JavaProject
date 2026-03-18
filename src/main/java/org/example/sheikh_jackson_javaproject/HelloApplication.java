@@ -2,11 +2,11 @@
 
 package org.example.sheikh_jackson_javaproject;
 
-import java.util.*;
+import java.util.Properties;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;

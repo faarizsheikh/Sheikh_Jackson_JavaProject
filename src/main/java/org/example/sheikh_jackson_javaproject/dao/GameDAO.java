@@ -3,7 +3,7 @@
 package org.example.sheikh_jackson_javaproject.dao;
 
 import java.util.ArrayList;
-import org.example.sheikh_jackson_javaproject.pojo.*;
+import org.example.sheikh_jackson_javaproject.pojo.Game;
 
 /**
  * Interface defining data access operations for Game objects.

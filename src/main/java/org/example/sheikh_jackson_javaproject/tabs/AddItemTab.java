@@ -2,10 +2,11 @@
 
 package org.example.sheikh_jackson_javaproject.tabs;
 
+import java.time.Year;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import java.time.Year;
+import org.example.sheikh_jackson_javaproject.database.DBConst;
 import org.example.sheikh_jackson_javaproject.pojo.*;
 import org.example.sheikh_jackson_javaproject.tables.*;
 import org.example.sheikh_jackson_javaproject.utils.*;
@@ -86,6 +87,12 @@ public class AddItemTab extends Tab {
                     Log.warn("Attempted to add game with missing fields");
                     throw new Exception("All fields must be filled to add!");
                 }
+
+                if (exceedsMax(t, DBConst.MAX_TITLE, "Title") ||
+                        exceedsMax(g, DBConst.MAX_GENRE, "Genre") ||
+                        exceedsMax(i, DBConst.MAX_URL, "URL")) {
+                    return;
+                }
                 int yearVal = Integer.parseInt(y),
                         currentYear = Year.now().getValue();
 
@@ -101,8 +108,9 @@ public class AddItemTab extends Tab {
                 }
                 String iLow = i.toLowerCase();
 
-                if (!iLow.startsWith("http://")
-                        && !iLow.startsWith("https://") && !iLow.startsWith("www.")) {
+                if (!iLow.startsWith("http://") &&
+                        !iLow.startsWith("https://")
+                        && !iLow.startsWith("www.")) {
                     Log.warn("Invalid URL entered: " + i);
                     NodeConsts.alert(Alert.AlertType.WARNING, "Invalid URL", "WARNING!",
                             new Text("URL must start with http://, https://, or www.")
@@ -117,7 +125,8 @@ public class AddItemTab extends Tab {
 
                 for (Game game : gt.getAllGames()) {
                     if (game.getTitle().equalsIgnoreCase(t)
-                            && game.getYear() == yearVal && game.getPlatform().equals(pCB.getValue().toString())) {
+                            && game.getYear() == yearVal
+                            && game.getPlatform().equals(pCB.getValue().toString())) {
                         Log.warn("Duplicate game detected: " + t + " (" + yearVal + ")");
                         NodeConsts.alert(Alert.AlertType.WARNING, "Double Trouble", "WARNING!",
                                 new Text("Duplicate found on this platform!")

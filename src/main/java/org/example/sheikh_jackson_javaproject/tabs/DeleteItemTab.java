@@ -7,8 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import org.example.sheikh_jackson_javaproject.pojo.*;
-import org.example.sheikh_jackson_javaproject.tables.*;
+import org.example.sheikh_jackson_javaproject.pojo.Game;
+import org.example.sheikh_jackson_javaproject.tables.GameTable;
 import org.example.sheikh_jackson_javaproject.utils.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 

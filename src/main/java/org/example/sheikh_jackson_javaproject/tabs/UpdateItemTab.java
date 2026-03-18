@@ -6,6 +6,7 @@ import java.time.Year;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import org.example.sheikh_jackson_javaproject.database.DBConst;
 import org.example.sheikh_jackson_javaproject.pojo.Game;
 import org.example.sheikh_jackson_javaproject.tables.GameTable;
 import org.example.sheikh_jackson_javaproject.utils.*;
@@ -53,10 +54,9 @@ public class UpdateItemTab extends Tab {
             input.getStyleClass().add("form-input");
         }
         cB.getItems().setAll(gt.getAllGames());
+        cB.setPromptText("-- Select Game to Update --");
 
         for (int i = 0; i < inputs.length; i++) gP.addRow(i, formLabel(FORM_LABELS[i] + ":"), inputs[i]);
-
-        cB.setPromptText("-- Select Game to Update --");
 
         cB.setOnAction(e -> {
             Game sel = cB.getValue();
@@ -120,6 +120,12 @@ public class UpdateItemTab extends Tab {
             if (t.isEmpty() || y.isEmpty() || g.isEmpty() || i.isEmpty()) {
                 Log.warn("Attempted to update game with missing fields: ID=" + sel.getId());
                 throw new Exception("All fields must be filled to update!");
+            }
+
+            if (exceedsMax(t, DBConst.MAX_TITLE, "Title") ||
+                    exceedsMax(g, DBConst.MAX_GENRE, "Genre") ||
+                    exceedsMax(i, DBConst.MAX_URL, "URL")) {
+                return;
             }
             yearVal = Integer.parseInt(y);
 

@@ -4,9 +4,9 @@ package org.example.sheikh_jackson_javaproject.tables;
 
 import java.sql.*;
 import java.util.ArrayList;
-import org.example.sheikh_jackson_javaproject.dao.*;
-import org.example.sheikh_jackson_javaproject.database.*;
-import org.example.sheikh_jackson_javaproject.pojo.*;
+import org.example.sheikh_jackson_javaproject.dao.GameDAO;
+import org.example.sheikh_jackson_javaproject.database.Database;
+import org.example.sheikh_jackson_javaproject.pojo.Game;
 import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
