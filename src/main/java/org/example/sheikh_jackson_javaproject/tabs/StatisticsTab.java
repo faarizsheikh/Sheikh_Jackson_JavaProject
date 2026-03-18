@@ -14,16 +14,30 @@ import org.example.sheikh_jackson_javaproject.tables.GameTable;
 import org.example.sheikh_jackson_javaproject.utils.NodeConsts;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.tabTitle;
 
+/**
+ * Tab for statistics of games in library using a pie chart.
+
+ * Design Choices:
+ * - Uses dynamic aggregation (no extra DB queries)
+ * - Simple animation improves UX
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class StatisticsTab extends Tab {
 
     private final GameTable gt = GameTable.getInstance();
     private final PieChart chart = new PieChart();
 
+    /**
+     * Constructs StatisticsTab UI.
+     */
     public StatisticsTab() {
         setGraphic(tabTitle("Statistics"));
 
-        chart.setAnimated(true);
         VBox container = NodeConsts.vBox();
+        chart.setAnimated(true);
 
         ComboBox<String> selector = new ComboBox<>();
         selector.getItems().addAll("Platform", "Developer");
@@ -32,26 +46,21 @@ public class StatisticsTab extends Tab {
         selector.getStyleClass().add("form-input");
 
         updateChart("Platform");
-        playChartAnimation();
+        playAnimation();
 
         selector.setOnAction(e -> {
             updateChart(selector.getValue());
-            playChartAnimation();
+            playAnimation();
         });
         container.getChildren().addAll(selector, chart);
         setContent(container);
     }
 
-    private void playChartAnimation() {
-        chart.setScaleX(0);
-        chart.setScaleY(0);
+    /**
+     * Updates pie chart data.
 
-        ScaleTransition st = new ScaleTransition(Duration.seconds(1.5), chart);
-        st.setToX(1);
-        st.setToY(1);
-        st.play();
-    }
-
+     * @param type grouping type (Platform or Developer)
+     */
     private void updateChart(String type) {
         ArrayList<String> names = new ArrayList<>();
         ArrayList<Integer> counts = new ArrayList<>();
@@ -84,5 +93,18 @@ public class StatisticsTab extends Tab {
         chart.setData(data);
         chart.setTitle("Games by " + type);
         chart.setLabelsVisible(true);
+    }
+
+    /**
+     * Plays chart animation.
+     */
+    private void playAnimation() {
+        chart.setScaleX(0);
+        chart.setScaleY(0);
+
+        ScaleTransition st = new ScaleTransition(Duration.seconds(1.5), chart);
+        st.setToX(1);
+        st.setToY(1);
+        st.play();
     }
 }

@@ -14,6 +14,20 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.sheikh_jackson_javaproject.HelloApplication;
 
+/**
+ * Provides reusable UI components and constants.
+
+ * Includes methods for creating styled JFX nodes such as buttons,
+ * layouts, labels, alerts, menus, and image handling.
+
+ * Design Choice:
+ * Centralizing UI logic ensures consistency, reduces duplication,
+ * and simplifies UI management across the application.
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class NodeConsts {
 
     public static final double BTN_HEIGHT = 60;
@@ -21,8 +35,17 @@ public class NodeConsts {
     public static final double SCENE_WIDTH = 1699;
     public static final double SCENE_HEIGHT = 989;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private NodeConsts() {}
 
+    /**
+     * Creates a responsive root layout.
+
+     * @param stage application stage
+     * @return configured BorderPane
+     */
     public static BorderPane root(Stage stage) {
         BorderPane root = new BorderPane();
         root.prefWidthProperty().bind(stage.widthProperty());
@@ -30,6 +53,11 @@ public class NodeConsts {
         return root;
     }
 
+    /**
+     * Creates a configured GridPane.
+
+     * @return configured GridPane
+     */
     public static GridPane gP() {
         GridPane gP = new GridPane();
         gP.setAlignment(Pos.CENTER);
@@ -39,6 +67,11 @@ public class NodeConsts {
         return gP;
     }
 
+    /**
+     * Creates a configured VBox container.
+
+     * @return configured VBox
+     */
     public static VBox vBox() {
         VBox container = new VBox();
         container.setAlignment(Pos.CENTER);
@@ -46,6 +79,13 @@ public class NodeConsts {
         return container;
     }
 
+    /**
+     * Creates a styled button with hover animation.
+
+     * @param text button text
+     * @param style CSS style class
+     * @return configured Button
+     */
     public static Button button(String text, String style) {
         Button btn = new Button(text);
         btn.getStyleClass().addAll("btn", style);
@@ -55,6 +95,11 @@ public class NodeConsts {
         return btn;
     }
 
+    /**
+     * Applies hover animation to a button.
+
+     * @param btn button to animate
+     */
     public static void btnHoverAnimation(Button btn) {
         btn.setOnMouseEntered(e -> {
             ScaleTransition st = new ScaleTransition(Duration.millis(150), btn);
@@ -71,12 +116,25 @@ public class NodeConsts {
         });
     }
 
+    /**
+     * Creates a form label.
+
+     * @param text label text
+     * @return configured Label
+     */
     public static Label formLabel(String text) {
         Label lbl = new Label(text);
         lbl.getStyleClass().add("form-lbl");
         return lbl;
     }
 
+    /**
+     * Creates a table label.
+
+     * @param text label text
+     * @param width preferred width
+     * @return configured Label
+     */
     public static Label tableLabel(String text, double width) {
         Label lbl = new Label(text);
         lbl.setPrefWidth(width);
@@ -84,12 +142,24 @@ public class NodeConsts {
         return lbl;
     }
 
+    /**
+     * Creates a tab title.
+
+     * @param text title text
+     * @return configured Text node
+     */
     public static Text tabTitle(String text) {
         Text txt = new Text(text);
         txt.getStyleClass().add("tab-title");
         return txt;
     }
 
+    /**
+     * Determines column width based on index.
+
+     * @param i column index
+     * @return width value
+     */
     public static double columnWidth(int i) {
         return switch (i) {
             case 0, 3 -> 75; // ID, YEAR
@@ -100,6 +170,13 @@ public class NodeConsts {
         };
     }
 
+    /**
+     * Loads and displays a game image from a given URL.
+     * Falls back to a default image if the URL is invalid or empty.
+
+     * @param url image URL
+     * @return configured ImageView
+     */
     public static ImageView gameImage(String url) {
         ImageView iv = new ImageView();
         iv.setFitHeight(350);
@@ -131,6 +208,11 @@ public class NodeConsts {
         return iv;
     }
 
+    /**
+     * Creates the main menu bar with file and credits options.
+
+     * @return configured MenuBar
+     */
     public static MenuBar mainMenu() {
         MenuBar menuBar = new MenuBar();
 
@@ -153,6 +235,14 @@ public class NodeConsts {
         return menuBar;
     }
 
+    /**
+     * Displays a styled alert dialog with custom content nodes.
+
+     * @param type alert type
+     * @param title alert title
+     * @param header alert header text
+     * @param nodes content nodes to display
+     */
     public static void alert(Alert.AlertType type, String title, String header, Node... nodes) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -171,6 +261,10 @@ public class NodeConsts {
         alert.showAndWait();
     }
 
+    /**
+     * Displays a confirmation dialog before exiting the application.
+     * If the user confirms, the program will terminate.
+     */
     public static void showExitConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit Confirmation");
@@ -198,6 +292,9 @@ public class NodeConsts {
         if (result.isPresent() && result.get() == ButtonType.OK) System.exit(0);
     }
 
+    /**
+     * Displays an alert dialog showing developer credits.
+     */
     public static void devCredits() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Developer Credits");
@@ -236,6 +333,9 @@ public class NodeConsts {
         alert.showAndWait();
     }
 
+    /**
+     * Displays an alert dialog listing resources used in the project.
+     */
     public static void resourceCredits() {
         String items = """
                • CSS
@@ -253,6 +353,11 @@ public class NodeConsts {
         alert(Alert.AlertType.INFORMATION, "Resources Credits", "RESOURCES", resList);
     }
 
+    /**
+     * Applies the main stylesheet to a scene.
+
+     * @param scene the scene to style
+     */
     public static void applyCSS(Scene scene) {
         scene.getStylesheets().add(
                 Objects.requireNonNull(NodeConsts.class.getResource(
@@ -261,6 +366,11 @@ public class NodeConsts {
         );
     }
 
+    /**
+     * Applies the main stylesheet to an alert dialog.
+
+     * @param alert the alert to style
+     */
     public static void applyCSS(Alert alert) {
         alert.getDialogPane().getStylesheets().add(
                 Objects.requireNonNull(HelloApplication.class.getResource(

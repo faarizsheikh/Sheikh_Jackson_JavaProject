@@ -12,11 +12,27 @@ import org.example.sheikh_jackson_javaproject.database.*;
 import org.example.sheikh_jackson_javaproject.utils.NodeConsts;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.formLabel;
 
+/**
+ * Handles creation of the login scene for database authentication.
+
+ * Design Choice:
+ * Separates login UI logic from main application for modularity.
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class LoginScene {
 
     private static final String[] FORM_LABELS =
             {"Username", "Password", "Server (localhost or IP)", "Database Name"};
 
+    /**
+     * Creates and returns the login scene.
+
+     * @param stage primary stage
+     * @return configured Scene
+     */
     public static Scene create(Stage stage) {
         stage.setMaximized(true);
 
@@ -39,7 +55,7 @@ public class LoginScene {
         serverField.setText("localhost");
         serverField.setDisable(true);
 
-        for (TextField textField : textFields) textField.getStyleClass().add("form-input");
+        for (TextField tF : textFields) tF.getStyleClass().add("form-input");
 
         for (int i = 0; i < textFields.length; i++) textFields[i].setPromptText(FORM_LABELS[i]);
 

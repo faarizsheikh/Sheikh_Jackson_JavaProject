@@ -10,13 +10,32 @@ import org.example.sheikh_jackson_javaproject.pojo.Platform;
 import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
+/**
+ * Handles database operations related to Platform objects.
+
+ * Design Choices:
+ * - Implements DAO pattern
+ * - Uses Singleton pattern
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class PlatformTable implements PlatformDAO {
 
     private final Database db = Database.getInstance();
     private static PlatformTable instance;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private PlatformTable(){}
 
+    /**
+     * Returns the single instance of PlatformTable.
+
+     * @return PlatformTable instance
+     */
     public static PlatformTable getInstance(){
         if(instance == null){
             instance = new PlatformTable();
@@ -25,6 +44,11 @@ public class PlatformTable implements PlatformDAO {
         return instance;
     }
 
+    /**
+     * Retrieves all platforms from the database.
+
+     * @return list of Platform objects
+     */
     @Override
     public ArrayList<Platform> getAllPlatforms() {
         ArrayList<Platform> plats = new ArrayList<>();

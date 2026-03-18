@@ -10,13 +10,32 @@ import org.example.sheikh_jackson_javaproject.pojo.Developer;
 import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
+/**
+ * Handles database operations related to Developer objects.
+
+ * Design Choices:
+ * - Implements DAO pattern
+ * - Uses Singleton pattern
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class DeveloperTable implements DeveloperDAO {
 
     private final Database db = Database.getInstance();
     private static DeveloperTable instance;
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private DeveloperTable(){}
 
+    /**
+     * Returns the single instance of DeveloperTable.
+
+     * @return DeveloperTable instance
+     */
     public static DeveloperTable getInstance(){
         if(instance == null){
             instance = new DeveloperTable();
@@ -25,6 +44,11 @@ public class DeveloperTable implements DeveloperDAO {
         return instance;
     }
 
+    /**
+     * Retrieves all developers from the database.
+
+     * @return list of Developer objects
+     */
     @Override
     public ArrayList<Developer> getAllDevelopers() {
         ArrayList<Developer> devs = new ArrayList<>();

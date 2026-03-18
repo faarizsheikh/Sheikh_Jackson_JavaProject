@@ -9,10 +9,33 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Handles the intro animation displayed when application starts.
+
+ * This class creates a fade-in/out, scale, and pause animation sequence
+ * for the application logo before transitioning to the next scene.
+
+ * Design Choice:
+ * Uses JFX animation classes (FadeTransition, ScaleTransition, SequentialTransition)
+ * to provide a smooth and professional UI experience.
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class IntroAnimation {
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private IntroAnimation() {}
 
+    /**
+     * Plays the intro animation on the given stage.
+
+     * @param stage the primary stage where the animation will be displayed
+     * @param onFinished callback to execute after animation completes
+     */
     public static void play(Stage stage, Runnable onFinished) {
         StackPane root = new StackPane();
         root.getStyleClass().add("intro-bg");
@@ -36,6 +59,14 @@ public class IntroAnimation {
         sequence.play();
     }
 
+    /**
+     * Creates the full animation sequence.
+
+     * @param onFinished callback after animation completes
+     * @param logo the text node being animated
+     * @param fadeIn fade-in animation
+     * @return configured SequentialTransition
+     */
     private static SequentialTransition getSequentialTransition(Runnable onFinished, Text logo, FadeTransition fadeIn) {
         ScaleTransition scale = new ScaleTransition(Duration.seconds(2), logo);
         scale.setFromX(0.7);

@@ -11,6 +11,18 @@ import org.example.sheikh_jackson_javaproject.tables.*;
 import org.example.sheikh_jackson_javaproject.utils.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
+/**
+ * Tab for adding new Game entries to the library.
+
+ * Design Choices:
+ * - Uses NodeConsts for consistent UI styling
+ * - Validates user input before database insertion
+ * - Uses DAO (GameTable) for data operations
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class AddItemTab extends Tab {
 
     private static final String[] FORM_LABELS =
@@ -27,6 +39,9 @@ public class AddItemTab extends Tab {
     private final TextField gF = new TextField();
     private final TextField iF = new TextField();
 
+    /**
+     * Constructs the AddItemTab UI and initializes components.
+     */
     public AddItemTab() {
         setGraphic(tabTitle("Add Game"));
 
@@ -34,8 +49,6 @@ public class AddItemTab extends Tab {
         GridPane gP = NodeConsts.gP();
 
         Control[] inputs = {tF, dCB, yF, gF, pCB, iF};
-        ComboBox<?>[] comboBoxes = {dCB, pCB};
-        TextField[] txtFields = {tF, yF, gF, iF};
 
         for (Control input : inputs) {
             input.setPrefWidth(NodeConsts.FIELD_WIDTH);
@@ -45,15 +58,23 @@ public class AddItemTab extends Tab {
         PlatformTable pt = PlatformTable.getInstance();
         dCB.getItems().setAll(dt.getAllDevelopers());
         pCB.getItems().setAll(pt.getAllPlatforms());
+        dCB.setPromptText(PROMPTS[0]);
+        pCB.setPromptText(PROMPTS[1]);
 
         for (int i = 0; i < inputs.length; i++) gP.addRow(i, formLabel(FORM_LABELS[i] + ":"), inputs[i]);
-
-        for (int i = 0; i < comboBoxes.length; i++) comboBoxes[i].setPromptText(PROMPTS[i]);
 
         Button btn = NodeConsts.button("ADD TO LIBRARY", "add-btn");
         gP.add(btn, 1, 6);
 
-        btn.setOnAction(e -> {
+        btn.setOnAction(e -> handleAdd());
+        container.getChildren().add(gP);
+        setContent(container);
+    }
+
+    /**
+     * Handles add button logic including validation and insertion.
+     */
+    private void handleAdd() {
             try {
                 String t = tF.getText().trim(),
                         y = yF.getText().trim(),
@@ -121,13 +142,7 @@ public class AddItemTab extends Tab {
                             getStyleClass().add("side-note");
                         }}
                 );
-
-                for (TextField txtField : txtFields) txtField.clear();
-
-                for (ComboBox<?> comboBox : comboBoxes) {
-                    comboBox.getSelectionModel().clearSelection();
-                    comboBox.setValue(null);
-                }
+                clearFields();
 
             } catch (NumberFormatException nfe) {
                 Log.warn("Non-numeric year entered: " + yF.getText());
@@ -147,8 +162,17 @@ public class AddItemTab extends Tab {
                         }}
                 );
             }
-        });
-        container.getChildren().add(gP);
-        setContent(container);
+    }
+
+    /**
+     * Clears all input fields after submission.
+     */
+    private void clearFields() {
+        tF.clear();
+        yF.clear();
+        gF.clear();
+        iF.clear();
+        dCB.setValue(null);
+        pCB.setValue(null);
     }
 }

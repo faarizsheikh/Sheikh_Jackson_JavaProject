@@ -10,15 +10,34 @@ import org.example.sheikh_jackson_javaproject.pojo.*;
 import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
+/**
+ * Handles database operations related to Game objects.
+
+ * Design Choices:
+ * - Implements DAO pattern (GameDAO)
+ * - Uses Singleton pattern to ensure a single instance
+ * - Uses PreparedStatement for secure SQL execution
+
+ * @author Faariz Sheikh
+ * @version 1.0
+ * @date 2026-03-17
+ */
 public class GameTable implements GameDAO {
 
+    private final Database db = Database.getInstance();
     private static GameTable instance;
-    Database db = Database.getInstance();
 
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private GameTable() {}
 
-    public static GameTable getInstance() {
+    /**
+     * Returns the single instance of GameTable.
 
+     * @return GameTable instance
+     */
+    public static GameTable getInstance() {
         if (instance == null) {
             instance = new GameTable();
             Log.info("GameTable singleton created.");
@@ -26,6 +45,11 @@ public class GameTable implements GameDAO {
         return instance;
     }
 
+    /**
+     * Retrieves all games with developer and platform details.
+
+     * @return list of Game objects
+     */
     @Override
     public ArrayList<Game> getAllGames() {
         String query =
@@ -59,6 +83,11 @@ public class GameTable implements GameDAO {
         return games;
     }
 
+    /**
+     * Inserts a new game into the database.
+
+     * @param game Game object to add
+     */
     public void addGame(Game game) {
         String query =
                 "INSERT INTO " + TABLE_GAME +
@@ -81,6 +110,11 @@ public class GameTable implements GameDAO {
         }
     }
 
+    /**
+     * Updates an existing game in the database.
+
+     * @param game Game object with updated values
+     */
     @Override
     public void updateGame(Game game) {
         String query =
@@ -105,6 +139,11 @@ public class GameTable implements GameDAO {
         }
     }
 
+    /**
+     * Deletes a game from the database by ID.
+
+     * @param id game ID
+     */
     @Override
     public void deleteGame(int id) {
         String query =
