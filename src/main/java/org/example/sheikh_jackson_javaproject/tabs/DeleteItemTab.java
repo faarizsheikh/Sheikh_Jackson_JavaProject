@@ -14,11 +14,10 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 /**
  * Tab for deleting existing Game entries.
-
  * Design Choices:
  * - Confirmation dialog prevents accidental deletion
  * - Uses delay for better UX feedback
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17

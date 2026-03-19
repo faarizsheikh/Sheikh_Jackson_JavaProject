@@ -7,10 +7,9 @@ import javafx.scene.control.*;
 
 /**
  * Controller class for handling UI interactions in the Hello view.
-
  * Design Choice:
  * Uses JFX FXML controller pattern to separate UI logic from layout.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17

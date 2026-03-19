@@ -1,0 +1,4 @@
+[2026-03-18 20:56:27] [VIEW] Viewed all games
+[2026-03-18 20:56:58] [VIEW] Viewed all games
+[2026-03-18 20:59:27] [ADD] Fortnite (2017) by Epic Games
+[2026-03-18 20:59:30] [VIEW] Viewed all games

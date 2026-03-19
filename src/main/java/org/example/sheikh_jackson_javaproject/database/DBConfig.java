@@ -8,10 +8,9 @@ import org.example.sheikh_jackson_javaproject.utils.Log;
 
 /**
  * Handles saving and loading database configuration from a file.
-
  * Design Choice:
  * Allows persistent login credentials for automatic reconnection.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -22,7 +21,7 @@ public class DBConfig {
 
     /**
      * Saves database credentials to a configuration file.
-
+     *
      * @param user username
      * @param pass password
      * @param server server address
@@ -46,7 +45,7 @@ public class DBConfig {
 
     /**
      * Loads database credentials from configuration file.
-
+     *
      * @return Properties object containing credentials, or null if not found
      */
     public static Properties loadConfig() {

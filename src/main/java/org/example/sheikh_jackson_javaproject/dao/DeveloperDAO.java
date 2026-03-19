@@ -7,10 +7,9 @@ import org.example.sheikh_jackson_javaproject.pojo.Developer;
 
 /**
  * Interface defining data access operations for Developer objects.
-
  * Design Choice:
  * Provides abstraction for retrieving developer data.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17

@@ -17,10 +17,9 @@ import org.example.sheikh_jackson_javaproject.utils.*;
 /**
  * Main JFX application class.
  * Handles application startup, database initialization, and scene switching.
-
  * Design Choice:
  * Central controller for app lifecycle and UI navigation.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -29,7 +28,7 @@ public class HelloApplication extends Application {
 
     /**
      * Starts the JFX application.
-
+     *
      * @param stage primary stage
      */
     @Override
@@ -76,7 +75,7 @@ public class HelloApplication extends Application {
 
     /**
      * Loads and displays the main application UI.
-
+     *
      * @param stage primary stage
      */
     public static void showMainScene(Stage stage) {
@@ -126,7 +125,7 @@ public class HelloApplication extends Application {
 
     /**
      * Main method for launching the application.
-
+     *
      * @param args command-line arguments
      */
     public static void main(String[] args) {

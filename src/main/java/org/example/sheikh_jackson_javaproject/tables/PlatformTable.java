@@ -12,11 +12,10 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 /**
  * Handles database operations related to Platform objects.
-
  * Design Choices:
  * - Implements DAO pattern
  * - Uses Singleton pattern
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -33,7 +32,7 @@ public class PlatformTable implements PlatformDAO {
 
     /**
      * Returns the single instance of PlatformTable.
-
+     *
      * @return PlatformTable instance
      */
     public static PlatformTable getInstance(){
@@ -46,7 +45,7 @@ public class PlatformTable implements PlatformDAO {
 
     /**
      * Retrieves all platforms from the database.
-
+     *
      * @return list of Platform objects
      */
     @Override

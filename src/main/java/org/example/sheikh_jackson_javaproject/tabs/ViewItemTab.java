@@ -13,13 +13,12 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 /**
  * Tab responsible for displaying all Game entries in a scrollable table layout.
-
  * Design Choices:
  * - Uses a VBox container inside a ScrollPane for dynamic content display
  * - Custom row rendering instead of TableView for styling flexibility
  * - Displays a placeholder message when no data exists
  * - Refreshes automatically when tab is selected
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -47,7 +46,6 @@ public class ViewItemTab extends Tab {
 
     /**
      * Refreshes the displayed game list.
-
      * Clears existing content and reloads all games from the database.
      * Displays an empty message if no games exist.
      */
@@ -87,7 +85,7 @@ public class ViewItemTab extends Tab {
 
     /**
      * Adds a row to the table layout.
-
+     *
      * @param isHeader indicates whether the row is a header row
      * @param cols     variable number of column values to display
      */

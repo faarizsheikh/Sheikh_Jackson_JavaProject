@@ -14,12 +14,11 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 /**
  * Tab for adding new Game entries to the library.
-
  * Design Choices:
  * - Uses NodeConsts for consistent UI styling
  * - Validates user input before database insertion
  * - Uses DAO (GameTable) for data operations
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17

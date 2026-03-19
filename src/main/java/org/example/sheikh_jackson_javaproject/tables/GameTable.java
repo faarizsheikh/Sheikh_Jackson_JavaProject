@@ -12,12 +12,11 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 /**
  * Handles database operations related to Game objects.
-
  * Design Choices:
  * - Implements DAO pattern (GameDAO)
  * - Uses Singleton pattern to ensure a single instance
  * - Uses PreparedStatement for secure SQL execution
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -34,7 +33,7 @@ public class GameTable implements GameDAO {
 
     /**
      * Returns the single instance of GameTable.
-
+     *
      * @return GameTable instance
      */
     public static GameTable getInstance() {
@@ -47,7 +46,7 @@ public class GameTable implements GameDAO {
 
     /**
      * Retrieves all games with developer and platform details.
-
+     *
      * @return list of Game objects
      */
     @Override
@@ -85,7 +84,7 @@ public class GameTable implements GameDAO {
 
     /**
      * Inserts a new game into the database.
-
+     *
      * @param game Game object to add
      */
     public void addGame(Game game) {
@@ -112,7 +111,7 @@ public class GameTable implements GameDAO {
 
     /**
      * Updates an existing game in the database.
-
+     *
      * @param game Game object with updated values
      */
     @Override
@@ -141,7 +140,7 @@ public class GameTable implements GameDAO {
 
     /**
      * Deletes a game from the database by ID.
-
+     *
      * @param id game ID
      */
     @Override

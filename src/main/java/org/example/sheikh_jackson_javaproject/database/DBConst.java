@@ -4,10 +4,9 @@ package org.example.sheikh_jackson_javaproject.database;
 
 /**
  * Stores database table names, column names, and SQL create statements.
-
  * Design Choice:
  * Centralizing constants improves maintainability and avoids hardcoding values.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17

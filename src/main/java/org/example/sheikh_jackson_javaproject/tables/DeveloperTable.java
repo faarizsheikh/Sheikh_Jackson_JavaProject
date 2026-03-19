@@ -12,11 +12,10 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 /**
  * Handles database operations related to Developer objects.
-
  * Design Choices:
  * - Implements DAO pattern
  * - Uses Singleton pattern
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -33,7 +32,7 @@ public class DeveloperTable implements DeveloperDAO {
 
     /**
      * Returns the single instance of DeveloperTable.
-
+     *
      * @return DeveloperTable instance
      */
     public static DeveloperTable getInstance(){
@@ -46,7 +45,7 @@ public class DeveloperTable implements DeveloperDAO {
 
     /**
      * Retrieves all developers from the database.
-
+     *
      * @return list of Developer objects
      */
     @Override

@@ -14,10 +14,9 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.formLabel;
 
 /**
  * Handles creation of the login scene for database authentication.
-
  * Design Choice:
  * Separates login UI logic from main application for modularity.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -29,7 +28,7 @@ public class LoginScene {
 
     /**
      * Creates and returns the login scene.
-
+     *
      * @param stage primary stage
      * @return configured Scene
      */

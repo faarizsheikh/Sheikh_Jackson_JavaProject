@@ -11,14 +11,12 @@ import javafx.util.Duration;
 
 /**
  * Handles the intro animation displayed when application starts.
-
  * This class creates a fade-in/out, scale, and pause animation sequence
  * for the application logo before transitioning to the next scene.
-
  * Design Choice:
  * Uses JFX animation classes (FadeTransition, ScaleTransition, SequentialTransition)
  * to provide a smooth and professional UI experience.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -32,7 +30,7 @@ public class IntroAnimation {
 
     /**
      * Plays the intro animation on the given stage.
-
+     *
      * @param stage the primary stage where the animation will be displayed
      * @param onFinished callback to execute after animation completes
      */
@@ -61,7 +59,7 @@ public class IntroAnimation {
 
     /**
      * Creates the full animation sequence.
-
+     *
      * @param onFinished callback after animation completes
      * @param logo the text node being animated
      * @param fadeIn fade-in animation

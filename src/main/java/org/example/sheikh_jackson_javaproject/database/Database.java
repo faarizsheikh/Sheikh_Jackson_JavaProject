@@ -9,10 +9,9 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 /**
  * Handles database connection and initialization using the Singleton pattern.
  * Responsible for creating tables and seeding default data.
-
  * Design Choice:
  * Singleton ensures only one active database connection is used across the application.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -24,7 +23,7 @@ public class Database {
 
     /**
      * Private constructor to initialize database connection and setup tables.
-
+     *
      * @param user database username
      * @param pass database password
      * @param server database server address
@@ -127,7 +126,7 @@ public class Database {
 
     /**
      * Creates a table if it does not already exist.
-
+     *
      * @param tableName name of table
      * @param tableQuery SQL create query
      */
@@ -152,7 +151,7 @@ public class Database {
 
     /**
      * Initializes the database singleton instance.
-
+     *
      * @param user database username
      * @param pass database password
      * @param server database server
@@ -176,7 +175,7 @@ public class Database {
 
     /**
      * Returns the existing database instance.
-
+     *
      * @return Database instance
      */
     public static Database getInstance() {
@@ -186,8 +185,8 @@ public class Database {
 
     /**
      * Returns the active database connection.
-
-     * @return SQL Connection
+     *
+     * @return active SQL Connection instance
      */
     public Connection getConnection() { return connection; }
 }

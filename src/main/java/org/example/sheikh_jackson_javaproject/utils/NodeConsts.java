@@ -16,14 +16,12 @@ import org.example.sheikh_jackson_javaproject.HelloApplication;
 
 /**
  * Provides reusable UI components and constants.
-
  * Includes methods for creating styled JFX nodes such as buttons,
  * layouts, labels, alerts, menus, and image handling.
-
  * Design Choice:
  * Centralizing UI logic ensures consistency, reduces duplication,
  * and simplifies UI management across the application.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -42,7 +40,7 @@ public class NodeConsts {
 
     /**
      * Creates a responsive root layout.
-
+     *
      * @param stage application stage
      * @return configured BorderPane
      */
@@ -55,7 +53,7 @@ public class NodeConsts {
 
     /**
      * Creates a configured GridPane.
-
+     *
      * @return configured GridPane
      */
     public static GridPane gP() {
@@ -69,7 +67,7 @@ public class NodeConsts {
 
     /**
      * Creates a configured VBox container.
-
+     *
      * @return configured VBox
      */
     public static VBox vBox() {
@@ -81,7 +79,7 @@ public class NodeConsts {
 
     /**
      * Creates a styled button with hover animation.
-
+     *
      * @param text button text
      * @param style CSS style class
      * @return configured Button
@@ -97,7 +95,7 @@ public class NodeConsts {
 
     /**
      * Applies hover animation to a button.
-
+     *
      * @param btn button to animate
      */
     public static void btnHoverAnimation(Button btn) {
@@ -118,7 +116,7 @@ public class NodeConsts {
 
     /**
      * Creates a form label.
-
+     *
      * @param text label text
      * @return configured Label
      */
@@ -130,7 +128,7 @@ public class NodeConsts {
 
     /**
      * Creates a table label.
-
+     *
      * @param text label text
      * @param width preferred width
      * @return configured Label
@@ -144,7 +142,7 @@ public class NodeConsts {
 
     /**
      * Creates a tab title.
-
+     *
      * @param text title text
      * @return configured Text node
      */
@@ -156,7 +154,7 @@ public class NodeConsts {
 
     /**
      * Determines column width based on index.
-
+     *
      * @param i column index
      * @return width value
      */
@@ -173,7 +171,7 @@ public class NodeConsts {
     /**
      * Loads and displays a game image from a given URL.
      * Falls back to a default image if the URL is invalid or empty.
-
+     *
      * @param url image URL
      * @return configured ImageView
      */
@@ -210,7 +208,7 @@ public class NodeConsts {
 
     /**
      * Creates the main menu bar with file and credits options.
-
+     *
      * @return configured MenuBar
      */
     public static MenuBar mainMenu() {
@@ -237,7 +235,7 @@ public class NodeConsts {
 
     /**
      * Displays a styled alert dialog with custom content nodes.
-
+     *
      * @param type alert type
      * @param title alert title
      * @param header alert header text
@@ -355,7 +353,7 @@ public class NodeConsts {
 
     /**
      * Checks if a value exceeds a maximum length.
-
+     *
      * @param value input value
      * @param max max allowed length
      * @param fieldName field name
@@ -374,7 +372,7 @@ public class NodeConsts {
 
     /**
      * Applies the main stylesheet to a scene.
-
+     *
      * @param scene the scene to style
      */
     public static void applyCSS(Scene scene) {
@@ -387,7 +385,7 @@ public class NodeConsts {
 
     /**
      * Applies the main stylesheet to an alert dialog.
-
+     *
      * @param alert the alert to style
      */
     public static void applyCSS(Alert alert) {

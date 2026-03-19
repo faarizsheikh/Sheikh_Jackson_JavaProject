@@ -16,11 +16,10 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.tabTitle;
 
 /**
  * Tab for statistics of games in library using a pie chart.
-
  * Design Choices:
  * - Uses dynamic aggregation (no extra DB queries)
  * - Simple animation improves UX
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -58,7 +57,7 @@ public class StatisticsTab extends Tab {
 
     /**
      * Updates pie chart data.
-
+     *
      * @param type grouping type (Platform or Developer)
      */
     private void updateChart(String type) {

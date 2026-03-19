@@ -14,14 +14,13 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 /**
  * Tab responsible for updating existing Game entries in the library.
-
  * Design Choices:
  * - Uses ComboBox to select an existing game
  * - Loads selected game data into editable fields
  * - Validates all inputs before updating
  * - Uses DAO (GameTable) for database operations
  * - Refreshes UI after update to ensure consistency
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17

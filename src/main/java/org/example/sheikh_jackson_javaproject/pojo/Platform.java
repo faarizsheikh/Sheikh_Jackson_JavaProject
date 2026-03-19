@@ -4,10 +4,9 @@ package org.example.sheikh_jackson_javaproject.pojo;
 
 /**
  * Represents a Platform entity.
-
  * Design Choice:
  * Simple model class for storing platform data.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -19,7 +18,7 @@ public class Platform {
 
     /**
      * Constructs a Platform object.
-
+     *
      * @param id platform ID
      * @param name platform name
      */
@@ -30,14 +29,14 @@ public class Platform {
 
     /**
      * Gets platform ID.
-
+     *
      * @return platform ID
      */
     public int getId() { return id; }
 
     /**
      * Returns platform name as string.
-
+     *
      * @return platform name
      */
     @Override

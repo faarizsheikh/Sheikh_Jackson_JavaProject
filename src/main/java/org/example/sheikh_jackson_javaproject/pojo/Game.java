@@ -4,10 +4,9 @@ package org.example.sheikh_jackson_javaproject.pojo;
 
 /**
  * Represents a Game entity in the system.
-
  * Design Choice:
  * Encapsulates game-related data and provides controlled access through getters and setters.
-
+ *
  * @author Faariz Sheikh
  * @version 1.0
  * @date 2026-03-17
@@ -24,7 +23,7 @@ public class Game {
 
     /**
      * Constructs a Game object.
-
+     *
      * @param id game ID
      * @param title game title
      * @param developer developer name
@@ -45,7 +44,7 @@ public class Game {
 
     /**
      * Gets game ID.
-
+     *
      * @return game ID
      */
     public int getId() {
@@ -54,7 +53,7 @@ public class Game {
 
     /**
      * Gets game title.
-
+     *
      * @return title
      */
     public String getTitle() {
@@ -63,7 +62,7 @@ public class Game {
 
     /**
      * Gets developer name.
-
+     *
      * @return developer
      */
     public String getDeveloper() {
@@ -72,7 +71,7 @@ public class Game {
 
     /**
      * Gets release year.
-
+     *
      * @return year
      */
 
@@ -82,7 +81,7 @@ public class Game {
 
     /**
      * Gets game genre.
-
+     *
      * @return genre
      */
     public String getGenre() {
@@ -91,7 +90,7 @@ public class Game {
 
     /**
      * Gets platform name.
-
+     *
      * @return platform
      */
     public String getPlatform() {
@@ -100,7 +99,7 @@ public class Game {
 
     /**
      * Gets image URL.
-
+     *
      * @return image URL
      */
     public String getImageUrl() {
@@ -109,7 +108,7 @@ public class Game {
 
     /**
      * Sets game title.
-
+     *
      * @param title new title
      */
     public void setTitle(String title) {
@@ -118,7 +117,7 @@ public class Game {
 
     /**
      * Sets release year.
-
+     *
      * @param year new year
      */
     public void setYear(int year) {
@@ -127,7 +126,7 @@ public class Game {
 
     /**
      * Sets genre.
-
+     *
      * @param genre new genre
      */
     public void setGenre(String genre) {
@@ -136,7 +135,7 @@ public class Game {
 
     /**
      * Sets image URL.
-
+     *
      * @param imageUrl new image URL
      */
     public void setImageUrl(String imageUrl) {
@@ -145,7 +144,7 @@ public class Game {
 
     /**
      * Returns formatted string representation of the game.
-
+     *
      * @return formatted string
      */
     @Override
