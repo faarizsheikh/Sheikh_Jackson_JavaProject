@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import org.example.sheikh_jackson_javaproject.pojo.Developer;
 
 /**
- * Interface defining data access operations for Developer objects.
- * Design Choice:
- * Provides abstraction for retrieving developer data.
+ * Data Access Object (DAO) interface for managing Developer entities.
+ * This interface defines database access operations for retrieving developer data,
+ * ensuring separation between persistence logic and application logic.
+ * Design Choice: Provides abstraction over data retrieval to allow
+ * flexible implementation (e.g., database, mock data, or API-based sources).
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -19,7 +21,7 @@ public interface DeveloperDAO {
     /**
      * Retrieves all developers from the data source.
      *
-     * @return list of Developer objects
+     * @return list of all Developer objects; empty list if no records exist
      */
     ArrayList<Developer> getAllDevelopers();
 }

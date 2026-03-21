@@ -25,13 +25,22 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
  */
 public class ViewItemTab extends Tab {
 
+    /**
+     * Column headers used for rendering the table layout.
+     * Order must match the data mapping in addRow(...).
+     */
     private static final String[] COLS =
             {"ID", "TITLE", "DEVELOPER", "YEAR", "GENRE", "PLATFORM", "IMAGE"};
 
+    /**
+     * Container holding all rendered rows (header + data rows).
+     * Acts as the content root inside the ScrollPane.
+     */
     private final VBox container = new VBox(5);
 
     /**
-     * Constructs the ViewItemTab UI and initializes layout components.
+     * Constructs the ViewItemTab UI, initializes layout components,
+     * and sets up automatic refresh on tab selection.
      */
     public ViewItemTab() {
         setGraphic(tabTitle("View Games"));
@@ -45,9 +54,9 @@ public class ViewItemTab extends Tab {
     }
 
     /**
-     * Refreshes the displayed game list.
-     * Clears existing content and reloads all games from the database.
-     * Displays an empty message if no games exist.
+     * Refreshes the displayed game list by clearing existing content
+     * and reloading all records from the data source.
+     * Displays a placeholder message if no data is available.
      */
     private void refresh() {
         container.getChildren().clear();
@@ -86,8 +95,8 @@ public class ViewItemTab extends Tab {
     /**
      * Adds a row to the table layout.
      *
-     * @param isHeader indicates whether the row is a header row
-     * @param cols     variable number of column values to display
+     * @param isHeader true if this row represents column headers
+     * @param cols     column values in display order (must match COLS structure)
      */
     private void addRow(boolean isHeader, String... cols) {
         HBox row = new HBox(10);

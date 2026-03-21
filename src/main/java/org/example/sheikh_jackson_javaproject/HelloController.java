@@ -6,9 +6,10 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 
 /**
- * Controller class for handling UI interactions in the Hello view.
- * Design Choice:
- * Uses JFX FXML controller pattern to separate UI logic from layout.
+ * Controller class for handling user interactions in the Hello view.
+ *
+ * <p>This controller follows the JavaFX FXML MVC pattern, separating UI
+ * logic from layout definitions for better maintainability.</p>
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -16,11 +17,23 @@ import javafx.scene.control.*;
  */
 public class HelloController {
 
+    /**
+     * Default constructor for HelloController.
+     * Initializes the controller.
+     */
+    public HelloController() {}
+
+    /**
+     * Label injected from FXML used to display welcome text.
+     */
     @FXML
     private Label welcomeText;
 
     /**
-     * Handles button click event and updates the welcome message.
+     * Handles the button click event from the UI.
+     * Updates the welcome label with a greeting message.
+     *
+     * @apiNote Triggered via FXML onAction binding.
      */
     @FXML
     protected void onHelloButtonClick() {

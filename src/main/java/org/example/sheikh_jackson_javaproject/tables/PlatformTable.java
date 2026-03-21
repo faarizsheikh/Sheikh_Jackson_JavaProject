@@ -11,10 +11,12 @@ import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 /**
- * Handles database operations related to Platform objects.
+ * Data Access Object implementation for Platform entities.
+ * This class handles database operations related to platforms,
+ * including retrieval of all platform records.
  * Design Choices:
- * - Implements DAO pattern
- * - Uses Singleton pattern
+ * Implements the DAO pattern with a Singleton instance to ensure
+ * controlled and consistent database access.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -22,7 +24,16 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
  */
 public class PlatformTable implements PlatformDAO {
 
+    /**
+     * Singleton instance of the Database connection handler used
+     * for executing SQL queries related to Platform data.
+     */
     private final Database db = Database.getInstance();
+
+    /**
+     * Singleton instance of PlatformTable to ensure a single
+     * access point for platform-related database operations.
+     */
     private static PlatformTable instance;
 
     /**
@@ -31,9 +42,9 @@ public class PlatformTable implements PlatformDAO {
     private PlatformTable(){}
 
     /**
-     * Returns the single instance of PlatformTable.
+     * Returns the singleton instance of PlatformTable.
      *
-     * @return PlatformTable instance
+     * @return PlatformTable singleton instance
      */
     public static PlatformTable getInstance(){
         if(instance == null){
@@ -46,7 +57,7 @@ public class PlatformTable implements PlatformDAO {
     /**
      * Retrieves all platforms from the database.
      *
-     * @return list of Platform objects
+     * @return list of Platform objects; empty list if no records are found
      */
     @Override
     public ArrayList<Platform> getAllPlatforms() {

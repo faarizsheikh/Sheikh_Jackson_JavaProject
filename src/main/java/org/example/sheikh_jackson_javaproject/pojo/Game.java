@@ -4,8 +4,11 @@ package org.example.sheikh_jackson_javaproject.pojo;
 
 /**
  * Represents a Game entity in the system.
- * Design Choice:
- * Encapsulates game-related data and provides controlled access through getters and setters.
+ * This class stores game-related data such as title, developer,
+ * platform, genre, and metadata. It provides controlled access
+ * through getters and setters.
+ * Design Choice: Encapsulation is used to protect data integrity
+ * while allowing controlled modification of mutable fields.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -22,15 +25,15 @@ public class Game {
     private final String platform;
 
     /**
-     * Constructs a Game object.
+     * Constructs a Game object with all required attributes.
      *
-     * @param id game ID
+     * @param id unique game identifier
      * @param title game title
-     * @param developer developer name
-     * @param year release year
-     * @param genre game genre
+     * @param developer developer or studio name
+     * @param year release year of the game
+     * @param genre game genre/category
      * @param platform platform name
-     * @param imageUrl image URL
+     * @param imageUrl image URL or path for the game
      */
     public Game(int id, String title, String developer, int year, String genre, String platform, String imageUrl) {
         this.id = id;
@@ -143,9 +146,10 @@ public class Game {
     }
 
     /**
-     * Returns formatted string representation of the game.
+     * Returns a formatted string representation of the game.
+     * Format: "Title (Year) by Developer"
      *
-     * @return formatted string
+     * @return formatted game summary string
      */
     @Override
     public String toString() {

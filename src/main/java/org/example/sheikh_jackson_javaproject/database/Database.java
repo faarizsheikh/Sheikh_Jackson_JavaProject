@@ -7,10 +7,12 @@ import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 /**
- * Handles database connection and initialization using the Singleton pattern.
- * Responsible for creating tables and seeding default data.
- * Design Choice:
- * Singleton ensures only one active database connection is used across the application.
+ * Manages database connectivity and initialization using the Singleton pattern.
+ * This class is responsible for establishing a single shared database connection,
+ * creating required tables, and seeding initial data.
+ * Design Choice: The Singleton pattern ensures only one active database
+ * connection exists throughout the application lifecycle, improving resource control
+ * and consistency.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -18,18 +20,27 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
  */
 public class Database {
 
+    /**
+     * Active SQL database connection used throughout the application.
+     * This connection is shared across all database operations.
+     */
     private final Connection connection;
+
+    /**
+     * Singleton instance of the Database class.
+     * Ensures only one database connection manager exists in the application.
+     */
     private static Database instance;
 
     /**
-     * Private constructor to initialize database connection and setup tables.
+     * Creates a new database connection and initializes required tables.
      *
      * @param user database username
      * @param pass database password
      * @param server database server address
      * @param dbName database name
-     * @throws SQLException if SQL error occurs
-     * @throws ClassNotFoundException if JDBC driver not found
+     * @throws SQLException if a database access error occurs
+     * @throws ClassNotFoundException if the JDBC driver is not found
      */
     private Database(String user, String pass, String server, String dbName)
             throws SQLException, ClassNotFoundException {
@@ -49,7 +60,11 @@ public class Database {
     }
 
     /**
-     * Seeds the developers table with default values if empty.
+     * Seeds the developers table with default entries if it is empty.
+     * This method runs only during initialization and prevents duplicate seeding
+     * by checking existing records.
+     *
+     * @implNote Uses batch insertion for performance efficiency.
      */
     private void seedDevelopers() {
         try {
@@ -91,7 +106,10 @@ public class Database {
     }
 
     /**
-     * Seeds the platforms table with default values if empty.
+     * Seeds the platforms table with default values if it is empty.
+     * This method ensures required platform data is available on first run.
+     *
+     * @implNote Uses batch insertion for optimized performance.
      */
     private void seedPlatforms() {
         try {
@@ -125,10 +143,12 @@ public class Database {
     }
 
     /**
-     * Creates a table if it does not already exist.
+     * Creates a database table if it does not already exist.
+     * This method checks metadata before executing the creation query
+     * to avoid duplicate table creation.
      *
-     * @param tableName name of table
-     * @param tableQuery SQL create query
+     * @param tableName name of the table to check or create
+     * @param tableQuery SQL CREATE TABLE statement
      */
     private void createTable(String tableName, String tableQuery) {
         try {
@@ -150,12 +170,15 @@ public class Database {
     }
 
     /**
-     * Initializes the database singleton instance.
+     * Initializes the Singleton database instance if it has not been created.
+     * If an instance already exists, it will be reused.
      *
      * @param user database username
      * @param pass database password
      * @param server database server
      * @param dbName database name
+     *
+     * @implNote Acts as an initialization method for the Singleton pattern.
      */
     public static void getInstance(String user, String pass, String server, String dbName) {
         if (instance == null) {
@@ -174,9 +197,11 @@ public class Database {
     }
 
     /**
-     * Returns the existing database instance.
+     * Returns the existing database Singleton instance.
      *
-     * @return Database instance
+     * @return active Database instance, or null if not initialized
+     *
+     * @apiNote Should be called only after initialization via getInstance(user, pass, server, dbName)
      */
     public static Database getInstance() {
         if (instance == null) Log.warn("Database instance requested before initialization.");
@@ -186,7 +211,7 @@ public class Database {
     /**
      * Returns the active database connection.
      *
-     * @return active SQL Connection instance
+     * @return SQL Connection instance used by the application
      */
     public Connection getConnection() { return connection; }
 }

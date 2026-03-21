@@ -27,18 +27,48 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
  */
 public class UpdateItemTab extends Tab {
 
+    /**
+     * Labels used for form fields in the update UI.
+     * Index order maps directly to the inputs array:
+     * [ComboBox, Title, Year, Genre, URL].
+     */
     private static final String[] FORM_LABELS =
             {"Search:", "New Title", "New Year", "New Genre", "New URL"};
 
+    /**
+     * ComboBox used to select an existing Game to update.
+     * Also acts as the source for populating editable fields.
+     */
     private final ComboBox<Game> cB = new ComboBox<>();
+
+    /**
+     * Singleton instance of GameTable used for database update operations.
+     */
     private final GameTable gt = GameTable.getInstance();
+
+    /**
+     * TextField for editing the game's title.
+     */
     private final TextField tF = new TextField();
+
+    /**
+     * TextField for editing the game's release year.
+     */
     private final TextField yF = new TextField();
+
+    /**
+     * TextField for editing the game's genre.
+     */
     private final TextField gF = new TextField();
+
+    /**
+     * TextField for editing the game's image URL.
+     */
     private final TextField iF = new TextField();
 
     /**
-     * Constructs the UpdateItemTab UI and initializes all components.
+     * Constructs the UpdateItemTab UI, initializes components,
+     * and binds event handlers for user interaction.
      */
     public UpdateItemTab() {
         setGraphic(tabTitle("Update Game"));
@@ -93,7 +123,8 @@ public class UpdateItemTab extends Tab {
     }
 
     /**
-     * Handles update button action including validation and database update.
+     * Handles update action including input validation,
+     * model mutation, and persistence to the database.
      */
     private void handleUpdate() {
         Game sel = cB.getValue();
@@ -184,7 +215,8 @@ public class UpdateItemTab extends Tab {
     }
 
     /**
-     * Clears all input fields after submission.
+     * Clears all editable input fields in the form.
+     * Does not modify the ComboBox selection.
      */
     private void clearFields() {
         tF.clear();

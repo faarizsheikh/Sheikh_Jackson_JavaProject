@@ -15,10 +15,13 @@ import org.example.sheikh_jackson_javaproject.utils.NodeConsts;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.tabTitle;
 
 /**
- * Tab for statistics of games in library using a pie chart.
+ * JavaFX tab for displaying statistical insights of games
+ * in the library using a pie chart.
+ * This tab dynamically aggregates game data by selected
+ * category (Platform or Developer) and visualizes it.
  * Design Choices:
- * - Uses dynamic aggregation (no extra DB queries)
- * - Simple animation improves UX
+ * Uses in-memory aggregation to avoid additional database queries
+ * and applies animation to enhance user experience.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -26,11 +29,21 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.tabTitle;
  */
 public class StatisticsTab extends Tab {
 
+    /**
+     * Singleton instance of GameTable used to retrieve
+     * game data for statistical analysis.
+     */
     private final GameTable gt = GameTable.getInstance();
+
+    /**
+     * PieChart used to visualize game distribution
+     * based on selected grouping criteria.
+     */
     private final PieChart chart = new PieChart();
 
     /**
-     * Constructs StatisticsTab UI.
+     * Constructs the StatisticsTab and initializes UI components,
+     * including the selector for grouping and the pie chart.
      */
     public StatisticsTab() {
         setGraphic(tabTitle("Statistics"));
@@ -56,9 +69,11 @@ public class StatisticsTab extends Tab {
     }
 
     /**
-     * Updates pie chart data.
+     * Updates the pie chart data based on the selected grouping type.
+     * Aggregates game counts by either platform or developer and
+     * calculates percentage distribution for visualization.
      *
-     * @param type grouping type (Platform or Developer)
+     * @param type grouping type ("Platform" or "Developer")
      */
     private void updateChart(String type) {
         ArrayList<String> names = new ArrayList<>();
@@ -95,7 +110,8 @@ public class StatisticsTab extends Tab {
     }
 
     /**
-     * Plays chart animation.
+     * Plays a scale animation on the pie chart to enhance
+     * visual presentation when data is updated.
      */
     private void playAnimation() {
         chart.setScaleX(0);

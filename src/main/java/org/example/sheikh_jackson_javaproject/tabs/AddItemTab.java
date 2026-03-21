@@ -13,34 +13,71 @@ import org.example.sheikh_jackson_javaproject.utils.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 /**
- * Tab for adding new Game entries to the library.
+ * JavaFX tab for adding new Game entries to the library.
+ * This tab provides a form-based interface for creating and submitting
+ * new Game objects into the database after validating user input.
  * Design Choices:
- * - Uses NodeConsts for consistent UI styling
- * - Validates user input before database insertion
- * - Uses DAO (GameTable) for data operations
+ * Uses reusable UI utilities (NodeConsts), DAO pattern (GameTable),
+ * and input validation to ensure data integrity before insertion.
  *
  * @author Faariz Sheikh
  * @version 1.0
- * @date 2026-03-17
  */
 public class AddItemTab extends Tab {
 
+    /**
+     * Labels used for the game input form fields in the UI.
+     * Defines the display text for each corresponding input row.
+     */
     private static final String[] FORM_LABELS =
             {"Title", "Developer", "Year", "Genre", "Platform", "URL"};
 
+    /**
+     * Placeholder prompt texts used for ComboBox selections
+     * in the Add Game form.
+     */
     private static final String[] PROMPTS =
             {"-- Select Developer --", "-- Select Platform --"};
 
+    /**
+     * ComboBox for selecting a Developer entity.
+     */
     private final ComboBox<Developer> dCB = new ComboBox<>();
+
+    /**
+     * ComboBox for selecting a Platform entity.
+     */
     private final ComboBox<Platform> pCB = new ComboBox<>();
+
+    /**
+     * Singleton instance of GameTable used for all
+     * database operations related to Game entities.
+     */
     private final GameTable gt = GameTable.getInstance();
+
+    /**
+     * Text field for entering the game title.
+     */
     private final TextField tF = new TextField();
+
+    /**
+     * Text field for entering the release year of the game.
+     */
     private final TextField yF = new TextField();
+
+    /**
+     * Text field for entering the game genre.
+     */
     private final TextField gF = new TextField();
+
+    /**
+     * Text field for entering the image URL of the game.
+     */
     private final TextField iF = new TextField();
 
     /**
-     * Constructs the AddItemTab UI and initializes components.
+     * Constructs the AddItemTab and initializes all UI components,
+     * including form fields, dropdowns, and event handlers.
      */
     public AddItemTab() {
         setGraphic(tabTitle("Add Game"));
@@ -72,7 +109,10 @@ public class AddItemTab extends Tab {
     }
 
     /**
-     * Handles add button logic including validation and insertion.
+     * Handles the logic for adding a new game entry.
+     * This includes input validation, duplicate checking,
+     * URL and year validation, and database insertion using GameTable DAO.
+     * Displays appropriate alerts for validation errors or success states.
      */
     private void handleAdd() {
             try {
@@ -173,7 +213,7 @@ public class AddItemTab extends Tab {
     }
 
     /**
-     * Clears all input fields after submission.
+     * Resets all input fields and selection controls after a successful submission.
      */
     private void clearFields() {
         tF.clear();

@@ -13,9 +13,12 @@ import org.example.sheikh_jackson_javaproject.utils.NodeConsts;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.formLabel;
 
 /**
- * Handles creation of the login scene for database authentication.
- * Design Choice:
- * Separates login UI logic from main application for modularity.
+ * Builds and manages the database login scene.
+ * This class is responsible for collecting database credentials,
+ * validating input, establishing a connection, and initializing
+ * the application configuration.
+ * Design Choice: Login logic is isolated from the main application
+ * to maintain modularity and separation of concerns.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -23,14 +26,22 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.formLabel;
  */
 public class LoginScene {
 
+    /**
+     * Labels used as placeholders for login form fields.
+     */
     private static final String[] FORM_LABELS =
             {"Username", "Password", "Server (localhost or IP)", "Database Name"};
 
     /**
-     * Creates and returns the login scene.
+     * Creates the login scene for database authentication.
+     * Initializes UI components, binds form behavior, and handles
+     * database connection attempts. On successful login, transitions
+     * to the main application scene.
      *
-     * @param stage primary stage
-     * @return configured Scene
+     * @param stage primary application window
+     * @return fully configured login Scene
+     *
+     * @apiNote This method also initializes CSS styling and UI layout structure.
      */
     public static Scene create(Stage stage) {
         stage.setMaximized(true);

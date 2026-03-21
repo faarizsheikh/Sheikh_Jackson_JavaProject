@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import org.example.sheikh_jackson_javaproject.pojo.Game;
 
 /**
- * Interface defining data access operations for Game objects.
- * Design Choice:
- * Uses DAO pattern to separate database logic from business logic.
+ * Data Access Object (DAO) interface for managing Game entities.
+ * This interface defines standard database operations for Game objects,
+ * separating persistence logic from business logic.
+ * Design Choice: Implements the DAO pattern to ensure loose coupling
+ * between the application and the data layer.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -19,21 +21,21 @@ public interface GameDAO {
     /**
      * Retrieves all games from the data source.
      *
-     * @return list of Game objects
+     * @return list of all Game objects; empty list if none exist
      */
     ArrayList<Game> getAllGames();
 
     /**
-     * Deletes a game by its ID.
+     * Deletes a game by its unique identifier.
      *
-     * @param id game ID
+     * @param id the ID of the game to delete
      */
     void deleteGame(int id);
 
     /**
-     * Updates an existing game.
+     * Updates an existing game record in the data source.
      *
-     * @param game Game object containing updated data
+     * @param game Game object containing updated field values
      */
     void updateGame(Game game);
 }

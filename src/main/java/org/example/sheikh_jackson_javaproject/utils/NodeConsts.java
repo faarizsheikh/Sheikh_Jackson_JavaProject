@@ -16,11 +16,10 @@ import org.example.sheikh_jackson_javaproject.HelloApplication;
 
 /**
  * Provides reusable UI components and constants.
- * Includes methods for creating styled JFX nodes such as buttons,
- * layouts, labels, alerts, menus, and image handling.
- * Design Choice:
- * Centralizing UI logic ensures consistency, reduces duplication,
- * and simplifies UI management across the application.
+ * Includes factory methods for creating styled JavaFX nodes such as buttons,
+ * layouts, labels, dialogs, menus, and image utilities.
+ * Design Choice: Centralizing UI logic ensures consistency,
+ * reduces duplication, and simplifies UI management across the application.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -28,9 +27,24 @@ import org.example.sheikh_jackson_javaproject.HelloApplication;
  */
 public class NodeConsts {
 
+    /**
+     * Default button height used across the application UI.
+     */
     public static final double BTN_HEIGHT = 60;
+
+    /**
+     * Default width used for input fields and primary buttons.
+     */
     public static final double FIELD_WIDTH = 450;
+
+    /**
+     * Default application scene width.
+     */
     public static final double SCENE_WIDTH = 1699;
+
+    /**
+     * Default application scene height.
+     */
     public static final double SCENE_HEIGHT = 989;
 
     /**
@@ -39,10 +53,10 @@ public class NodeConsts {
     private NodeConsts() {}
 
     /**
-     * Creates a responsive root layout.
+     * Creates a responsive root layout bound to the given stage size.
      *
-     * @param stage application stage
-     * @return configured BorderPane
+     * @param stage application window stage
+     * @return a BorderPane bound to stage width and height
      */
     public static BorderPane root(Stage stage) {
         BorderPane root = new BorderPane();
@@ -52,9 +66,9 @@ public class NodeConsts {
     }
 
     /**
-     * Creates a configured GridPane.
+     * Creates a preconfigured GridPane with center alignment and spacing.
      *
-     * @return configured GridPane
+     * @return configured GridPane instance
      */
     public static GridPane gP() {
         GridPane gP = new GridPane();
@@ -66,9 +80,9 @@ public class NodeConsts {
     }
 
     /**
-     * Creates a configured VBox container.
+     * Creates a preconfigured VBox container with center alignment.
      *
-     * @return configured VBox
+     * @return configured VBox instance
      */
     public static VBox vBox() {
         VBox container = new VBox();
@@ -78,11 +92,11 @@ public class NodeConsts {
     }
 
     /**
-     * Creates a styled button with hover animation.
+     * Creates a styled JavaFX Button with hover animation applied.
      *
      * @param text button text
      * @param style CSS style class
-     * @return configured Button
+     * @return styled Button instance
      */
     public static Button button(String text, String style) {
         Button btn = new Button(text);
@@ -94,9 +108,11 @@ public class NodeConsts {
     }
 
     /**
-     * Applies hover animation to a button.
+     * Applies a hover scale animation effect to a JavaFX Button.
      *
-     * @param btn button to animate
+     * @param btn the button to animate (must not be null)
+     *
+     * @apiNote This method modifies mouse event handlers of the button.
      */
     public static void btnHoverAnimation(Button btn) {
         btn.setOnMouseEntered(e -> {
@@ -115,10 +131,10 @@ public class NodeConsts {
     }
 
     /**
-     * Creates a form label.
+     * Creates a styled form label.
      *
      * @param text label text
-     * @return configured Label
+     * @return styled Label instance
      */
     public static Label formLabel(String text) {
         Label lbl = new Label(text);
@@ -127,11 +143,11 @@ public class NodeConsts {
     }
 
     /**
-     * Creates a table label.
+     * Creates a styled table label with a fixed preferred width.
      *
      * @param text label text
-     * @param width preferred width
-     * @return configured Label
+     * @param width preferred width in pixels
+     * @return configured Label instance
      */
     public static Label tableLabel(String text, double width) {
         Label lbl = new Label(text);
@@ -141,7 +157,7 @@ public class NodeConsts {
     }
 
     /**
-     * Creates a tab title.
+     * Creates a styled tab title text node.
      *
      * @param text title text
      * @return configured Text node
@@ -153,10 +169,10 @@ public class NodeConsts {
     }
 
     /**
-     * Determines column width based on index.
+     * Returns a predefined column width based on column index mapping.
      *
-     * @param i column index
-     * @return width value
+     * @param i column index matching table schema
+     * @return column width in pixels
      */
     public static double columnWidth(int i) {
         return switch (i) {
@@ -169,11 +185,14 @@ public class NodeConsts {
     }
 
     /**
-     * Loads and displays a game image from a given URL.
-     * Falls back to a default image if the URL is invalid or empty.
+     * Loads an image from a URL and applies fixed display sizing.
+     * If the URL is null, empty, or invalid, a default fallback image is used.
      *
-     * @param url image URL
-     * @return configured ImageView
+     * @param url image URL (can be null or invalid)
+     * @return ImageView containing loaded or fallback image
+     *
+     * @implNote Uses asynchronous loading for remote images and falls back
+     * to a bundled default image on failure.
      */
     public static ImageView gameImage(String url) {
         ImageView iv = new ImageView();
@@ -207,9 +226,9 @@ public class NodeConsts {
     }
 
     /**
-     * Creates the main menu bar with file and credits options.
+     * Creates the main application menu bar with File and Credits menus.
      *
-     * @return configured MenuBar
+     * @return configured MenuBar instance
      */
     public static MenuBar mainMenu() {
         MenuBar menuBar = new MenuBar();
@@ -234,12 +253,14 @@ public class NodeConsts {
     }
 
     /**
-     * Displays a styled alert dialog with custom content nodes.
+     * Displays a styled JavaFX alert dialog with custom content nodes.
      *
      * @param type alert type
-     * @param title alert title
-     * @param header alert header text
-     * @param nodes content nodes to display
+     * @param title dialog title
+     * @param header dialog header text
+     * @param nodes content nodes (must not be null)
+     *
+     * @apiNote Applies CSS styling and hover effects to dialog buttons.
      */
     public static void alert(Alert.AlertType type, String title, String header, Node... nodes) {
         Alert alert = new Alert(type);
@@ -261,7 +282,7 @@ public class NodeConsts {
 
     /**
      * Displays a confirmation dialog before exiting the application.
-     * If the user confirms, the program will terminate.
+     * If confirmed, the application will terminate.
      */
     public static void showExitConfirmation() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -291,7 +312,9 @@ public class NodeConsts {
     }
 
     /**
-     * Displays an alert dialog showing developer credits.
+     * Displays a modal dialog showing developer credits.
+     *
+     * @apiNote This method creates and displays a JavaFX information dialog.
      */
     public static void devCredits() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -332,7 +355,7 @@ public class NodeConsts {
     }
 
     /**
-     * Displays an alert dialog listing resources used in the project.
+     * Displays a dialog listing technologies and tools used in the project.
      */
     public static void resourceCredits() {
         String items = """
@@ -352,12 +375,14 @@ public class NodeConsts {
     }
 
     /**
-     * Checks if a value exceeds a maximum length.
+     * Validates whether a string exceeds a maximum allowed length.
      *
-     * @param value input value
-     * @param max max allowed length
-     * @param fieldName field name
-     * @return true if exceeded, false otherwise
+     * @param value input value (must not be null)
+     * @param max maximum allowed length
+     * @param fieldName field name used in error message
+     * @return true if value exceeds limit, false otherwise
+     *
+     * @apiNote Displays a warning dialog if validation fails.
      */
     public static boolean exceedsMax(String value, int max, String fieldName) {
         if (value.length() > max) {
@@ -371,9 +396,9 @@ public class NodeConsts {
     }
 
     /**
-     * Applies the main stylesheet to a scene.
+     * Applies the main stylesheet to a JavaFX Scene.
      *
-     * @param scene the scene to style
+     * @param scene scene to style
      */
     public static void applyCSS(Scene scene) {
         scene.getStylesheets().add(
@@ -384,9 +409,9 @@ public class NodeConsts {
     }
 
     /**
-     * Applies the main stylesheet to an alert dialog.
+     * Applies the main stylesheet to an Alert dialog.
      *
-     * @param alert the alert to style
+     * @param alert alert to style
      */
     public static void applyCSS(Alert alert) {
         alert.getDialogPane().getStylesheets().add(

@@ -11,11 +11,12 @@ import org.example.sheikh_jackson_javaproject.utils.Log;
 import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
 
 /**
- * Handles database operations related to Game objects.
+ * Data Access Object implementation for Game entities.
+ * This class handles all database operations related to games,
+ * including retrieval, insertion, updating, and deletion.
  * Design Choices:
- * - Implements DAO pattern (GameDAO)
- * - Uses Singleton pattern to ensure a single instance
- * - Uses PreparedStatement for secure SQL execution
+ * Implements the DAO pattern with a Singleton instance and uses
+ * PreparedStatements to ensure secure SQL execution.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -23,7 +24,16 @@ import static org.example.sheikh_jackson_javaproject.database.DBConst.*;
  */
 public class GameTable implements GameDAO {
 
+    /**
+     * Singleton instance of the Database connection handler used
+     * to execute all SQL operations in this DAO.
+     */
     private final Database db = Database.getInstance();
+
+    /**
+     * Singleton instance of GameTable to ensure only one DAO
+     * object manages game-related database operations.
+     */
     private static GameTable instance;
 
     /**
@@ -45,9 +55,10 @@ public class GameTable implements GameDAO {
     }
 
     /**
-     * Retrieves all games with developer and platform details.
+     * Retrieves all games from the database, including associated developer
+     * and platform information using SQL joins.
      *
-     * @return list of Game objects
+     * @return list of Game objects; empty list if no records are found
      */
     @Override
     public ArrayList<Game> getAllGames() {
@@ -83,9 +94,9 @@ public class GameTable implements GameDAO {
     }
 
     /**
-     * Inserts a new game into the database.
+     * Inserts a new game record into the database.
      *
-     * @param game Game object to add
+     * @param game Game object containing the data to be inserted
      */
     public void addGame(Game game) {
         String query =
@@ -110,9 +121,9 @@ public class GameTable implements GameDAO {
     }
 
     /**
-     * Updates an existing game in the database.
+     * Updates an existing game record in the database.
      *
-     * @param game Game object with updated values
+     * @param game Game object containing updated values
      */
     @Override
     public void updateGame(Game game) {
@@ -139,9 +150,9 @@ public class GameTable implements GameDAO {
     }
 
     /**
-     * Deletes a game from the database by ID.
+     * Deletes a game from the database using its unique ID.
      *
-     * @param id game ID
+     * @param id unique identifier of the game to delete
      */
     @Override
     public void deleteGame(int id) {

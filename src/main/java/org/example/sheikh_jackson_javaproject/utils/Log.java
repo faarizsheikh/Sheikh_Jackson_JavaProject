@@ -20,9 +20,19 @@ import java.time.LocalDateTime;
  */
 public final class Log {
 
+    /**
+     * Name of the log file used for storing application logs.
+     */
     private static final String FILE = "game_log.txt";
+
+    /**
+     * Maximum log file size (1 MB) before truncation occurs.
+     */
     private static final long MAX_SIZE = 1024 * 1024;
 
+    /**
+     * Formatter used for timestamps in log messages.
+     */
     private static final DateTimeFormatter FORMAT =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

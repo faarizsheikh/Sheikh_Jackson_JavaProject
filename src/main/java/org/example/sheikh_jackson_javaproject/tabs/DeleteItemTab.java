@@ -13,10 +13,12 @@ import org.example.sheikh_jackson_javaproject.utils.*;
 import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
 
 /**
- * Tab for deleting existing Game entries.
+ * JavaFX tab for deleting existing Game entries from the library.
+ * This tab provides a UI for selecting and safely removing
+ * games from the database with user confirmation.
  * Design Choices:
- * - Confirmation dialog prevents accidental deletion
- * - Uses delay for better UX feedback
+ * Uses confirmation dialogs to prevent accidental deletion and
+ * applies a short delay for improved user experience feedback.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -24,11 +26,20 @@ import static org.example.sheikh_jackson_javaproject.utils.NodeConsts.*;
  */
 public class DeleteItemTab extends Tab {
 
+    /**
+     * ComboBox used for selecting a Game entity to delete.
+     */
     private final ComboBox<Game> cB = new ComboBox<>();
+
+    /**
+     * Singleton instance of GameTable used for executing
+     * database operations related to Game entities.
+     */
     private final GameTable gt = GameTable.getInstance();
 
     /**
-     * Constructs DeleteItemTab UI.
+     * Constructs the DeleteItemTab and initializes all UI components,
+     * including the game selection ComboBox and delete button.
      */
     public DeleteItemTab() {
         setGraphic(tabTitle("Delete Game"));
@@ -70,7 +81,9 @@ public class DeleteItemTab extends Tab {
     }
 
     /**
-     * Handles deletion logic with confirmation.
+     * Handles the deletion process for a selected Game.
+     * This includes user selection validation, confirmation dialog,
+     * database deletion via GameTable, and UI refresh with feedback.
      */
     private void handleDelete() {
         Game sel = cB.getValue();
@@ -110,7 +123,10 @@ public class DeleteItemTab extends Tab {
     }
 
     /**
-     * Private constructor to prevent instantiation.
+     * Creates a short delay transition used after deletion
+     * to improve user experience before showing confirmation feedback.
+     *
+     * @return PauseTransition used to delay UI feedback and refresh state
      */
     private PauseTransition getPauseTransition() {
         PauseTransition pause = new PauseTransition(Duration.millis(500));

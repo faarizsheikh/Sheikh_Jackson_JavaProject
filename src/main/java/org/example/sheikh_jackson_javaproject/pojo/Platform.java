@@ -3,9 +3,10 @@
 package org.example.sheikh_jackson_javaproject.pojo;
 
 /**
- * Represents a Platform entity.
- * Design Choice:
- * Simple model class for storing platform data.
+ * Represents a Platform entity in the system.
+ * This class stores basic platform information such as ID and name.
+ * Design Choice: Immutable model class used to ensure data integrity
+ * once a Platform object is created.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -19,7 +20,7 @@ public class Platform {
     /**
      * Constructs a Platform object.
      *
-     * @param id platform ID
+     * @param id unique platform identifier
      * @param name platform name
      */
     public Platform(int id, String name) {
@@ -35,7 +36,7 @@ public class Platform {
     public int getId() { return id; }
 
     /**
-     * Returns platform name as string.
+     * Returns platform name as string representation.
      *
      * @return platform name
      */

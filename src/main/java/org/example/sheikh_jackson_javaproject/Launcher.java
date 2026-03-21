@@ -5,10 +5,11 @@ package org.example.sheikh_jackson_javaproject;
 import javafx.application.Application;
 
 /**
- * Entry point launcher for the JFX application.
- * Delegates execution to the main JFX Application class.
- * Design Choice:
- * Separating the launcher avoids JFX runtime issues in certain environments.
+ * Entry point launcher for the JavaFX application.
+ * This class is responsible only for starting the JavaFX runtime and
+ * delegating control to {@link HelloApplication}.
+ * Design Choice: Separating the launcher class avoids JavaFX runtime
+ * limitations in certain IDEs and modular environments.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -17,9 +18,11 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * Main method that launches the JFX application.
+     * Starts the JavaFX application.
      *
-     * @param args command-line arguments
+     * @param args command-line arguments passed at launch
+     *
+     * @implNote Delegates execution to {@link HelloApplication}.
      */
     public static void main(String[] args) {
         Application.launch(HelloApplication.class, args);

@@ -3,9 +3,10 @@
 package org.example.sheikh_jackson_javaproject.pojo;
 
 /**
- * Represents a Developer entity.
- * Design Choice:
- * Simple model class for storing developer data.
+ * Represents a Developer entity in the system.
+ * This class stores basic developer information such as ID and name.
+ * Design Choice: Immutable model class used to ensure data integrity
+ * once a Developer object is created.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -19,7 +20,7 @@ public class Developer {
     /**
      * Constructs a Developer object.
      *
-     * @param id developer ID
+     * @param id unique developer identifier
      * @param name developer name
      */
     public Developer(int id, String name) {
@@ -35,7 +36,7 @@ public class Developer {
     public int getId() { return id; }
 
     /**
-     * Returns developer name as string.
+     * Returns developer name as string representation.
      *
      * @return developer name
      */

@@ -15,10 +15,11 @@ import org.example.sheikh_jackson_javaproject.tabs.*;
 import org.example.sheikh_jackson_javaproject.utils.*;
 
 /**
- * Main JFX application class.
- * Handles application startup, database initialization, and scene switching.
- * Design Choice:
- * Central controller for app lifecycle and UI navigation.
+ * Main JavaFX application class responsible for application lifecycle,
+ * database initialization, and UI navigation.
+ * This class acts as the central controller for startup logic and scene management.
+ * Design Choice: The application is structured to initialize configuration,
+ * establish database connection if available, and load the appropriate UI flow.
  *
  * @author Faariz Sheikh
  * @version 1.0
@@ -27,9 +28,12 @@ import org.example.sheikh_jackson_javaproject.utils.*;
 public class HelloApplication extends Application {
 
     /**
-     * Starts the JFX application.
+     * Initializes and starts the JavaFX application.
+     * Handles intro animation, database configuration loading, and initial scene setup.
      *
-     * @param stage primary stage
+     * @param stage primary application window
+     *
+     * @apiNote Entry point called automatically by JavaFX runtime.
      */
     @Override
     public void start(Stage stage) {
@@ -74,9 +78,11 @@ public class HelloApplication extends Application {
     }
 
     /**
-     * Loads and displays the main application UI.
+     * Builds and displays the main application UI.
+     * Initializes the root layout, menu bar, tab system, and applies styling.
+     * Also configures tab switching animations and scene properties.
      *
-     * @param stage primary stage
+     * @param stage primary application window
      */
     public static void showMainScene(Stage stage) {
         Log.info("Loading main UI.");
@@ -124,7 +130,7 @@ public class HelloApplication extends Application {
     }
 
     /**
-     * Main method for launching the application.
+     * Launches the JavaFX application.
      *
      * @param args command-line arguments
      */
