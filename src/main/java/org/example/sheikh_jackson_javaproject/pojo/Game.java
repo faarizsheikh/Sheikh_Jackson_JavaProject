@@ -16,12 +16,26 @@ package org.example.sheikh_jackson_javaproject.pojo;
  */
 public class Game {
 
-    private int year;
-    private String genre;
-    private String imageUrl;
-    private String title;
+
+    /** Unique identifier of the game */
     private final int id;
+
+    /** Title of the game */
+    private String title;
+
+    /** Release year of the game */
+    private int year;
+
+    /** Genre/category of the game */
+    private String genre;
+
+    /** URL or path to the game's image */
+    private String imageUrl;
+
+    /** Developer name of the game */
     private final String developer;
+
+    /** Platform on which the game is available */
     private final String platform;
 
     /**

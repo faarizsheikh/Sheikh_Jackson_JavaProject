@@ -18,12 +18,6 @@ import javafx.scene.control.*;
 public class HelloController {
 
     /**
-     * Default constructor for HelloController.
-     * Initializes the controller.
-     */
-    public HelloController() {}
-
-    /**
      * Label injected from FXML used to display welcome text.
      */
     @FXML
@@ -39,4 +33,10 @@ public class HelloController {
     protected void onHelloButtonClick() {
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
+    /**
+     * Default constructor for HelloController.
+     * Initializes the controller.
+     */
+    public HelloController() {}
 }

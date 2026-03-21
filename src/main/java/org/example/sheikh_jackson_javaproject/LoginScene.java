@@ -32,6 +32,9 @@ public class LoginScene {
     private static final String[] FORM_LABELS =
             {"Username", "Password", "Server (localhost or IP)", "Database Name"};
 
+    /** Default constructor */
+    public LoginScene() {}
+
     /**
      * Creates the login scene for database authentication.
      * Initializes UI components, binds form behavior, and handles

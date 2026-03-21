@@ -37,11 +37,6 @@ public class PlatformTable implements PlatformDAO {
     private static PlatformTable instance;
 
     /**
-     * Private constructor to prevent instantiation.
-     */
-    private PlatformTable(){}
-
-    /**
      * Returns the singleton instance of PlatformTable.
      *
      * @return PlatformTable singleton instance
@@ -81,4 +76,9 @@ public class PlatformTable implements PlatformDAO {
         }
         return plats;
     }
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private PlatformTable(){}
 }

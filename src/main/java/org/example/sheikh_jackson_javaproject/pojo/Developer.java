@@ -14,7 +14,10 @@ package org.example.sheikh_jackson_javaproject.pojo;
  */
 public class Developer {
 
+    /** Unique identifier of the developer */
     private final int id;
+
+    /** Name of the developer */
     private final String name;
 
     /**

@@ -14,7 +14,10 @@ package org.example.sheikh_jackson_javaproject.pojo;
  */
 public class Platform {
 
+    /** Unique identifier of the platform */
     private final int id;
+
+    /** Name of the platform */
     private final String name;
 
     /**

@@ -37,11 +37,6 @@ public class DeveloperTable implements DeveloperDAO {
     private static DeveloperTable instance;
 
     /**
-     * Private constructor to prevent instantiation.
-     */
-    private DeveloperTable(){}
-
-    /**
      * Returns the singleton instance of DeveloperTable.
      *
      * @return DeveloperTable singleton instance
@@ -81,4 +76,9 @@ public class DeveloperTable implements DeveloperDAO {
         }
         return devs;
     }
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private DeveloperTable(){}
 }

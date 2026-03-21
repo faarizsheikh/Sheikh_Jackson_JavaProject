@@ -27,6 +27,9 @@ import org.example.sheikh_jackson_javaproject.utils.*;
  */
 public class HelloApplication extends Application {
 
+    /** Default constructor */
+    public HelloApplication() {}
+
     /**
      * Initializes and starts the JavaFX application.
      * Handles intro animation, database configuration loading, and initial scene setup.

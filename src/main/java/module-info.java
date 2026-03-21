@@ -1,3 +1,8 @@
+/**
+ * Main module definition for the Game Management System.
+ * Contains all packages related to UI, database, DAO, and utilities.
+ */
+
 module org.example.sheikh_jackson_javaproject {
     requires javafx.controls;
     requires javafx.fxml;
