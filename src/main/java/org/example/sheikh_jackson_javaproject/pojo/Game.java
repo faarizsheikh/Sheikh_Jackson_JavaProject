@@ -16,7 +16,6 @@ package org.example.sheikh_jackson_javaproject.pojo;
  */
 public class Game {
 
-
     /** Unique identifier of the game */
     private final int id;
 
