@@ -100,7 +100,7 @@ public class LoginScene {
                     server = serverField.getText().trim(),
                     dbName = dbField.getText().trim();
 
-            if (user.isEmpty() || pass.isEmpty() || server.isEmpty() || dbName.isEmpty()) {
+            if (user.isEmpty() || pass.isEmpty() || dbName.isEmpty()) {
                 NodeConsts.alert(
                         Alert.AlertType.WARNING,
                         "Missing Information",
