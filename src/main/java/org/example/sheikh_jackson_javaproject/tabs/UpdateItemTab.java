@@ -33,7 +33,7 @@ public class UpdateItemTab extends Tab {
      * [ComboBox, Title, Year, Genre, URL].
      */
     private static final String[] FORM_LABELS =
-            {"Search:", "New Title", "New Year", "New Genre", "New URL"};
+            {"Search", "New Title", "New Year", "New Genre", "New URL"};
 
     /**
      * ComboBox used to select an existing Game to update.
