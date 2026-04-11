@@ -3,6 +3,7 @@
 package org.example.sheikh_jackson_javaproject.tabs;
 
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -100,8 +101,8 @@ public class DeleteItemTab extends Tab {
             alert.setTitle("Remove Confirm");
             alert.setHeaderText("CONFIRMATION");
 
-           NodeConsts.applyCSS(alert);
-           alert.showAndWait();
+            NodeConsts.applyCSS(alert);
+            alert.showAndWait();
 
             if (alert.getResult() == ButtonType.YES) {
                 Log.info("Deleting game: " + sel.getTitle() + " (ID=" + sel.getId() + ")");
@@ -114,8 +115,7 @@ public class DeleteItemTab extends Tab {
         } else {
             Log.warn("Delete attempted without selecting a game.");
             NodeConsts.alert(Alert.AlertType.WARNING, "Missing Selection", "WARNING!",
-                    new Text("Please select a game first to delete!")
-                    {{
+                    new Text("Please select a game first to delete!") {{
                         getStyleClass().add("side-note");
                     }}
             );
@@ -132,17 +132,18 @@ public class DeleteItemTab extends Tab {
         PauseTransition pause = new PauseTransition(Duration.millis(500));
 
         pause.setOnFinished(ev -> {
-            NodeConsts.alert(Alert.AlertType.INFORMATION, "Deleted in Library", "DELETE DETAILS",
-                    new Text("Delete Successful!")
-                    {{
+            Platform.runLater(() -> NodeConsts.alert(Alert.AlertType.INFORMATION, "Deleted in Library", "DELETE DETAILS",
+                    new Text("Delete Successful!") {{
                         getStyleClass().add("side-note");
                     }}
-            );
+            ));
+
             cB.getSelectionModel().clearSelection();
             cB.setValue(null);
             cB.getItems().setAll(gt.getAllGames());
             Log.info("Game removed from library and list refreshed.");
         });
+
         return pause;
     }
 }
