@@ -42,8 +42,8 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-# Ignore specific configuration file
+### Ignore specific configuration file ###
 dbconfig.properties
 
-# Ignore game log file
+### Ignore game log file ###
 game_log.txt
