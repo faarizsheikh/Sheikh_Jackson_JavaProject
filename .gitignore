@@ -44,3 +44,6 @@ bin/
 
 # Ignore specific configuration file
 dbconfig.properties
+
+# Ignoring game log file
+game_log.txt
